@@ -22,43 +22,15 @@ const projects = [
       "/seek/screencapture-localhost-5173-owner-dashboard-2026-02-26-13_31_08.png",
     ],
     liveUrl: "#",
-    comingSoon: true,
-  },
-  {
-    id: 1,
-    title: "IMC - Impact Management Company",
-    description:
-      "Besoin : Impact Management Company accompagne les structures dans leur transformation et le développement du potentiel humain. Le défi était de digitaliser une démarche d'audit globale et confidentielle pour transformer des organisations complexes tout en garantissant une analyse structurée des données. Solution : Application web React/TypeScript avec tableau de bord admin complet. Résultat : Plateforme d'audit digitalisée permettant la gestion des entreprises, des évaluations et des analyses structurées.",
-    category: "Web",
-    icon: Globe,
-    technologies: ["React", "TypeScript", "Vercel"],
-    image: "/imc/Capture d'écran 2026-02-26 132240.png",
-    screenshots: [
-      "/imc/Capture d'écran 2026-02-26 132240.png",
-      "/imc/Capture d'écran 2026-02-26 132253.png",
-      "/imc/Capture d'écran 2026-02-26 132305.png",
-      "/imc/Capture d'écran 2026-02-26 132321.png",
-      "/imc/Capture d'écran 2026-02-26 132336.png",
-      "/imc/screencapture-imc-front-vercel-app-evaluation-2026-02-26-13_23_56.png",
-      "/imc/screencapture-imc-front-vercel-app-evaluation-2026-02-26-13_24_28.png",
-      "/imc/screencapture-imc-front-vercel-app-evaluation-2026-02-26-13_25_05.png",
-      "/imc/screencapture-imc-front-vercel-app-evaluation-2026-02-26-13_25_56.png",
-      "/imc/screencapture-imc-front-vercel-app-admin-2026-02-26-13_26_18.png",
-      "/imc/screencapture-imc-front-vercel-app-admin-entreprises-2026-02-26-13_26_43.png",
-      "/imc/screencapture-imc-front-vercel-app-admin-evaluations-2026-02-26-13_26_30.png",
-      "/imc/screencapture-imc-front-vercel-app-admin-settings-2026-02-26-13_26_55.png",
-    ],
-    liveUrl: "https://imc-front.vercel.app/",
-    comingSoon: true,
   },
   {
     id: 2,
     title: "Gestion Cargaison",
     description:
-      "Besoin : Gérer et tracer les expéditions de marchandises pour une entreprise logistique. Solution : Application web PHP/TypeScript avec envoi automatisé d'emails PHPMailer et stockage JSON. Résultat : Système de gestion logistique complet avec suivi en temps réel et notifications automatiques.",
+      "Besoin : Gérer et tracer les expéditions de marchandises pour une entreprise logistique. Solution : Application web PHP/TypeScript avec envoi automatisé d'emails et stockage JSON. Résultat : Système de gestion logistique complet avec suivi en temps réel et notifications automatiques.",
     category: "Web",
     icon: Globe,
-    technologies: ["PHP", "TypeScript", "PHPMailer", "JSON-Server"],
+    technologies: ["PHP", "TypeScript", "HTML", "CSS"],
     image: "/cargaison/cover.png",
     screenshots: [
       "/cargaison/Capture d'écran du 2025-10-17 14-52-29.png",
@@ -86,10 +58,10 @@ const projects = [
     id: 3,
     title: "FotolJay",
     description:
-      "Besoin : Créer un marketplace de mise en relation directe entre vendeurs et acheteurs. Solution : Application full-stack Node.js/TypeScript avec Prisma/MySQL, authentification JWT et gestion admin. Résultat : Plateforme de petites annonces avec dashboard complet et gestion des utilisateurs.",
+      "Besoin : Créer un marketplace de mise en relation directe entre vendeurs et acheteurs. Solution : Application full-stack Node.js/TypeScript avec MySQL et gestion admin. Résultat : Plateforme de petites annonces avec dashboard complet et gestion des utilisateurs.",
     category: "Web",
     icon: Globe,
-    technologies: ["Node.js", "TypeScript", "Prisma", "Express.js", "JWT", "MySQL", "Angular"],
+    technologies: ["Node.js", "TypeScript", "Express.js", "MySQL", "Angular"],
     image: "/fotoljay/fotoljay.png",
     screenshots: [
       "/fotoljay/screencapture-localhost-4200-2025-10-17-00_07_07.png",
@@ -110,10 +82,10 @@ const projects = [
     id: 4,
     title: "Milna Gourmet",
     description:
-      "Besoin : Digitaliser une entreprise de yaourts artisanaux et permettre les commandes en ligne. Solution : Application React/TypeScript avec validation Zod et JSON Server. Résultat : Plateforme e-commerce avec personnalisation des produits, témoignages clients et espace admin.",
+      "Besoin : Digitaliser une entreprise de yaourts artisanaux et permettre les commandes en ligne. Solution : Application React/TypeScript avec validation de formulaires. Résultat : Plateforme e-commerce avec personnalisation des produits, témoignages clients et espace admin.",
     category: "Web",
     icon: Globe,
-    technologies: ["React/vite", "TypeScript", "Tailwind CSS", "Zod", "JSON Server"],
+    technologies: ["React/vite", "TypeScript", "Tailwind CSS"],
     image: "/milnaGourmet/cover.png",
     screenshots: [
       "/milnaGourmet/Capture d'écran du 2025-10-17 00-43-37.png",
@@ -143,10 +115,10 @@ const projects = [
     id: 5,
     title: "Gestionnaire de salaire",
     description:
-      "Besoin : Automatiser la paie multi-tenant avec différents rôles (admin, RH, employé). Solution : Architecture Node/Express avec TypeScript, Prisma, validation Zod, génération PDF/QR Code et envoi d'emails Nodemailer. Résultat : Système RH complet, fiable et documenté avec gestion multi-entreprise.",
+      "Besoin : Automatiser la paie multi-tenant avec différents rôles (admin, RH, employé). Solution : Architecture Node/Express avec TypeScript, génération PDF/QR Code et envoi d'emails automatisés. Résultat : Système RH complet, fiable et documenté avec gestion multi-entreprise.",
     category: "Web",
     icon: Globe,
-    technologies: ["React.js", "Node.js", "Express", "TypeScript", "Prisma", "MySQL", "JWT", "Zod", "PDFKit", "Nodemailer"],
+    technologies: ["React.js", "Node.js", "Express", "TypeScript", "MySQL"],
     image: "/gestion_salaire/cover.png",
     screenshots: [
       "/gestion_salaire/Capture d'écran du 2025-10-17 14-04-35.png",
@@ -194,67 +166,13 @@ const projects = [
     liveUrl: "#",
   },
   {
-    id: 5,
-    title: "Gestion Cargaison",
-    description:
-      "Besoin : Gérer et tracer les expéditions de marchandises pour une entreprise logistique. Solution : Application web PHP/TypeScript avec envoi automatisé d'emails PHPMailer et stockage JSON. Résultat : Système de gestion logistique complet avec suivi en temps réel et notifications automatiques.",
-    category: "Web",
-    icon: Globe,
-    technologies: ["PHP", "TypeScript", "PHPMailer", "JSON-Server"],
-    image: "/cargaison/cover.png",
-    screenshots: [
-      "/cargaison/Capture d'écran du 2025-10-17 14-52-29.png",
-      "/cargaison/Capture d'écran du 2025-10-17 14-56-13.png",
-      "/cargaison/Capture d'écran du 2025-10-17 14-56-22.png",
-      "/cargaison/Capture d'écran du 2025-10-17 14-56-31.png",
-      "/cargaison/Capture d'écran du 2025-10-17 14-56-36.png",
-      "/cargaison/Capture d'écran du 2025-10-17 14-56-39.png",
-      "/cargaison/Capture d'écran du 2025-10-17 14-56-47.png",
-      "/cargaison/Capture d'écran du 2025-10-17 15-00-04.png",
-      "/cargaison/Capture d'écran du 2025-10-17 15-00-12.png",
-      "/cargaison/Capture d'écran du 2025-10-17 15-00-51.png",
-      "/cargaison/Capture d'écran du 2025-10-17 15-00-59.png",
-      "/cargaison/Capture d'écran du 2025-10-17 15-01-04.png",
-      "/cargaison/Capture d'écran du 2025-10-17 15-01-15.png",
-      "/cargaison/screencapture-localhost-8000-accueil-2025-10-17-14_58_43.png",
-      "/cargaison/screencapture-localhost-8000-accueil-2025-10-17-14_59_45.png",
-      "/cargaison/screencapture-localhost-8000-dashboard-2025-10-17-14_58_18.png",
-      "/cargaison/screencapture-localhost-8000-recherche-2025-10-17-14_57_01.png",
-      "/cargaison/screencapture-localhost-8000-recherche-2025-10-17-15_00_32.png",
-    ],
-    liveUrl: "#",
-  },
-  {
-    id: 6,
-    title: "Clone WhatsApp",
-    description:
-      "Besoin : Reproduire une interface de messagerie instantanée complète sans framework. Solution : JavaScript vanilla avec JSON Server pour simuler le backend et stocker les messages. Résultat : Clone fonctionnel de WhatsApp avec gestion de conversations, bulles de messages et indicateurs de statut.",
-    category: "Web",
-    icon: Globe,
-    technologies: ["JavaScript", "JSON Server"],
-    image: "/clone_whatsapp/cover.png",
-    screenshots: [
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-48-33.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-51-50.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-51-54.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-51-58.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-52-02.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-52-06.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-52-14.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-52-33.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-52-38.png",
-      "/clone_whatsapp/Capture d'écran du 2025-10-17 15-52-44.png",
-    ],
-    liveUrl: "https://clone-whatsapp-roan.vercel.app/",
-  },
-  {
     id: 7,
     title: "Système de Gestion des Apprenants",
     description:
       "Besoin : Administrer les promotions, référentiels de formation et le suivi des apprenants. Solution : Application web PHP complète avec base de données PostgreSQL et gestion des rôles. Résultat : Système de suivi complet avec gestion des présences, promotions et référentiels de formation.",
     category: "Web",
     icon: Globe,
-    technologies: ["PHP", "PostgreSQL"],
+    technologies: ["PHP", "PostgreSQL", "HTML", "CSS"],
     image: "/gest_apprenant/cover.png",
     screenshots: [
       "/gest_apprenant/Capture d'écran du 2025-10-17 16-04-49.png",
@@ -277,7 +195,7 @@ const projects = [
       "Besoin : Présenter une entreprise de services professionnels (nettoyage, déménagement, froid…) et générer des leads. Solution : Site web PHP/JavaScript avec formulaire de devis interactif et 7 pages de services détaillées. Résultat : Vitrine professionnelle complète avec formulaire de contact et demande de devis en ligne.",
     category: "Web",
     icon: Globe,
-    technologies: ["PHP", "JavaScript"],
+    technologies: ["PHP", "JavaScript", "HTML", "CSS"],
     image: "/pro_net/cover.png",
     screenshots: [
       "/pro_net/Capture d'écran du 2025-10-17 15-21-00.png",
@@ -304,7 +222,7 @@ const projects = [
       "Besoin : Moderniser le site de l'incubateur Autour de Mary pour mieux valoriser ses programmes. Solution : Refonte complète sous WordPress en tant qu'intégrateur, avec nouvelle architecture et design. Résultat : Nouveau site responsive présentant les programmes, événements et partenaires de l'incubateur.",
     category: "Web",
     icon: Globe,
-    technologies: ["WordPress"],
+    technologies: [],
     image: "/autour_Mary/cover.png",
     screenshots: [
       "/autour_Mary/Capture d'écran du 2025-10-17 15-34-33.png",
@@ -370,8 +288,7 @@ export function Projects() {
             Mes <span className="text-gradient">Projets</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Une sélection de mes réalisations les plus significatives, alliant innovation
-            technique et expérience utilisateur exceptionnelle.
+            Quelques applications que j'ai développées.
           </p>
         </div>
 
@@ -394,23 +311,23 @@ export function Projects() {
         {/* Navigation Arrows */}
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-primary/80 hover:bg-primary text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-primary/80 hover:bg-primary text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           aria-label="Projet précédent"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
         <button
           onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-primary/80 hover:bg-primary text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-primary/80 hover:bg-primary text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           aria-label="Projet suivant"
         >
           <ChevronRight className="h-6 w-6" />
         </button>
 
         {/* Projects Slider - Horizontal Scroll */}
-        <div 
+        <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 px-4"
+          className="flex items-stretch gap-6 overflow-x-auto scrollbar-hide pb-4 px-4"
           style={{ scrollBehavior: "smooth" }}
         >
           {filteredProjects.length === 0 ? (
@@ -421,7 +338,7 @@ export function Projects() {
             filteredProjects.map((project, index) => (
               <div
                 key={project.id}
-                className="flex-shrink-0 w-[350px] card-project group border border-border/50 hover:border-primary/20 cursor-pointer h-full"
+                className="flex-shrink-0 w-[350px] card-project group border border-border/50 hover:border-primary/20 cursor-pointer flex flex-col"
                 style={{
                   animationDelay: `${index * 0.1}s`,
                 }}
@@ -432,11 +349,6 @@ export function Projects() {
                     alt={project.title}
                     className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  {project.comingSoon && (
-                    <div className="absolute top-3 right-3 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
-                      En cours
-                    </div>
-                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="relative">
@@ -446,17 +358,18 @@ export function Projects() {
                   </div>
                 </div>
 
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center justify-between mb-3">
                     <Badge variant="secondary" className="text-xs">
                       {project.category}
                     </Badge>
-                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300">
                       {project.screenshots && project.screenshots.length > 0 && (
                         <Button
                           size="icon"
                           variant="ghost"
                           className="h-8 w-8"
+                          aria-label={`Voir les captures d'écran de ${project.title}`}
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
@@ -472,6 +385,7 @@ export function Projects() {
                           size="icon"
                           variant="ghost"
                           className="h-8 w-8"
+                          aria-label={`Ouvrir ${project.title} en ligne`}
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
@@ -487,16 +401,37 @@ export function Projects() {
                   <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  <div className="text-muted-foreground mb-4 leading-relaxed max-h-28 overflow-y-auto custom-scrollbar text-sm">
+                  <div className="text-muted-foreground mb-4 leading-relaxed h-28 overflow-y-auto scrollbar-hide text-sm">
                     <p className="whitespace-pre-line">{project.description}</p>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <Badge key={tech} variant="outline" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
+                  <div className="mt-auto">
+                    {project.technologies.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-5">
+                        {project.technologies.map((tech) => (
+                          <Badge key={tech} variant="outline" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    <Button
+                      variant="outline"
+                      className="w-full btn-glass"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (project.liveUrl !== "#") {
+                          window.open(project.liveUrl, "_blank");
+                        } else if (project.screenshots && project.screenshots.length > 0) {
+                          setSelectedProject(project);
+                          setIsDialogOpen(true);
+                        }
+                      }}
+                    >
+                      Voir le projet
+                    </Button>
                   </div>
                 </div>
               </div>

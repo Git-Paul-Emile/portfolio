@@ -257,13 +257,15 @@
   .glass {
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: hsl(215 25% 15% / 0.05);
+    border: 1px solid hsl(215 25% 15% / 0.12);
+    box-shadow: var(--shadow-card);
   }
 
   .dark .glass {
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: hsl(0 0% 100% / 0.05);
+    border: 1px solid hsl(0 0% 100% / 0.12);
+    box-shadow: var(--shadow-card);
   }
 
   /* Smooth transitions for theme switching */

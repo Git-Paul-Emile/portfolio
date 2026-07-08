@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
+  { href: "#home", label: "Accueil" },
   { href: "#about", label: "À propos" },
+  { href: "#services", label: "Services" },
   { href: "#projects", label: "Projets" },
   { href: "#contact", label: "Contact" },
 ];
@@ -58,6 +60,7 @@ export function Navigation() {
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
               className="glass hover:scale-105 transition-all duration-300"
+              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>

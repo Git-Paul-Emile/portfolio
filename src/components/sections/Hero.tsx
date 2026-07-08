@@ -1,4 +1,4 @@
-import { Eye, MessageCircle } from "lucide-react";
+import { FolderGit2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -12,11 +12,11 @@ export function Hero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Auto-flip every 3 seconds
+  // Auto-flip every 8 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setIsFlipped((prev) => !prev);
-    }, 3000);
+    }, 8000);
     return () => clearInterval(interval);
   }, []);
 
@@ -24,17 +24,16 @@ export function Hero() {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const viewCV = () => {
-    window.open("/CV PAUL  \u00c9MILE PECKOUET-BINOMBO.pdf", "_blank");
+  const scrollToProjects = () => {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
-
 
   const contactWhatsApp = () => {
     window.open("https://wa.me/221772995851", "_blank");
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden hero-gradient pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden hero-gradient pt-20">
       {/* Animated Background with Parallax */}
       <div className="absolute inset-0">
         <div
@@ -68,15 +67,46 @@ export function Hero() {
       </div>
 
       <div
-        className="container mx-auto px-6 text-center relative z-10"
+        className="container mx-auto px-6 relative z-10"
         style={{ transform: `translateY(${scrollY * -0.1}px)` }}
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center max-w-6xl mx-auto">
+          <div className="text-center lg:text-left">
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 fade-in">
+              <span className="text-gradient-hero">Paul Emile</span>
+              <br />
+              <span className="text-foreground text-3xl md:text-5xl">PECKOUET-BINOMBO</span>
+            </h1>
 
-          {/* ── Card Flip Photo ── */}
-          <div className="mb-8 flex justify-center">
-            <div className={`card-flip-container ${isFlipped ? 'flipped' : ''}`}>
-              <div className="card-flip-inner">
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 fade-in fade-in-delay-1 text-gradient">
+              Je conçois des solutions web/mobile modernes, performantes et évolutives.
+            </h2>
+
+            <p className="text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0 text-muted-foreground fade-in fade-in-delay-2">
+              Développeur Full Stack. J'accompagne les entreprises, les entrepreneurs et particuliers dans la création de solutions modernes, sécurisées et adaptées à leurs besoins.
+              
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start items-center flex-wrap fade-in fade-in-delay-3">
+              <Button className="btn-hero text-base px-7 py-3 h-auto" onClick={scrollToProjects}>
+                <FolderGit2 className="mr-2 h-5 w-5" />
+                Voir mes projets
+              </Button>
+              <Button
+                className="bg-green-500 hover:bg-green-600 text-white text-base px-7 py-3 h-auto hover:scale-105 transition-all duration-300 shadow-md"
+                onClick={contactWhatsApp}
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Discutons de votre projet
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center lg:items-end gap-8 fade-in fade-in-delay-2">
+            {/* ── Card Flip Photo ── */}
+            <div className="w-full flex justify-center">
+              <div className={`card-flip-container ${isFlipped ? "flipped" : ""}`}>
+                <div className="card-flip-inner">
                 {/* Recto — photo identité */}
                 <div className="card-flip-front">
                   <div className="w-full h-full rounded-full bg-gradient-to-br from-primary to-accent p-1 shadow-hero">
@@ -102,44 +132,15 @@ export function Hero() {
                   </div>
                 </div>
               </div>
+              </div>
             </div>
-          </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 fade-in">
-            <span className="text-gradient-hero">Paul Emile</span>
-            <br />
-            <span className="text-foreground text-3xl md:text-5xl">PECKOUET-BINOMBO</span>
-          </h1>
-
-          <h2 className="text-xl md:text-2xl font-semibold mb-3 fade-in fade-in-delay-1">
-            <span className="text-gradient">Développeur JS Full Stack</span>{" "}
-            <span className="text-muted-foreground font-light">
-              évoluant dans la création<br className="hidden md:block" /> d'applications performantes et évolutives
-            </span>
-          </h2>
-
-          <p className="text-sm text-muted-foreground mb-6 fade-in fade-in-delay-1">
-            📍 Dakar, Sénégal —{" "}
-            <span className="text-primary font-medium">Disponible pour télétravail</span>
-          </p>
-
-          <p className="text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto text-muted-foreground fade-in fade-in-delay-2">
-            Passionné par le Clean Code et l'expérience utilisateur, je conçois des solutions web et
-            mobiles alliant performance technique et valeur métier concrète.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center flex-wrap fade-in fade-in-delay-3">
-            <Button className="btn-hero text-base px-7 py-3 h-auto" onClick={viewCV}>
-              <Eye className="mr-2 h-5 w-5" />
-              Voir CV
-            </Button>
-            <Button
-              className="bg-green-500 hover:bg-green-600 text-white text-base px-7 py-3 h-auto hover:scale-105 transition-all duration-300 shadow-md"
-              onClick={contactWhatsApp}
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Discutons de votre projet
-            </Button>
+            <div className="card-glass border border-border/50 rounded-2xl p-8 max-w-sm w-full">
+              <h3 className="text-xl font-bold mb-3">Développement Full Stack</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Frontend • Backend • API • Base de données • Déploiement
+              </p>
+            </div>
           </div>
         </div>
       </div>

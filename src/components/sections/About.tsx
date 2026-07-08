@@ -1,35 +1,10 @@
 import { useEffect, useState } from "react";
-import { Code2, Database, Wrench, Users } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
-const skills = [
-  {
-    icon: Code2,
-    title: "Écosystème Frontend JS",
-    description: "React.js, TypeScript, JavaScript, HTML/CSS, TailwindCSS, Bootstrap",
-    color: "text-blue-500",
-    highlight: ["TypeScript", "React.js"],
-  },
-  {
-    icon: Database,
-    title: "Écosystème Backend JS",
-    description: "Node.js, Express, TypeScript, Prisma, MySQL, PostgreSQL, JWT, Zod",
-    color: "text-green-500",
-    highlight: ["Node.js", "TypeScript"],
-  },
-  {
-    icon: Wrench,
-    title: "Outils & Autres",
-    description: "PHP, Laravel, WordPress, Figma, Git",
-    color: "text-purple-500",
-    highlight: [],
-  },
-  {
-    icon: Users,
-    title: "Soft Skills",
-    description: "Travail en équipe, Autonomie, Adaptabilité, Communication, Clean Code",
-    color: "text-orange-500",
-    highlight: ["Clean Code"],
-  },
+const highlights = [
+  "Disponible en freelance",
+  "Travail à distance ou sur site",
+  "Livraison dans les délais",
 ];
 
 export function About() {
@@ -56,55 +31,30 @@ export function About() {
       </div>
 
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            À <span className="text-gradient">propos</span>
-          </h2>
-
-          {/* Nouveau texte de présentation */}
-          <div className="max-w-3xl mx-auto glass rounded-2xl p-8 border border-border/50 text-left leading-relaxed text-muted-foreground">
-            <p>
-              Développeur JS Full Stack évoluant dans la conception d'applications web et mobiles
-              performantes, je me spécialise sur les technologies{" "}
-              <span className="text-primary font-semibold">React.js</span>,{" "}
-              <span className="text-primary font-semibold">Node.js</span> et{" "}
-              <span className="text-primary font-semibold">TypeScript</span>. Passionné par le{" "}
-              <span className="font-semibold text-foreground">Clean Code</span> et l'expérience
-              utilisateur, j'ai déjà réalisé des solutions allant de la gestion de
-              logistique à l'automatisation de processus RH. Orienté vers l'apprentissage continu,
-              je suis prêt à m'adapter à vos enjeux techniques pour relever de nouveaux défis.
-            </p>
-          </div>
-        </div>
-
-        {/* Skills par écosystèmes */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skills.map((skill, index) => (
-            <div
-              key={index}
-              className="card-glass text-center group hover:scale-105 hover:shadow-hero transition-all duration-500 border border-border/50 hover:border-primary/20"
-              style={{
-                animationDelay: `${index * 0.1}s`,
-                transform: `translateY(${scrollY * 0.02}px)`,
-              }}
-            >
-              <div className="mb-6">
-                <div className="relative">
-                  <skill.icon
-                    className={`h-12 w-12 mx-auto ${skill.color} group-hover:scale-110 transition-transform duration-300 relative z-10`}
-                  />
-                  <div
-                    className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"
-                    style={{ backgroundColor: `hsl(var(--primary))` }}
-                  ></div>
-                </div>
-              </div>
-              <h3 className="text-lg font-semibold mb-4">{skill.title}</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                {skill.description}
+        <div className="text-center">
+          <div className="grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto text-left">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                À <span className="text-gradient">propos</span>
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Je développe des applications web/mobile complètes, de l'interface utilisateur
+                jusqu'à la base de données. Mon objectif est de créer des solutions rapides,
+                sécurisées et évolutives qui répondent aux besoins réels des utilisateurs.
               </p>
             </div>
-          ))}
+
+            <div className="card-glass border border-border/50 p-8">
+              <ul className="space-y-4">
+                {highlights.map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
+                    <span className="text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
