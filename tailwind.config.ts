@@ -19,10 +19,21 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        /** Fond de la grande carte qui contient les sections sous le hero. */
+        shell: "hsl(var(--shell))",
+        /** Fond des blocs alternés (carte citation). */
+        surface: "hsl(var(--surface))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          /** Survol : plus foncé en clair, plus clair en sombre. */
+          hover: "hsl(var(--primary-hover))",
+          /** État pressé. */
           dark: "hsl(var(--primary-dark))",
+          /** Teinte pâle : fond des pastilles d'icônes et des badges. */
+          soft: "hsl(var(--primary-soft))",
+          /** Teinte encore plus pâle : fond de la carte d'appel à l'action. */
+          tint: "hsl(var(--primary-tint))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -71,7 +82,6 @@ export default {
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
         'gradient-secondary': 'var(--gradient-secondary)',
-        'gradient-hero': 'var(--gradient-hero)',
         'gradient-glass': 'var(--gradient-glass)',
       },
       boxShadow: {

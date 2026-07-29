@@ -2,374 +2,407 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Portfolio Design System - Modern Tech Aesthetic */
+/* ============================================================================
+   DESIGN SYSTEM — Portfolio Paul Emile PECKOUET-BINOMBO
+   ----------------------------------------------------------------------------
+   Principe : AUCUNE couleur en dur dans les composants.
+   Tout passe par des variables CSS (design tokens) déclarées ici et exposées
+   à Tailwind via tailwind.config.ts. Changer la charte = modifier ce fichier.
+
+   Format des couleurs : "H S% L%" (sans la fonction hsl()).
+   Cette écriture permet à Tailwind de composer l'opacité :
+   `bg-primary/10` devient `hsl(var(--primary) / 0.1)`.
+   ========================================================================== */
 
 @layer base {
   :root {
-    /* Core Colors */
-    --background: 255 255% 98%;
-    --foreground: 215 25% 15%;
+    /* --- Surfaces -----------------------------------------------------------
+       Valeurs relevées directement sur la maquette de référence :
+       fond de page #F9F8FD, coquille #FCFCFE, carte citation #F6F5FA,
+       carte d'appel à l'action #F1EFFD.                                      */
+    --background: 250 50% 98%;        /* #F9F8FD — fond lavande de la page   */
+    --shell: 240 33% 99%;             /* #FCFCFE — grande carte des sections */
+    --surface: 252 33% 97%;           /* #F6F5FA — carte citation            */
+    --foreground: 240 24% 11%;        /* texte principal, presque noir       */
 
-    /* Card System */
-    --card: 255 255% 100%;
-    --card-foreground: 215 25% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 24% 11%;
 
-    /* Interactive Elements */
-    --popover: 255 255% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 24% 11%;
 
-    /* Brand Colors - Tech Blue/Purple Gradient */
-    --primary: 234 89% 74%;
-    --primary-foreground: 255 255% 100%;
-    --primary-dark: 234 89% 64%;
+    /* --- Marque : sarcelle ---------------------------------------------------
+       Échelle teal-50 → teal-900, dosée 60/30/10 (voir la doc du design system) :
+       60 % neutre (surfaces ci-dessus), 30 % teal clair (`--primary-soft` /
+       `--primary-tint` / `--secondary`), 10 % teal foncé (`--primary`) réservé
+       aux éléments actionnables.                                              */
+    --primary-tint: 159 50% 92%;      /* teal-50  #E1F5EE — fond carte CTA   */
+    --primary-soft: 170 59% 75%;      /* teal-200 #99E5D8 — pastilles/tuiles */
+    --primary: 174 84% 27%;           /* teal-600 #0B7D71 — actions          */
+    --primary-hover: 174 86% 22%;     /* teal-700 #086A60 — survol           */
+    --primary-dark: 172 87% 18%;      /* teal-800 #065349 — état pressé      */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 252 94% 85%;
-    --secondary-foreground: 215 25% 15%;
+    --secondary: 159 50% 92%;         /* teal-50 #E1F5EE — surfaces 30 %     */
+    --secondary-foreground: 240 24% 11%;
 
-    /* Muted Variants */
-    --muted: 210 40% 98%;
-    --muted-foreground: 215 16% 47%;
+    /* --- Accent : corail --------------------------------------------------
+       Décoratif UNIQUEMENT (< 2 % de la page, jamais cliquable) : avion en
+       papier du bloc contact. Ne jamais poser de texte blanc dessus — son
+       contraste avec le blanc est sous le seuil WCAG AA.                     */
+    --accent: 13 71% 69%;             /* #E8917A                             */
+    --accent-foreground: 15 72% 17%;  /* #4A1B0C — seul texte lisible dessus */
 
-    /* Accent Colors */
-    --accent: 262 83% 58%;
-    --accent-foreground: 255 255% 100%;
+    /* --- Texte secondaire & bordures --------------------------------------- */
+    --muted: 250 40% 97%;
+    --muted-foreground: 240 6% 48%;
 
-    /* Status Colors */
+    --border: 250 30% 92%;
+    --input: 250 30% 92%;
+    --ring: 174 84% 27%;
+
+    /* --- États ------------------------------------------------------------- */
     --destructive: 0 84% 60%;
-    --destructive-foreground: 255 255% 100%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 62% 42%;
+    --success-foreground: 0 0% 100%;
 
-    --success: 142 71% 45%;
-    --success-foreground: 255 255% 100%;
+    /* Rayon des boutons de la maquette : coins nettement arrondis mais
+       rectangulaires — surtout pas des pilules. */
+    --radius: 0.75rem;
+    --radius-button: 0.625rem;
 
-    /* UI Elements */
-    --border: 215 20% 92%;
-    --input: 215 20% 92%;
-    --ring: 234 89% 74%;
+    /* --- Dégradés ----------------------------------------------------------
+       `--gradient-hero` et `--gradient-cta` ont disparu : le corail étant
+       décoratif uniquement, il ne doit jamais teinter un fond diffus. Le lavis
+       du hero et le panneau contact utilisent désormais `bg-secondary/40` et
+       `bg-secondary/50` directement dans les composants.                     */
+    --gradient-primary: linear-gradient(135deg, hsl(174 84% 27%), hsl(174 86% 22%));
+    --gradient-secondary: linear-gradient(135deg, hsl(159 50% 92%), hsl(170 59% 75%));
+    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.82), hsl(0 0% 100% / 0.58));
 
-    --radius: 1rem;
+    /* --- Ombres --------------------------------------------------------------
+       Toutes les ombres sont NOIRES, au repos comme au survol : aucune teinte
+       colorée. Une ombre colorée simule une lumière colorée ; le portfolio
+       étant éclairé en lumière neutre, le noir est le seul choix cohérent.
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(234 89% 74%), hsl(262 83% 58%));
-    --gradient-secondary: linear-gradient(135deg, hsl(252 94% 85%), hsl(234 89% 84%));
-    --gradient-hero: linear-gradient(135deg, hsl(234 89% 74% / 0.1), hsl(262 83% 58% / 0.1));
-    --gradient-glass: linear-gradient(135deg, hsl(255 255% 100% / 0.1), hsl(255 255% 100% / 0.05));
+       Chaque ombre superpose deux couches, comme dans la réalité :
+         · une ombre de contact — courte, nette, juste sous l'élément ;
+         · une ombre portée — large et diffuse, qui donne la hauteur.
+       Une ombre à une seule couche paraît toujours plate ou sale.
 
-    /* Shadows */
-    --shadow-soft: 0 4px 20px hsl(234 89% 74% / 0.1);
-    --shadow-card: 0 8px 30px hsl(215 25% 15% / 0.08);
-    --shadow-hero: 0 20px 40px hsl(234 89% 74% / 0.2);
+       Les opacités restent basses (4 à 12 %) : sur un fond clair, du noir à
+       20 % lit comme une salissure grise, pas comme une ombre.              */
+    --shadow-soft: 0 1px 2px hsl(0 0% 0% / 0.05), 0 4px 14px hsl(0 0% 0% / 0.06);
+    --shadow-card: 0 2px 4px hsl(0 0% 0% / 0.06), 0 12px 30px hsl(0 0% 0% / 0.1);
+    --shadow-hero: 0 4px 10px hsl(0 0% 0% / 0.08), 0 22px 50px hsl(0 0% 0% / 0.18);
 
-    /* Animations */
+    /* --- Transitions ------------------------------------------------------- */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-    /* Hero gradient background */
-    --hero-gradient: linear-gradient(135deg, 
-      hsl(var(--background)) 0%, 
-      hsl(var(--muted)) 50%, 
-      hsl(var(--background)) 100%);
   }
 
   .dark {
-    /* Dark Mode Colors */
-    --background: 215 28% 9%;
-    --foreground: 213 31% 91%;
+    --background: 245 30% 6%;
+    --shell: 245 26% 9%;
+    --surface: 245 24% 12%;
+    --foreground: 250 25% 94%;
 
-    --card: 215 28% 11%;
-    --card-foreground: 213 31% 91%;
+    --card: 245 26% 10%;
+    --card-foreground: 250 25% 94%;
 
-    --popover: 215 28% 11%;
-    --popover-foreground: 213 31% 91%;
+    --popover: 245 26% 10%;
+    --popover-foreground: 250 25% 94%;
 
-    --primary: 234 89% 74%;
-    --primary-foreground: 215 28% 9%;
-    --primary-dark: 234 89% 64%;
+    /* L'échelle teal s'inverse en sombre : ce qui était pâle devient profond,
+       et --primary/--primary-hover s'éclaircissent au lieu de foncer — c'est
+       le réflexe inverse du mode clair. */
+    --primary-tint: 172 87% 12%;      /* teal-900 #043B34 */
+    --primary-soft: 172 87% 18%;      /* teal-800 #065349 */
+    --primary: 172 63% 47%;           /* teal-400 #2CC5B0 */
+    --primary-hover: 170 55% 63%;     /* teal-300 #6BD4C2 — survol, plus clair */
+    --primary-dark: 170 59% 75%;      /* teal-200 #99E5D8 — état pressé       */
+    --primary-foreground: 172 71% 8%; /* #06231F */
 
-    --secondary: 215 28% 15%;
-    --secondary-foreground: 213 31% 91%;
+    --secondary: 172 87% 12%;         /* teal-900 #043B34 */
+    --secondary-foreground: 250 25% 94%;
 
-    --muted: 215 28% 15%;
-    --muted-foreground: 215 20% 65%;
+    --accent: 15 80% 71%;             /* #F0997B */
+    --accent-foreground: 15 62% 10%;  /* #2A120A */
 
-    --accent: 262 83% 58%;
-    --accent-foreground: 213 31% 91%;
+    --muted: 245 22% 14%;
+    --muted-foreground: 245 12% 64%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 213 31% 91%;
+    --border: 245 20% 18%;
+    --input: 245 20% 18%;
+    --ring: 172 63% 47%;
 
-    --success: 142 71% 45%;
-    --success-foreground: 213 31% 91%;
+    --gradient-secondary: linear-gradient(135deg, hsl(172 87% 12%), hsl(172 87% 18%));
+    --gradient-glass: linear-gradient(135deg, hsl(245 26% 14% / 0.85), hsl(245 26% 10% / 0.6));
 
-    --border: 215 28% 18%;
-    --input: 215 28% 18%;
-    --ring: 234 89% 74%;
-
-    /* Dark Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(234 89% 74%), hsl(262 83% 58%));
-    --gradient-secondary: linear-gradient(135deg, hsl(215 28% 15%), hsl(215 28% 18%));
-    --gradient-hero: linear-gradient(135deg, hsl(234 89% 74% / 0.05), hsl(262 83% 58% / 0.05));
-    --gradient-glass: linear-gradient(135deg, hsl(215 28% 15% / 0.1), hsl(215 28% 18% / 0.05));
-
-    /* Dark Shadows */
-    --shadow-soft: 0 4px 20px hsl(215 28% 9% / 0.4);
-    --shadow-card: 0 8px 30px hsl(215 28% 9% / 0.3);
-    --shadow-hero: 0 20px 40px hsl(234 89% 74% / 0.1);
-
-    /* Dark hero gradient */
-    --hero-gradient: linear-gradient(135deg, 
-      hsl(var(--background)) 0%, 
-      hsl(215 28% 12%) 50%, 
-      hsl(var(--background)) 100%);
+    /* Mode sombre : ombres noires également, mais nettement plus opaques.
+       Sur un fond déjà sombre, une ombre à 6 % serait invisible — il faut
+       assombrir bien davantage pour que le relief se lise encore. */
+    --shadow-soft: 0 1px 2px hsl(0 0% 0% / 0.4), 0 4px 14px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 2px 4px hsl(0 0% 0% / 0.45), 0 12px 30px hsl(0 0% 0% / 0.4);
+    --shadow-hero: 0 4px 10px hsl(0 0% 0% / 0.45), 0 22px 50px hsl(0 0% 0% / 0.5);
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground overflow-x-hidden;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    scroll-behavior: smooth;
-  }
-
-  /* Glass Morphism */
-  .glass {
-    background: var(--gradient-glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border) / 0.2);
-  }
-
-  /* Tech Stack Marquee */
-  .marquee {
-    display: flex;
-    animation: marquee 30s linear infinite;
-  }
-
-  .marquee-reverse {
-    animation-direction: reverse;
-  }
-
-  @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
-  }
-
-  /* Parallax Effect */
-  .parallax {
-    transform-style: preserve-3d;
-    transition: var(--transition-smooth);
-  }
-
-  /* Smooth Scroll */
   html {
     scroll-behavior: smooth;
+    /* Décale l'ancre du scroll pour ne pas passer sous la navbar fixe. */
+    scroll-padding-top: 5.5rem;
   }
 
-  /* Hero gradient background */
-  .hero-gradient {
-    background: var(--hero-gradient);
-    position: relative;
+  body {
+    @apply overflow-x-hidden bg-background text-foreground antialiased;
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   }
 
-  .hero-gradient::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 20%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, hsl(var(--accent) / 0.1) 0%, transparent 50%);
-    pointer-events: none;
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+
+  /* Barre de défilement discrète, alignée sur la charte. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/40;
   }
 }
 
+/* ============================================================================
+   COMPOSANTS UTILITAIRES
+   Classes réutilisables extraites pour respecter le principe DRY : si un motif
+   visuel apparaît dans 3 sections ou plus, il devient une classe ici.
+   ========================================================================== */
+
 @layer components {
-  /* Button Variants */
-  .btn-hero {
-    @apply bg-gradient-to-r from-primary to-accent text-primary-foreground;
-    @apply hover:shadow-hero transform hover:scale-105 transition-all duration-300;
+  /* --- Conteneur de page : largeur maximale + gouttières responsives ------- */
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
 
-  .btn-glass {
-    @apply glass hover:bg-primary/10 transition-all duration-300;
+  /* --- Coquille : grande carte arrondie qui contient toutes les sections
+         situées sous le hero, exactement comme sur la maquette. Le fond de
+         page (lavande) reste visible tout autour, ce qui donne l'impression
+         d'une « feuille » posée sur le bureau.                              */
+  .page-shell {
+    @apply rounded-[2rem] border border-border bg-shell;
   }
 
-  /* Card Variants */
-  .card-glass {
-    @apply glass rounded-2xl p-6 hover:bg-primary/5 transition-all duration-500;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+  /* --- Carte de base : la brique visuelle du site ------------------------- */
+  .card-interactive {
+    @apply rounded-xl border border-border bg-card transition-all duration-300;
+  }
+  /* Au survol : élévation et ombre uniquement. La bordure ne change pas de
+     couleur — un filet qui se teinte en même temps que la carte se soulève
+     donne deux signaux pour une seule action, et alourdit la lecture. */
+  .card-interactive:hover {
+    @apply -translate-y-1 shadow-card;
   }
 
-  .card-project {
-    @apply glass rounded-2xl overflow-hidden hover:shadow-hero hover:scale-[1.02];
-    @apply transition-all duration-500 cursor-pointer;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-
-  /* Text Gradients */
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
-  }
-
-  .text-gradient-hero {
-    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
-  }
-
-  @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  /* Loading Animations */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-
-  .fade-in-delay-1 { animation-delay: 0.2s; }
-  .fade-in-delay-2 { animation-delay: 0.4s; }
-  .fade-in-delay-3 { animation-delay: 0.6s; }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Floating Animation */
-  .float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  /* Improved glass effect */
+  /* --- Effet verre dépoli (navbar, cartes flottantes du hero) ------------- */
   .glass {
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    background: hsl(215 25% 15% / 0.05);
-    border: 1px solid hsl(215 25% 15% / 0.12);
-    box-shadow: var(--shadow-card);
+    background: var(--gradient-glass);
+    @apply backdrop-blur-xl;
   }
 
-  .dark .glass {
-    background: hsl(0 0% 100% / 0.05);
-    border: 1px solid hsl(0 0% 100% / 0.12);
-    box-shadow: var(--shadow-card);
+  /* --- Libellé de section : petit texte teal en majuscules ----------------- */
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.16em] text-primary;
   }
 
-  /* Smooth transitions for theme switching */
-  * {
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  /* --- Titre de section --------------------------------------------------- */
+  .section-title {
+    @apply text-[1.75rem] font-bold tracking-tight text-foreground sm:text-[2rem];
   }
 
-  /* Custom scrollbar for project descriptions */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
+  /* --- Texte en dégradé teal ----------------------------------------------- */
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+  /* ==========================================================================
+     BOUTONS
+     Trois variantes, une seule géométrie : rectangle à coins arrondis
+     (~10 px), libellé en MAJUSCULES, interlettrage large, graisse forte.
+     C'est la signature typographique de la maquette — aucun bouton pilule.
+     ======================================================================== */
+  .btn-base {
+    border-radius: var(--radius-button);
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5
+           text-[11px] font-bold uppercase tracking-[0.11em]
+           transition-all duration-300;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary) / 0.3);
-    border-radius: 2px;
+  /* Plein teal — action principale. */
+  .btn-solid {
+    @apply btn-base bg-primary text-primary-foreground shadow-soft;
+  }
+  .btn-solid:hover {
+    @apply -translate-y-0.5 bg-primary-hover shadow-hero;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary) / 0.5);
+  /* Blanc à filet gris — action secondaire. */
+  .btn-outline {
+    @apply btn-base border border-border bg-card text-foreground;
+  }
+  .btn-outline:hover {
+    @apply -translate-y-0.5 border-primary text-primary shadow-soft;
   }
 
-  /* Custom scrollbar for the entire page */
-  ::-webkit-scrollbar {
-    width: 4px;
+  /* Contour neutre sur fond transparent — bouton « Discutons » de la barre de
+     navigation. Neutre par défaut : c'est une action secondaire, elle ne doit
+     pas rivaliser visuellement avec les vrais boutons pleins de la page. */
+  .btn-ghost {
+    border-radius: var(--radius-button);
+    @apply inline-flex items-center justify-center gap-2 border border-border
+           bg-transparent px-4 py-2.5 text-[10px] font-bold uppercase
+           tracking-[0.11em] text-foreground transition-all duration-300;
+  }
+  .btn-ghost:hover {
+    @apply border-primary bg-secondary text-primary;
   }
 
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
+  /* --- Lien d'action discret : « VOIR TOUS LES PROJETS → » ---------------- */
+  .link-action {
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase
+           tracking-[0.11em] text-primary transition-opacity duration-200;
+  }
+  .link-action:hover {
+    @apply opacity-70;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary) / 0.4);
-    border-radius: 4px;
+  /* --- Lien de navigation : majuscules, soulignement teal si actif -------- */
+  .nav-link {
+    @apply relative px-3 py-2 text-[11px] font-semibold uppercase
+           tracking-[0.11em] text-muted-foreground transition-colors duration-200;
+  }
+  .nav-link:hover {
+    @apply text-foreground;
+  }
+  .nav-link[data-active="true"] {
+    @apply text-primary;
+  }
+  .nav-link[data-active="true"]::after {
+    content: "";
+    @apply absolute inset-x-3 -bottom-1 h-[2px] rounded-full bg-primary;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary) / 0.6);
+  /* --- Pastille d'icône ronde (services, contact) ------------------------- */
+  .icon-circle {
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-full
+           bg-primary-soft text-primary;
   }
 
-  ::-webkit-scrollbar-corner {
-    background: hsl(var(--muted));
+  /* --- Pastille d'icône carrée arrondie (fiche projet) -------------------- */
+  .icon-pill {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl
+           bg-primary-soft text-primary;
   }
 
-  /* ── Card Flip Animation ── */
-  .card-flip-container {
-    perspective: 1000px;
-    width: 144px;
-    height: 144px;
+  /* --- Cercle à filet fin (statistiques du hero) -------------------------- */
+  .icon-ring {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full
+           border border-primary/35 text-primary;
   }
 
-  @media (min-width: 768px) {
-    .card-flip-container {
-      width: 176px;
-      height: 176px;
+  /* --- Étiquette technique des cartes flottantes du hero ------------------ */
+  .float-label {
+    @apply text-[9px] font-semibold uppercase tracking-[0.16em] text-primary/70;
+  }
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@layer utilities {
+  /* Apparition au scroll : l'élément part en bas + transparent, puis remonte.
+     Piloté par le hook useReveal (IntersectionObserver). */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Défilement infini des logos (bandeau technos). */
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+  .marquee-wrapper:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
     }
   }
 
-  .card-flip-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
-    cursor: pointer;
+  /* Petit drapeau du hero (à côté du nom) : légère ondulation continue,
+     comme s'il flottait au vent. `transform-origin: left` fait pivoter la
+     hampe fixe pendant que le reste du tissu bouge. */
+  .animate-flag-wave {
+    transform-origin: left center;
+    animation: flag-wave 2.6s ease-in-out infinite;
   }
 
-  .card-flip-container:hover .card-flip-inner,
-  .card-flip-container.flipped .card-flip-inner {
-    transform: rotateY(180deg);
+  @keyframes flag-wave {
+    0%,
+    100% {
+      transform: rotate(0deg) scaleY(1);
+    }
+    25% {
+      transform: rotate(-3deg) scaleY(0.97);
+    }
+    50% {
+      transform: rotate(0deg) scaleY(1.02);
+    }
+    75% {
+      transform: rotate(3deg) scaleY(0.97);
+    }
   }
 
-  .card-flip-front,
-  .card-flip-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-  }
-
-  .card-flip-back {
-    transform: rotateY(180deg);
-  }
-
-  /* ── Testimonials ── */
-  .testimonial-card {
-    @apply glass rounded-2xl p-6 border border-border/50 hover:border-primary/20 transition-all duration-500 hover:shadow-hero;
-  }
-
-  /* Hide scrollbar for horizontal slider */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  /* Respecte le réglage système « réduire les animations ». */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .animate-marquee {
+      animation: none;
+    }
+    .animate-flag-wave {
+      animation: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
   }
 }

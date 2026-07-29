@@ -1,92 +1,157 @@
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "./ThemeToggle";
+import { useEffect, useMemo, useState } from "react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useSectionNavigation } from "@/hooks/useSectionNavigation";
+import { Logo } from "@/components/Logo";
+import { LanguageToggle } from "@/components/LanguageToggle";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { whatsappHref } from "@/data/profile";
+import { cn } from "@/lib/utils";
 
-const navItems = [
-  { href: "#home", label: "Accueil" },
-  { href: "#about", label: "À propos" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projets" },
-  { href: "#contact", label: "Contact" },
-];
+/** Identifiants des sections cibles. Doivent correspondre aux `id` du DOM. */
+const SECTION_IDS = ["home", "work", "services", "expertise", "process", "contact"] as const;
+type SectionId = (typeof SECTION_IDS)[number];
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  /* Défilement vers une section + surlignage du lien correspondant.
+     Toute la logique vit dans un hook dédié : ce composant ne fait que le rendu. */
+  const { activeSection, goToSection } = useSectionNavigation(SECTION_IDS);
+
+  /** Libellés traduits, recalculés uniquement quand la langue change. */
+  const links = useMemo(
+    () =>
+      [
+        { id: "home", label: t.nav.home },
+        { id: "work", label: t.nav.projects },
+        { id: "services", label: t.nav.services },
+        { id: "expertise", label: t.nav.expertise },
+        { id: "process", label: t.nav.process },
+        { id: "contact", label: t.nav.contact },
+      ] as { id: SectionId; label: string }[],
+    [t]
+  );
+
+  /* --- Fond opaque dès que la page défile ---------------------------------- */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* --- Verrouille le défilement de la page quand le menu mobile est ouvert - */
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  const goTo = (id: SectionId) => {
+    setIsMenuOpen(false);
+
+    /* Le menu mobile fige le défilement du <body>. `setIsMenuOpen` étant
+       asynchrone, l'effet qui lève ce verrou ne s'exécutera qu'après le
+       prochain rendu — trop tard : `scrollIntoView` serait ignoré. On libère
+       donc le verrou tout de suite, de façon synchrone. */
+    document.body.style.overflow = "";
+
+    goToSection(id);
+  };
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled 
-        ? "glass shadow-card backdrop-blur-xl border-b border-border/20" 
-        : "bg-transparent"
-    }`}>
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="text-xl font-bold hover:scale-105 transition-transform duration-300 cursor-pointer">
-            <span className="text-gradient">Paul Emile</span>
-          </div>
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        isScrolled ? "glass border-b border-border" : "bg-transparent"
+      )}
+    >
+      <nav className="container-page flex h-[4.5rem] items-center justify-between gap-4">
+        <button type="button" onClick={() => goTo("home")} aria-label="Paul Emile PECKOUET-BINOMBO">
+          <Logo />
+        </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium relative group"
+        {/* --- Liens (desktop) --- */}
+        <ul className="hidden items-center gap-0.5 xl:flex">
+          {links.map((link) => (
+            <li key={link.id}>
+              <button
+                type="button"
+                onClick={() => goTo(link.id)}
+                data-active={activeSection === link.id}
+                className="nav-link"
               >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            ))}
-            <ThemeToggle />
-          </div>
+                {link.label}
+              </button>
+            </li>
+          ))}
+        </ul>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
-            <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-              className="glass hover:scale-105 transition-all duration-300"
-              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          </div>
+        {/* --- Actions --- */}
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <ThemeToggle />
+
+          <a
+            href={whatsappHref(t.contact.whatsappMessage)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost hidden md:inline-flex"
+          >
+            {t.nav.cta}
+            <ArrowUpRight className="h-3 w-3" strokeWidth={2.5} />
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? t.nav.closeMenu : t.nav.openMenu}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-foreground xl:hidden"
+          >
+            {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
+      </nav>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 glass border-t border-border/20 backdrop-blur-xl">
-            <div className="container mx-auto px-6 py-4">
-              <div className="flex flex-col gap-4">
-                {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium py-2 hover:translate-x-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+      {/* --- Menu mobile --- */}
+      {isMenuOpen && (
+        <div className="glass border-t border-border xl:hidden">
+          <ul className="container-page flex flex-col py-3">
+            {links.map((link) => (
+              <li key={link.id}>
+                <button
+                  type="button"
+                  onClick={() => goTo(link.id)}
+                  className={cn(
+                    "w-full rounded-lg px-3 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.11em] transition-colors",
+                    activeSection === link.id
+                      ? "bg-primary-soft text-primary"
+                      : "text-foreground hover:bg-muted"
+                  )}
+                >
+                  {link.label}
+                </button>
+              </li>
+            ))}
+            <li className="pt-2">
+              <a
+                href={whatsappHref(t.contact.whatsappMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-solid w-full"
+              >
+                {t.nav.cta}
+                <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
+    </header>
   );
 }

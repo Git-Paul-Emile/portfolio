@@ -1,82 +1,113 @@
-# Portfolio – Paul Emile PECKOUET-BINOMBO
+# Portfolio — Paul Emile PECKOUET-BINOMBO
 
-Bienvenue sur mon portfolio de développeur fullstack junior !
+Portfolio de développeur full stack : présentation, réalisations, expertise technique et contact.
+Site **bilingue français / anglais** (français par défaut), avec mode clair et mode sombre.
 
-## Présentation
+## Stack
 
-Ce projet présente mes compétences, mon parcours et mes réalisations web & mobile.  
-Il est construit avec :
+| Couche | Technologies |
+| --- | --- |
+| Build | Vite 5, TypeScript 5.8 |
+| UI | React 18, Tailwind CSS 3.4, shadcn/ui (Radix UI) |
+| Icônes | Lucide (interface) + react-icons/si (logos de marques) |
+| Routage | React Router 6 |
 
-- [Vite](https://vitejs.dev/) (React + TypeScript)
-- [shadcn-ui](https://ui.shadcn.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Lucide Icons](https://lucide.dev/)
+Aucune dépendance n'a été ajoutée pour l'internationalisation : le système est écrit à la main
+(React Context + dictionnaires typés), soit ~150 lignes et 0 Ko de bundle supplémentaire.
 
-## Démarrage local
+## Démarrage
 
-1. **Cloner le dépôt :**
-   ```bash
-   git clone https://github.com/PECKOUET-BINOMBO/stack-story-display.git
-   cd mon_portfolio
-   ```
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # génère dist/
+npm run lint
+```
 
-2. **Installer les dépendances :**
-   ```bash
-   npm install
-   # ou
-   yarn install
-   ```
+## Architecture
 
-3. **Lancer le serveur de développement :**
-   ```bash
-   npm run dev
-   # ou
-   yarn dev
-   ```
+```
+src/
+├── i18n/                     # Internationalisation
+│   ├── fr.ts                 #   Dictionnaire FR — SOURCE DE VÉRITÉ du typage
+│   ├── en.ts                 #   Dictionnaire EN — typé `Dictionary`, complétude garantie par tsc
+│   ├── types.ts              #   Locale, Dictionary = typeof fr, métadonnées des langues
+│   └── index.ts              #   Registre des dictionnaires
+│
+├── data/                     # Contenu — aucune donnée en dur dans les composants
+│   ├── profile.ts            #   Coordonnées, CV, liens WhatsApp/mailto/tel
+│   ├── projects.ts           #   Les 10 projets (descriptions FR + EN, stack, captures)
+│   └── tech.ts               #   Technologies affichées dans « Mon expertise »
+│
+├── hooks/
+│   ├── useLanguage.tsx       #   LanguageProvider + useLanguage()
+│   ├── useTheme.tsx          #   ThemeProvider (clair / sombre / système)
+│   └── useReveal.ts          #   Animation à l'entrée dans le viewport (IntersectionObserver)
+│
+├── components/
+│   ├── Navigation.tsx        #   Barre fixe, lien actif, menu mobile
+│   ├── Footer.tsx
+│   ├── LanguageToggle.tsx    #   Pilule FR | EN
+│   ├── ThemeToggle.tsx
+│   ├── Reveal.tsx            #   Enveloppe d'animation réutilisable
+│   ├── SectionHeading.tsx    #   En-tête standard de section
+│   ├── projects/             #   Carte, couverture générée, fiche détaillée
+│   ├── sections/             #   Hero, Work, Services, Expertise, Process, Contact
+│   └── ui/                   #   Primitives shadcn/ui
+│
+├── lib/
+│   ├── assets.ts             #   encodage des chemins /public (espaces, accents)
+│   └── utils.ts              #   cn() — fusion de classes Tailwind
+│
+└── index.css                 # Design system : tokens de couleurs, classes utilitaires
+```
 
-4. Accède à [http://localhost:5173](http://localhost:5173) (ou le port affiché).
+### Principes appliqués
 
-## Structure du projet
+- **Source de vérité unique.** Un texte, une coordonnée ou un projet n'existe qu'à un seul endroit.
+  Modifier le numéro de téléphone dans `data/profile.ts` le met à jour dans les quatre endroits
+  où il apparaît.
+- **Traductions vérifiées à la compilation.** `Dictionary = typeof fr` : oublier une clé dans
+  `en.ts` fait échouer `npm run build`. Aucune traduction manquante ne peut atteindre la production.
+- **Aucune couleur en dur.** Toutes les couleurs passent par des variables CSS déclarées dans
+  `index.css` et exposées à Tailwind. Changer la charte = modifier un seul fichier.
+- **Chiffres calculés, pas saisis.** Les statistiques du hero (années d'expérience, nombre de
+  projets, nombre de technologies) sont dérivées des données réelles et ne périment jamais.
+- **Séparation données / présentation.** Les composants de section ne contiennent ni texte ni
+  donnée : ils parcourent `src/data` et `src/i18n`.
 
-- `src/components/` : composants réutilisables (UI, sections…)
-- `src/pages/Index.tsx` : page principale
-- `public/` : fichiers statiques (images, CV…)
+## Ajouter un projet
+
+1. Ajouter une entrée dans le tableau `PROJECTS` de `src/data/projects.ts`
+   (descriptions `fr` **et** `en` obligatoires — TypeScript le vérifie).
+2. Déposer les captures dans `public/<nom-du-projet>/` et référencer les chemins.
+   Sans capture, une couverture dégradée avec les initiales est générée automatiquement.
+3. Passer `featured: true` pour l'afficher dès le premier écran de la section « Réalisations ».
+
+Aucun composant n'est à modifier.
+
+## Ajouter une langue
+
+1. Ajouter le code dans `LOCALES` (`src/i18n/types.ts`) et ses métadonnées dans `LOCALE_META`.
+2. Créer `src/i18n/<code>.ts` typé `Dictionary`, puis l'enregistrer dans `src/i18n/index.ts`.
+3. Compléter chaque projet de `data/projects.ts` avec la nouvelle langue.
+
+`tsc` signale précisément tout ce qui manque.
 
 ## Déploiement
 
-### Sur [Vercel](https://vercel.com/)
+```bash
+npm run build     # produit dist/
+```
 
-1. Crée un compte sur Vercel.
-2. Clique sur « New Project » et connecte ton repo GitHub.
-3. Vercel détecte Vite automatiquement (voir [`vercel.json`](vercel.json)).
-4. Le site sera accessible sur une URL du type `https://ton-projet.vercel.app`.
-
-### Sur [Netlify](https://netlify.com/)
-
-1. Crée un compte Netlify.
-2. Clique sur « Add new site » > « Import an existing project ».
-3. Connecte ton repo Git.
-4. Build command : `npm run build` ; Publish directory : `dist`.
-
-### Déploiement manuel
-
-1. Génère le build :
-   ```bash
-   npm run build
-   ```
-2. Envoie le dossier `dist/` sur ton hébergement web.
-
-## Personnalisation
-
-- Modifie les sections dans `src/components/sections/` pour adapter à ton profil.
-- Ajoute ton CV dans le dossier `public/` et mets à jour le lien dans le composant Hero.
+- **Vercel / Netlify** : connecter le dépôt, build `npm run build`, dossier publié `dist`.
+- **Hébergement classique (XAMPP, Apache, o2switch…)** : envoyer le contenu de `dist/`.
 
 ## Contact
 
-Paul Emile PECKOUET-BINOMBO  
-apeckouet@gmail.com  
-[LinkedIn](https://urlr.me/HJ85DF) | [Instagram](https://urlr.me/uCngGx)
+Paul Emile PECKOUET-BINOMBO — apeckouet@gmail.com — (+221) 77 299 58 51
+[LinkedIn](https://urlr.me/HJ85DF)
 
 ---
 
-© 2025 Paul Emile PECKOUET-BINOMBO. Tous droits réservés.
+© 2026 Paul Emile PECKOUET-BINOMBO. Tous droits réservés.

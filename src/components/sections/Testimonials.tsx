@@ -1,73 +1,148 @@
-import { Quote } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { TESTIMONIALS } from "@/data/testimonials";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useParallax } from "@/hooks/useParallax";
+import { assetUrl } from "@/lib/assets";
+import { Reveal } from "@/components/Reveal";
+import { cn } from "@/lib/utils";
 
-const testimonials = [
-  {
-    name: "Birane Baila WANE",
-    title: "Formateur & Encadrant technique",
-    text: "Paul Emile a démontré une vraie capacité à s'approprier rapidement les concepts techniques et à les appliquer dans des projets concrets. Sa rigueur et son sens du détail font de lui un développeur fiable et sérieux.",
-  },
-  {
-    name: "Aly Tall NIANG",
-    title: "Développeur senior & Mentor",
-    text: "Ce qui me frappe chez Paul Emile, c'est sa curiosité et sa volonté de toujours produire un code propre et maintenable. Il est capable de travailler en équipe comme de manière autonome, avec une grande adaptabilité.",
-  },
-];
+/** Durée d'affichage d'un témoignage avant passage automatique au suivant. */
+const AUTOPLAY_MS = 7000;
 
+/** Initiales d'un nom, affichées quand la personne n'a pas de photo. */
+function initialsOf(name: string): string {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => word.charAt(0).toUpperCase())
+    .join("");
+}
+
+/**
+ * Carte de citation pleine largeur, reprise de la maquette :
+ * grand guillemet teal à gauche, texte au centre, portrait et identité à
+ * droite, points de navigation sous le portrait.
+ *
+ * Le défilement automatique se met en pause au survol : l'utilisateur qui lit
+ * un témoignage ne doit pas le voir disparaître sous ses yeux.
+ */
 export function Testimonials() {
+  const { locale, t } = useLanguage();
+  const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  /** Le guillemet dérive légèrement au défilement : la carte prend du relief. */
+  const quoteRef = useParallax<HTMLSpanElement>({ speed: 0.08, max: 26 });
+
+  const total = TESTIMONIALS.length;
+
+  /* `useCallback` : ces fonctions sont utilisées comme dépendances d'un effet.
+     Sans mémoïsation, elles seraient recréées à chaque rendu et relanceraient
+     le minuteur en boucle. */
+  const goNext = useCallback(() => setIndex((i) => (i + 1) % total), [total]);
+  const goPrev = useCallback(() => setIndex((i) => (i - 1 + total) % total), [total]);
+
+  useEffect(() => {
+    if (isPaused || total < 2) return;
+
+    const timer = window.setInterval(goNext, AUTOPLAY_MS);
+    return () => window.clearInterval(timer);
+  }, [goNext, isPaused, total]);
+
+  if (total === 0) return null;
+
+  const current = TESTIMONIALS[index];
+
   return (
-    <section className="py-20 bg-gradient-to-br from-muted/20 to-background relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-10 left-1/4 w-64 h-64 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-1/4 w-48 h-48 bg-gradient-to-br from-accent/5 to-primary/5 rounded-full blur-2xl"></div>
-      </div>
+    <div className="container-page pb-4">
+      <Reveal>
+        <figure
+          aria-roledescription="carousel"
+          aria-label={t.testimonials.regionLabel}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          className="relative grid items-center gap-6 rounded-2xl bg-muted p-6 sm:p-8 lg:grid-cols-[auto_1fr_auto] lg:gap-10"
+        >
+          {/* --- Guillemet ouvrant, purement décoratif ---
+              `leading-[0.7]` colle le glyphe au haut de sa boîte : sans cela,
+              une police serif réserve un large espace sous la ligne de base et
+              le guillemet paraîtrait décentré vers le haut. */}
+          <span
+            ref={quoteRef}
+            aria-hidden="true"
+            className="select-none self-start font-serif text-[7rem] leading-[0.7] text-primary/40 lg:text-[10rem]"
+          >
+            &ldquo;
+          </span>
 
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Ils me <span className="text-gradient">recommandent</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            La confiance que m'accordent mes collaborateurs et mentors est ma meilleure carte de visite.
-          </p>
-        </div>
+          {/* --- Texte --- */}
+          <blockquote className="text-base leading-relaxed text-foreground/85 sm:text-lg">
+            {current.quote[locale]}
+          </blockquote>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {testimonials.map((t, index) => (
-            <div
-              key={index}
-              className="testimonial-card relative"
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              {/* Quote icon */}
-              <div className="mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center">
-                  <Quote className="h-5 w-5 text-primary" />
-                </div>
-              </div>
+          {/* --- Auteur --- */}
+          <figcaption className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-secondary text-sm font-bold text-secondary-foreground ring-2 ring-card">
+              {current.avatar ? (
+                <img
+                  src={assetUrl(current.avatar)}
+                  alt={current.author}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                initialsOf(current.author)
+              )}
+            </span>
 
-              <p className="text-muted-foreground leading-relaxed mb-6 italic">
-                "{t.text}"
-              </p>
+            <span className="lg:min-w-[9rem]">
+              <span className="block text-sm font-bold text-foreground">{current.author}</span>
+              <span className="block text-xs text-muted-foreground">{current.role[locale]}</span>
 
-              <div className="flex items-center gap-3 pt-4 border-t border-border/40">
-                {/* Avatar initiales */}
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-sm shrink-0">
-                  {t.name
-                    .split(" ")
-                    .slice(0, 2)
-                    .map((n) => n[0])
-                    .join("")}
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.title}</p>
-                </div>
-              </div>
+              {/* --- Points de navigation --- */}
+              {total > 1 && (
+                <span className="mt-3 flex items-center gap-1.5">
+                  {TESTIMONIALS.map((item, i) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setIndex(i)}
+                      aria-label={`${t.testimonials.goTo} ${i + 1}`}
+                      aria-current={i === index}
+                      className={cn(
+                        "h-1.5 rounded-full transition-all duration-300",
+                        i === index ? "w-5 bg-primary" : "w-1.5 bg-border hover:bg-primary/40"
+                      )}
+                    />
+                  ))}
+                </span>
+              )}
+            </span>
+          </figcaption>
+
+          {/* --- Flèches --- */}
+          {total > 1 && (
+            <div className="absolute right-5 top-5 flex gap-1.5">
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label={t.testimonials.previous}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:text-primary"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label={t.testimonials.next}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:text-primary"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+          )}
+        </figure>
+      </Reveal>
+    </div>
   );
 }

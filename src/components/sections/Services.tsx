@@ -1,67 +1,114 @@
-import { Smartphone, Layout, Server, Webhook, Database, Wrench } from "lucide-react";
+import { useState } from "react";
+import {
+  MonitorSmartphone,
+  Network,
+  Globe,
+  Smartphone,
+  Database,
+  Rocket,
+  ChevronDown,
+  ChevronUp,
+  type LucideIcon,
+} from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
+import { Reveal } from "@/components/Reveal";
+import { cn } from "@/lib/utils";
 
-const services = [
-  {
-    icon: Smartphone,
-    title: "Développement d'applications Web/mobile",
-    description: "Création d'applications web/mobile modernes adaptées à vos besoins.",
-  },
-  {
-    icon: Layout,
-    title: "Développement Frontend",
-    description: "Interfaces utilisateur modernes, responsives et performantes.",
-  },
-  {
-    icon: Server,
-    title: "Développement Backend",
-    description: "Création d'API sécurisées, authentification, gestion des données et logique métier.",
-  },
-  {
-    icon: Webhook,
-    title: "Intégration d'API",
-    description: "Paiement, Email, Authentification, API tierces, Webhooks.",
-  },
-  {
-    icon: Database,
-    title: "Conception de Base de Données",
-    description: "Modélisation, optimisation et sécurisation des données.",
-  },
-  {
-    icon: Wrench,
-    title: "Maintenance & Évolution",
-    description: "Correction de bugs, optimisation des performances et ajout de nouvelles fonctionnalités.",
-  },
+/**
+ * Icônes des services, dans le MÊME ORDRE que `t.services.items`.
+ *
+ * Pourquoi séparer icônes et textes ? Les textes vivent dans les dictionnaires
+ * de traduction (fr.ts / en.ts), qui doivent rester purement textuels — on n'y
+ * met pas de composants React. Le lien se fait par l'index du tableau.
+ */
+const SERVICE_ICONS: LucideIcon[] = [
+  MonitorSmartphone, // Applications web
+  Network, // API REST & Backend
+  Globe, // Sites vitrines & e-commerce
+  Smartphone, // Applications mobiles
+  Database, // Base de données
+  Rocket, // Déploiement & maintenance
 ];
 
+/**
+ * Sur mobile, la grille passe à une seule colonne : les 6 cartes forment une
+ * longue colonne avant d'atteindre la section suivante. On n'en montre que 3,
+ * le reste étant masqué derrière « Voir plus » — même repli que la section
+ * « Mon expertise ». À partir de `sm`, la grille passe à 2-3 colonnes et tout
+ * tient dans l'écran : le repli ne s'applique donc qu'en dessous de ce point
+ * de rupture.
+ */
+const MOBILE_ITEMS_COLLAPSED = 3;
+
 export function Services() {
+  const { t } = useLanguage();
+  const [showAll, setShowAll] = useState(false);
+
+  const hasOverflow = t.services.items.length > MOBILE_ITEMS_COLLAPSED;
+
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-gradient">Services</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Des solutions sur mesure pour transformer vos idées en produits concrets.
-          </p>
+    <section id="services" className="scroll-mt-24 py-14">
+      <div className="container-page">
+        <Reveal>
+          <p className="eyebrow">{t.services.eyebrow}</p>
+          <h2 className="section-title mt-1.5">{t.services.title}</h2>
+        </Reveal>
+
+        <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {t.services.items.map((service, index) => {
+            const Icon = SERVICE_ICONS[index] ?? MonitorSmartphone;
+            const collapsedOnMobile = !showAll && index >= MOBILE_ITEMS_COLLAPSED;
+
+            return (
+              <Reveal
+                key={service.title}
+                delay={Math.min(index, 4) * 60}
+                className={cn("h-full", collapsedOnMobile ? "hidden sm:block" : "block")}
+              >
+                {/* Disposition horizontale : pastille ronde à gauche, texte à
+                    droite — c'est la composition exacte de la maquette. */}
+                <article className="group relative flex h-full items-start gap-4 overflow-hidden rounded-xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+                  <span className="icon-circle">
+                    <Icon className="h-5 w-5" strokeWidth={1.6} />
+                  </span>
+
+                  <div className="min-w-0">
+                    <h3 className="text-[15px] font-bold leading-snug">{service.title}</h3>
+                    <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  {/* Barre d'accent violette en bas de carte : discrète au repos,
+                      elle s'étire au survol. */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-0 left-1/2 h-[3px] w-10 -translate-x-1/2 rounded-full bg-primary transition-all duration-300 group-hover:w-24"
+                  />
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
 
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className="card-glass text-left border border-border/50 hover:border-primary/20 transition-all duration-300"
+        {/* Uniquement sur mobile : à partir de `sm`, la grille tient déjà
+            entièrement sur l'écran et ce bouton n'a plus lieu d'être. */}
+        {hasOverflow && (
+          <div className="mt-6 flex justify-center sm:hidden">
+            <button
+              type="button"
+              onClick={() => setShowAll((value) => !value)}
+              className="link-action"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center mb-4">
-                <service.icon className="h-5 w-5 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {service.description}
-              </p>
-            </div>
-          ))}
-        </div>
+              {showAll ? t.services.viewLess : t.services.viewMore}
+              {showAll ? (
+                <ChevronUp className="h-3.5 w-3.5" strokeWidth={2.5} />
+              ) : (
+                <ChevronDown className="h-3.5 w-3.5" strokeWidth={2.5} />
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

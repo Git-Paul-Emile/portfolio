@@ -1,47 +1,32 @@
-import { Moon, Sun, Monitor } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
+import { useLanguage } from "@/hooks/useLanguage";
+import { cn } from "@/lib/utils";
 
-export function ThemeToggle() {
+/**
+ * Bascule clair / sombre.
+ * Le thème par défaut du site est CLAIR ; le mode sombre reste disponible
+ * et le choix est mémorisé par le ThemeProvider (localStorage).
+ */
+export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
+
+  const isDark = theme === "dark";
+  const label = isDark ? t.a11y.switchToLight : t.a11y.switchToDark;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="glass hover:bg-primary/10 transition-all duration-300 hover:scale-105"
-        >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="glass border border-border/50">
-        <DropdownMenuItem 
-          onClick={() => setTheme("light")}
-          className="cursor-pointer hover:bg-primary/10 transition-colors"
-        >
-          <Sun className="mr-2 h-4 w-4" />
-          <span>Clair</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem 
-          onClick={() => setTheme("dark")}
-          className="cursor-pointer hover:bg-primary/10 transition-colors"
-        >
-          <Moon className="mr-2 h-4 w-4" />
-          <span>Sombre</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem 
-          onClick={() => setTheme("system")}
-          className="cursor-pointer hover:bg-primary/10 transition-colors"
-        >
-          <Monitor className="mr-2 h-4 w-4" />
-          <span>Système</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <button
+      type="button"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label={label}
+      title={label}
+      className={cn(
+        "flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors duration-200 hover:text-primary",
+        className
+      )}
+    >
+      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
   );
 }

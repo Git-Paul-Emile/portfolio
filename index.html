@@ -1,23 +1,52 @@
 <!doctype html>
-<html lang="en" class="dark">
+<!--
+  lang="fr" : le site est en français par défaut. L'attribut est mis à jour
+  dynamiquement par le LanguageProvider lorsque l'utilisateur bascule en anglais
+  (important pour le SEO et les lecteurs d'écran).
+-->
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paul Emile PECKOUET-BINOMBO - Développeur Fullstack</title>
-    <meta name="description" content="Portfolio de Paul Emile PECKOUET-BINOMBO, développeur fullstack évoluant en React, Node.js, Laravel. Découvrez mes projets web et mobiles." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="/Gemini_Generated_Image_necb72necb72necb.png" type="image/png">
 
-    <meta property="og:title" content="Paul Emile PECKOUET-BINOMBO - Développeur Fullstack" />
-    <meta property="og:description" content="Portfolio de développeur fullstack évoluant en React, Node.js, Laravel" />
+    <title>Paul Emile PECKOUET-BINOMBO — Développeur Full Stack</title>
+    <meta
+      name="description"
+      content="Portfolio de Paul Emile PECKOUET-BINOMBO, développeur full stack. Applications web et mobiles modernes, performantes et évolutives : React, Next.js, Angular, Node.js, PostgreSQL."
+    />
+    <meta name="author" content="Paul Emile PECKOUET-BINOMBO" />
+    <meta name="theme-color" content="#7C5CFF" />
+
+    <!-- Polices : preconnect ouvre la connexion TCP/TLS en parallèle du HTML,
+         ce qui économise quelques centaines de millisecondes au premier rendu. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- Partage sur les réseaux sociaux -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/Paul Émile PECKOUET-BINOMBO.jpg" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="Paul Emile PECKOUET-BINOMBO — Développeur Full Stack" />
+    <meta
+      property="og:description"
+      content="Applications web et mobiles modernes, performantes et évolutives. React, Next.js, Angular, Node.js, PostgreSQL."
+    />
+    <meta property="og:image" content="/mon-photo-d-identite.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="/Paul Émile PECKOUET-BINOMBO.jpg" />
+    <meta name="twitter:title" content="Paul Emile PECKOUET-BINOMBO — Développeur Full Stack" />
+    <meta
+      name="twitter:description"
+      content="Applications web et mobiles modernes, performantes et évolutives."
+    />
+    <meta name="twitter:image" content="/mon-photo-d-identite.jpg" />
   </head>
 
   <body>
