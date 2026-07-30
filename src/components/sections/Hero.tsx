@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useParallax } from "@/hooks/useParallax";
@@ -87,62 +86,6 @@ function Stat({ target, suffix = "", label }: { target: number; suffix?: string;
 }
 
 /**
- * Les deux poses du portrait mobile. Même cadrage, même échelle : les deux
- * fichiers sont recadrés sur la MÊME boîte englobante (union des silhouettes),
- * si bien que le personnage ne se déplace pas d'un pixel pendant le fondu —
- * seule la pose change.
- */
-const MOBILE_PORTRAIT_COUNT = 2;
-
-/** Durée d'affichage d'une pose, en millisecondes. */
-const PORTRAIT_SWAP_MS = 6000;
-
-/**
- * Fait tourner l'index de la pose mobile affichée.
- *
- * Deux garde-fous :
- *  - `matchMedia("(max-width: 1023px)")` : au-delà, c'est le buste de bureau
- *    qui est affiché, il n'y a rien à permuter — inutile de faire tourner un
- *    minuteur en arrière-plan ;
- *  - `prefers-reduced-motion` : l'utilisateur qui a désactivé les animations
- *    dans son système ne doit pas voir l'image changer toute seule.
- */
-function usePortraitRotation() {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 1023.98px)");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    let timer: number | undefined;
-
-    const sync = () => {
-      window.clearInterval(timer);
-      if (!isMobile.matches || reduced.matches) {
-        setIndex(0);
-        return;
-      }
-      timer = window.setInterval(
-        () => setIndex((i) => (i + 1) % MOBILE_PORTRAIT_COUNT),
-        PORTRAIT_SWAP_MS
-      );
-    };
-
-    sync();
-    isMobile.addEventListener("change", sync);
-    reduced.addEventListener("change", sync);
-
-    return () => {
-      window.clearInterval(timer);
-      isMobile.removeEventListener("change", sync);
-      reduced.removeEventListener("change", sync);
-    };
-  }, []);
-
-  return index;
-}
-
-/**
  * Section d'ouverture : texte à gauche, portrait détouré à droite posé sur des
  * cercles concentriques.
  *
@@ -170,8 +113,6 @@ export function Hero() {
   const haloRef = useParallax<HTMLDivElement>({ speed: 0.28, max: 180 });
   const portraitRef = useParallax<HTMLDivElement>({ speed: 0.05, max: 50 });
   const textRef = useParallax<HTMLDivElement>({ speed: 0.09, max: 90 });
-
-  const portraitIndex = usePortraitRotation();
 
   const stats = [
     { target: PROFILE.yearsOfExperience, label: t.hero.stats.experience },
@@ -206,12 +147,21 @@ export function Hero() {
 
             À partir de `lg` : retour à une vraie grille deux colonnes, le
             portrait redevient un élément de flux (`lg:relative`). */}
-        <div className="relative flex h-full items-center lg:grid lg:h-auto lg:grid-cols-[1fr_0.88fr] lg:items-center lg:gap-6">
+        {/* `items-start` sous `lg` : le texte n'est plus centré verticalement,
+            il démarre haut. À partir de `lg`, la grille reprend son centrage. */}
+        <div className="relative flex h-full items-start lg:grid lg:h-auto lg:grid-cols-[1fr_0.88fr] lg:items-center lg:gap-6">
           {/* ============================ Colonne texte =======================
               57 % : c'est la largeur qui reste à gauche une fois le personnage
               posé à droite. Les corps de texte ci-dessous sont calés dessus
               pour que chaque ligne tienne d'un seul tenant. */}
-          <div ref={textRef} className="relative z-10 w-[55%] min-w-0 lg:w-auto">
+          {/* `mt-[13svh]` cale le haut du texte sur la ligne des ÉPAULES du
+              portrait. Le personnage occupe toute la hauteur utile du hero et
+              ses épaules commencent à environ 15 % de sa propre hauteur
+              (mesuré sur le canal alpha du PNG) : une marge exprimée en `svh`
+              suit donc ce repère sur n'importe quel téléphone, alors qu'une
+              valeur en pixels se décalerait dès que l'écran change de hauteur.
+              `lg:mt-0` : sur ordinateur, la grille recentre tout. */}
+          <div ref={textRef} className="relative z-10 mt-[13svh] w-[55%] min-w-0 lg:mt-0 lg:w-auto">
             {/* Tailles mobiles calées sur les 57 % de largeur disponibles : à
                 ces corps, « PECKOUET-BINOMBO » et chacune des deux lignes de
                 rôle tiennent sur UNE ligne. Monter d'un cran suffirait à les
@@ -328,10 +278,7 @@ export function Hero() {
                   photos à la fois. Les classes de l'<img> couvrent les deux
                   mises en page (plan large posé sur le texte sous `lg`, buste
                   centré sur les anneaux à partir de `lg`). */}
-              <picture
-                className="block h-full transition-opacity duration-1000 ease-in-out lg:h-auto lg:!opacity-100"
-                style={{ opacity: portraitIndex === 0 ? 1 : 0 }}
-              >
+              <picture className="block h-full lg:h-auto">
                 <source
                   media="(min-width: 1024px)"
                   srcSet={assetUrl("/hero.webp")}
@@ -357,35 +304,6 @@ export function Hero() {
                      l'attribut HTML exact attendu par le navigateur. */
                   {...{ fetchpriority: "high" }}
                   className="relative block h-full w-full select-none object-contain object-[right_bottom] lg:mx-auto lg:h-auto lg:max-h-[calc(100svh-11rem)] lg:w-auto lg:object-center"
-                />
-              </picture>
-
-              {/* --- Seconde pose, en surimpression exacte -------------------
-                  Les deux calques se superposent au pixel près (même recadrage,
-                  mêmes classes) : seule l'opacité change, ce qui donne un
-                  fondu enchaîné plutôt qu'un saut d'image.
-
-                  `lg:hidden` + `loading="lazy"` : sur ordinateur le calque est
-                  en `display: none`, donc jamais dans le champ de vision, donc
-                  jamais téléchargé — le chargement paresseux sert ici à ne pas
-                  payer 16 ko pour une image que le bureau n'affiche pas.
-
-                  `aria-hidden` : c'est la même personne que le calque du
-                  dessous, un lecteur d'écran ne doit pas l'annoncer deux fois.  */}
-              <picture
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 block transition-opacity duration-1000 ease-in-out lg:hidden"
-                style={{ opacity: portraitIndex === 1 ? 1 : 0 }}
-              >
-                <source srcSet={assetUrl("/hero-mobile-2.webp")} type="image/webp" />
-                <img
-                  src={assetUrl("/hero-mobile-2.png")}
-                  alt=""
-                  width={203}
-                  height={646}
-                  loading="lazy"
-                  decoding="async"
-                  className="block h-full w-full select-none object-contain object-[right_bottom]"
                 />
               </picture>
             </div>

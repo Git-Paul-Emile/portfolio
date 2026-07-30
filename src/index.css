@@ -327,6 +327,94 @@
   .float-label {
     @apply text-[9px] font-semibold uppercase tracking-[0.16em] text-primary/70;
   }
+
+  /* ==========================================================================
+     ÎLOT SOMBRE — SECTION SERVICES
+     Le site enchaîne des surfaces claires (lavande, coquille blanche, cartes
+     blanches). Sur une page longue, cette continuité finit par lasser l'œil :
+     rien n'accroche, tout se ressemble. La section Services devient donc une
+     bande vert sapin qui coupe la page en deux — un point de respiration, et
+     un repère de navigation quand on fait défiler vite.
+
+     ── Comment c'est fait ────────────────────────────────────────────────────
+     PAS en repeignant chaque élément un par un. On REDÉFINIT localement les
+     variables de thème sur le conteneur de section. Toutes les classes
+     sémantiques déjà présentes dans le balisage — `bg-card`, `border-border`,
+     `text-muted-foreground`, `text-primary`, `.eyebrow`, `.section-title`,
+     `.icon-circle`, `.link-action` — lisent ces variables et se réaccordent
+     toutes seules. Aucun `dark:` à écrire, aucune duplication : c'est le même
+     mécanisme que le thème sombre du site, appliqué à une seule section.
+
+     Conséquence directe et voulue : la bande est IDENTIQUE en thème clair et
+     en thème sombre. Elle ne dépend plus du thème, elle porte le sien.
+     ======================================================================== */
+  .section-services {
+    /* Surfaces : vert sapin très désaturé en fond, un cran plus clair pour les
+       cartes afin qu'elles se détachent sans filet marqué. */
+    --background: 170 58% 8%;
+    --foreground: 158 30% 96%;
+    --card: 170 34% 13%;
+    --card-foreground: 158 30% 96%;
+    --muted: 170 34% 11%;
+    --popover: 170 34% 13%;
+    --popover-foreground: 158 30% 96%;
+
+    /* Texte secondaire : 75 % de clarté. En dessous, le rapport de contraste
+       avec le fond des cartes passerait sous le seuil WCAG AA de 4,5:1. */
+    --muted-foreground: 160 22% 75%;
+
+    --border: 170 22% 25%;
+    --input: 170 22% 25%;
+
+    /* Marque inversée : sur fond sombre, le teal-600 du site (27 % de clarté)
+       serait illisible. On monte à une menthe à 60 % de clarté, et le texte
+       posé SUR cette menthe redevient le vert sombre. */
+    --primary: 166 62% 60%;
+    --primary-hover: 166 62% 70%;
+    --primary-dark: 166 62% 52%;
+    --primary-foreground: 172 70% 9%;
+    --primary-soft: 166 55% 68%;
+    --primary-tint: 170 34% 16%;
+    --secondary: 170 34% 16%;
+    --secondary-foreground: 158 30% 96%;
+    --ring: 166 62% 60%;
+
+    /* Les ombres du site sont noires à 6-10 % : calibrées pour un fond clair,
+       elles sont rigoureusement invisibles ici. On les rend franches. */
+    --shadow-soft: 0 1px 2px hsl(0 0% 0% / 0.3), 0 4px 14px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 2px 6px hsl(0 0% 0% / 0.35), 0 18px 40px hsl(0 0% 0% / 0.45);
+
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+
+    /* Deux voiles menthe très dilués, en diagonale : sans eux l'aplat paraît
+       mort. À 10 % et 6 %, ils se devinent plus qu'ils ne se voient — c'est le
+       but, on cherche la profondeur, pas la décoration. */
+    background-image:
+      radial-gradient(75% 60% at 88% 0%, hsl(166 62% 60% / 0.1), transparent 62%),
+      radial-gradient(60% 55% at 0% 100%, hsl(166 62% 60% / 0.06), transparent 60%);
+  }
+
+  /* Pastille d'icône : sur fond clair elle est menthe pâle + icône teal foncé.
+     Ici on inverse le rapport — menthe pleine + icône vert sombre — sinon
+     `text-primary` (menthe) se poserait sur `bg-primary-soft` (menthe aussi)
+     et l'icône disparaîtrait. */
+  .section-services .icon-circle {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /* --- Carte de service ---------------------------------------------------
+     Variante de `.card-interactive` : au survol, le filet s'éclaircit EN PLUS
+     de l'élévation. Sur fond clair on s'en passe (l'ombre suffit à signaler le
+     relief) ; sur fond sombre l'ombre noire ne se voit presque pas, il faut
+     donc un second signal, et c'est la bordure qui le porte. */
+  .service-card {
+    @apply relative flex h-full items-start gap-4 overflow-hidden rounded-2xl
+           border border-border bg-card p-5 transition-all duration-300 sm:p-6;
+  }
+  .service-card:hover {
+    @apply -translate-y-1 border-primary/45 shadow-card;
+  }
 }
 
 /* ============================================================================

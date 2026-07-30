@@ -47,7 +47,18 @@ export function Services() {
   const hasOverflow = t.services.items.length > MOBILE_ITEMS_COLLAPSED;
 
   return (
-    <section id="services" className="scroll-mt-24 py-14">
+    /* `section-services` porte sa propre palette (voir index.css) : la bande
+       est vert sapin dans les deux thèmes. Le rembourrage vertical est plus
+       généreux que celui des autres sections (py-14) — un bloc de couleur a
+       besoin de marge pour ne pas paraître à l'étroit. */
+    /* `mb-*` et non `pb-*` : l'espace doit se voir ENTRE la bande verte et le
+       témoignage qui suit, donc en dehors du bloc coloré. Une marge basse
+       laisse réapparaître le fond de la coquille et détache franchement les
+       deux sections ; un rembourrage aurait simplement allongé le vert. */
+    <section
+      id="services"
+      className="section-services mb-12 scroll-mt-24 py-16 sm:mb-16 sm:py-20"
+    >
       <div className="container-page">
         <Reveal>
           <p className="eyebrow">{t.services.eyebrow}</p>
@@ -67,9 +78,9 @@ export function Services() {
               >
                 {/* Disposition horizontale : pastille ronde à gauche, texte à
                     droite — c'est la composition exacte de la maquette. */}
-                <article className="group relative flex h-full items-start gap-4 overflow-hidden rounded-xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
-                  <span className="icon-circle">
-                    <Icon className="h-5 w-5" strokeWidth={1.6} />
+                <article className="service-card group">
+                  <span className="icon-circle transition-transform duration-300 group-hover:scale-105">
+                    <Icon className="h-5 w-5" strokeWidth={1.8} />
                   </span>
 
                   <div className="min-w-0">
@@ -79,7 +90,7 @@ export function Services() {
                     </p>
                   </div>
 
-                  {/* Barre d'accent violette en bas de carte : discrète au repos,
+                  {/* Barre d'accent menthe en bas de carte : discrète au repos,
                       elle s'étire au survol. */}
                   <span
                     aria-hidden="true"
