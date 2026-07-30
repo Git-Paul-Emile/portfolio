@@ -111,7 +111,17 @@ export function ProjectGallery({ screenshots, projectName }: ProjectGalleryProps
           placé dans un ancêtre transformé se positionne par rapport à CET
           ancêtre, et non par rapport à la fenêtre du navigateur — la
           visionneuse serait décalée et rognée par le défilement de la fiche.
-          Le portail sort l'élément de ce contexte et rétablit le plein écran. */}
+          Le portail sort l'élément de ce contexte et rétablit le plein écran.
+
+          `pointer-events-auto` n'est PAS décoratif, c'est ce qui rend les
+          flèches cliquables. Explication : tant que la fiche projet (Radix
+          Dialog) est ouverte, Radix pose `pointer-events: none` sur <body>
+          pour neutraliser tout ce qui se trouve derrière la fenêtre, et ne
+          réactive les clics que sur son propre contenu. Or la visionneuse est
+          portalisée vers <body> : elle héritait donc de ce `none` et ne
+          recevait plus aucun clic — ni les chevrons, ni la croix, ni le fond.
+          On rétablit explicitement les événements de pointeur sur ce calque,
+          qui est de toute façon au-dessus de tout (`z-[200]`). */}
       {isOpen &&
         createPortal(
           <div
@@ -119,7 +129,7 @@ export function ProjectGallery({ screenshots, projectName }: ProjectGalleryProps
             aria-modal="true"
             aria-label={`${projectName} — ${t.work.gallery}`}
             onClick={close}
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-foreground/90 p-4 backdrop-blur-sm"
+            className="pointer-events-auto fixed inset-0 z-[200] flex items-center justify-center bg-foreground/90 p-4 backdrop-blur-sm"
           >
             <button
               type="button"

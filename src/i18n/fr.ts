@@ -36,10 +36,10 @@ export const fr = {
     description:
       "Je conçois des solutions web et mobiles modernes, sécurisées et évolutives. J'accompagne entreprises, entrepreneurs et particuliers de la conception à la mise en production.",
     ctaWork: "Voir mes projets",
-    ctaCv: "Télécharger mon CV",
+    ctaCv: "Mon cv",
     stats: {
       experience: "Années d'expérience",
-      projects: "Projets livrés",
+      projects: "Projets",
     },
     photoAlt: "Portrait de Paul Emile PECKOUET-BINOMBO",
   },

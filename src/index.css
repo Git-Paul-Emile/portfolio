@@ -319,8 +319,8 @@
 
   /* --- Cercle à filet fin (statistiques du hero) -------------------------- */
   .icon-ring {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full
-           border border-primary/35 text-primary;
+    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full
+           border border-primary/35 text-primary sm:h-10 sm:w-10;
   }
 
   /* --- Étiquette technique des cartes flottantes du hero ------------------ */

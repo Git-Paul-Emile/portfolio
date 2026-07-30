@@ -18,8 +18,8 @@ export const PROFILE = {
   /** Format lisible par un humain. */
   phoneDisplay: "(+221) 77 299 58 51",
 
-  linkedinUrl: "https://urlr.me/HJ85DF",
-  githubUrl: "https://github.com/",
+  linkedinUrl: "https://www.linkedin.com/in/paul-emile-peckouet-binombo🇬🇦-ba76bb278",
+  githubUrl: "https://github.com/Git-Paul-Emile",
 
   /** Chemin du CV dans /public. Encodé au moment de l'affichage. */
   cvPath: "/CV PAUL  ÉMILE PECKOUET-BINOMBO.pdf",

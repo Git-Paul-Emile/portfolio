@@ -36,10 +36,10 @@ export const en: Dictionary = {
     description:
       "I build modern, secure and scalable web and mobile solutions. I support companies, entrepreneurs and individuals from the first idea to production.",
     ctaWork: "View my work",
-    ctaCv: "Download my CV",
+    ctaCv: "My CV",
     stats: {
       experience: "Years of experience",
-      projects: "Projects delivered",
+      projects: "Projects",
     },
     photoAlt: "Portrait of Paul Emile PECKOUET-BINOMBO",
   },

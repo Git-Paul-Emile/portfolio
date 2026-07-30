@@ -1,4 +1,4 @@
-import { ArrowUpRight, Layers, Server, Database } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Project, ProjectStack } from "@/data/projects";
 import { useLanguage } from "@/hooks/useLanguage";
 import {
@@ -18,40 +18,31 @@ interface ProjectDialogProps {
 
 /** Une ligne de la fiche technique (Frontend / Backend / Base de données). */
 function StackRow({
-  icon: Icon,
   label,
   items,
   emptyLabel,
 }: {
-  icon: typeof Layers;
   label: string;
   items: string[] | null;
   emptyLabel: string;
 }) {
   return (
-    <div className="flex gap-3">
-      <span className="icon-pill h-9 w-9 rounded-lg">
-        <Icon className="h-4 w-4" />
-      </span>
-      <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          {label}
-        </p>
-        {items && items.length > 0 ? (
-          <ul className="mt-1.5 flex flex-wrap gap-1.5">
-            {items.map((item) => (
-              <li
-                key={item}
-                className="rounded-md border border-border bg-muted px-2 py-0.5 text-xs font-medium"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-1.5 text-xs italic text-muted-foreground">{emptyLabel}</p>
-        )}
-      </div>
+    <div className="min-w-0">
+      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>
+      {items && items.length > 0 ? (
+        <ul className="mt-1.5 flex flex-wrap gap-1.5">
+          {items.map((item) => (
+            <li
+              key={item}
+              className="rounded-md border border-border bg-muted px-2 py-0.5 text-xs font-medium"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-1.5 text-xs italic text-muted-foreground">{emptyLabel}</p>
+      )}
     </div>
   );
 }
@@ -103,24 +94,9 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
         {/* --- Fiche technique --- */}
         <section className="space-y-4 rounded-xl border border-border bg-muted/40 p-4">
           <h4 className="text-sm font-bold">{t.work.stack}</h4>
-          <StackRow
-            icon={Layers}
-            label={t.work.frontend}
-            items={stack.frontend}
-            emptyLabel={t.work.none}
-          />
-          <StackRow
-            icon={Server}
-            label={t.work.backend}
-            items={stack.backend}
-            emptyLabel={t.work.none}
-          />
-          <StackRow
-            icon={Database}
-            label={t.work.database}
-            items={stack.database}
-            emptyLabel={t.work.none}
-          />
+          <StackRow label={t.work.frontend} items={stack.frontend} emptyLabel={t.work.none} />
+          <StackRow label={t.work.backend} items={stack.backend} emptyLabel={t.work.none} />
+          <StackRow label={t.work.database} items={stack.database} emptyLabel={t.work.none} />
         </section>
 
         {/* --- Galerie de captures --- */}

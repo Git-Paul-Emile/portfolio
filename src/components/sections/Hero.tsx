@@ -1,4 +1,5 @@
-import { Download, Clock3, LayoutGrid, type LucideIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Download } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useParallax } from "@/hooks/useParallax";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -17,13 +18,17 @@ import { cn } from "@/lib/utils";
  */
 function BackdropRings() {
   /* Les cercles sont l'arrière-plan : ils se décalent le PLUS. Un élément qui
-     prend du retard sur le défilement paraît plus loin de l'observateur. */
+     prend du retard sur le défilement paraît plus loin de l'observateur.
+
+     Masqués sous `lg` : sur mobile le portrait est un plan large (pieds au
+     sol) posé à côté du texte, pas un buste centré — les anneaux concentriques
+     n'ont plus de sujet à encadrer et cassent la composition. */
   const ref = useParallax<HTMLDivElement>({ speed: 0.16, max: 120 });
 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute left-1/2 top-1/2 -z-10 aspect-square w-[128%] -translate-x-1/2 -translate-y-1/2"
+      className="pointer-events-none absolute left-1/2 top-1/2 -z-10 hidden aspect-square w-[128%] -translate-x-1/2 -translate-y-1/2 lg:block"
     >
       <div ref={ref} className="absolute inset-0">
         <div className="absolute inset-0 rounded-full border border-primary/12" />
@@ -58,39 +63,83 @@ function GabonFlag({ className }: { className?: string }) {
 }
 
 /**
- * Une statistique : cercle à filet fin + chiffre + libellé en majuscules.
+ * Une statistique : chiffre + libellé en majuscules, sans pictogramme.
  * Le chiffre part de 0 et compte jusqu'à sa valeur exacte dès que le hero
  * entre dans le champ de vision (voir useCountUp).
  */
-function Stat({
-  icon: Icon,
-  target,
-  suffix = "",
-  label,
-}: {
-  icon: LucideIcon;
-  target: number;
-  suffix?: string;
-  label: string;
-}) {
+function Stat({ target, suffix = "", label }: { target: number; suffix?: string; label: string }) {
   const { ref, value } = useCountUp<HTMLDivElement>(target);
 
   return (
-    <div ref={ref} className="flex items-center gap-3 px-5 first:pl-0 last:pr-0">
-      <span className="icon-ring">
-        <Icon className="h-4 w-4" strokeWidth={1.6} />
+    <div ref={ref} className="min-w-0 px-2.5 first:pl-0 last:pr-0 sm:px-5">
+      <span className="block text-sm font-extrabold leading-none text-foreground sm:text-lg">
+        {value}
+        {suffix}
       </span>
-      <span>
-        <span className="block text-lg font-extrabold leading-none text-foreground">
-          {value}
-          {suffix}
-        </span>
-        <span className="mt-1 block whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-          {label}
-        </span>
+      {/* `whitespace-nowrap` à toutes les tailles : le libellé doit tenir sur
+          une seule ligne, y compris « Années d'expérience » qui est le plus
+          long. C'est ce qui fixe le corps de 9 px en mobile. */}
+      <span className="mt-1 block whitespace-nowrap text-[9px] font-semibold uppercase leading-tight tracking-[0.06em] text-muted-foreground sm:text-[9px] sm:tracking-[0.12em]">
+        {label}
       </span>
     </div>
   );
+}
+
+/**
+ * Les deux poses du portrait mobile. Même cadrage, même échelle : les deux
+ * fichiers sont recadrés sur la MÊME boîte englobante (union des silhouettes),
+ * si bien que le personnage ne se déplace pas d'un pixel pendant le fondu —
+ * seule la pose change.
+ */
+const MOBILE_PORTRAIT_COUNT = 2;
+
+/** Durée d'affichage d'une pose, en millisecondes. */
+const PORTRAIT_SWAP_MS = 6000;
+
+/**
+ * Fait tourner l'index de la pose mobile affichée.
+ *
+ * Deux garde-fous :
+ *  - `matchMedia("(max-width: 1023px)")` : au-delà, c'est le buste de bureau
+ *    qui est affiché, il n'y a rien à permuter — inutile de faire tourner un
+ *    minuteur en arrière-plan ;
+ *  - `prefers-reduced-motion` : l'utilisateur qui a désactivé les animations
+ *    dans son système ne doit pas voir l'image changer toute seule.
+ */
+function usePortraitRotation() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 1023.98px)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    let timer: number | undefined;
+
+    const sync = () => {
+      window.clearInterval(timer);
+      if (!isMobile.matches || reduced.matches) {
+        setIndex(0);
+        return;
+      }
+      timer = window.setInterval(
+        () => setIndex((i) => (i + 1) % MOBILE_PORTRAIT_COUNT),
+        PORTRAIT_SWAP_MS
+      );
+    };
+
+    sync();
+    isMobile.addEventListener("change", sync);
+    reduced.addEventListener("change", sync);
+
+    return () => {
+      window.clearInterval(timer);
+      isMobile.removeEventListener("change", sync);
+      reduced.removeEventListener("change", sync);
+    };
+  }, []);
+
+  return index;
 }
 
 /**
@@ -122,9 +171,11 @@ export function Hero() {
   const portraitRef = useParallax<HTMLDivElement>({ speed: 0.05, max: 50 });
   const textRef = useParallax<HTMLDivElement>({ speed: 0.09, max: 90 });
 
+  const portraitIndex = usePortraitRotation();
+
   const stats = [
-    { icon: Clock3, target: PROFILE.yearsOfExperience, label: t.hero.stats.experience },
-    { icon: LayoutGrid, target: PROFILE.projectsDelivered, label: t.hero.stats.projects },
+    { target: PROFILE.yearsOfExperience, label: t.hero.stats.experience },
+    { target: PROFILE.projectsDelivered, label: t.hero.stats.projects },
   ];
 
   const scrollToWork = () => {
@@ -134,7 +185,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex h-[100svh] min-h-[560px] items-center overflow-hidden pt-[4.5rem]"
+      className="relative h-[100svh] min-h-[560px] overflow-hidden pt-16 sm:pt-[4.5rem] lg:flex lg:items-center"
     >
       {/* Lavis teal diffus, purement décoratif — le plan le plus lointain.
           Dilué à 40 % en clair ; redescendu à 20 % en sombre, où la même
@@ -145,20 +196,42 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-secondary/40 to-background dark:from-secondary/20"
       />
 
-      <div className="container-page relative w-full">
-        <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-[1fr_0.88fr] lg:gap-6">
-          {/* ============================ Colonne texte ======================= */}
-          <div ref={textRef} className="order-2 lg:order-1">
-            <h1 className="text-[2rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+      <div className="container-page relative h-full w-full lg:h-auto">
+        {/* ── Deux mises en page, un seul balisage ───────────────────────────
+            Sous `lg` : le portrait est sorti du flux (`absolute inset-y-0`) et
+            occupe donc TOUTE la hauteur utile du hero — du bas de la barre de
+            navigation jusqu'au bas de l'écran, pieds posés sur le bord. Le
+            texte, lui, reste dans le flux, centré verticalement, et se limite
+            en largeur (`w-[57%]`) pour laisser la place au personnage.
+
+            À partir de `lg` : retour à une vraie grille deux colonnes, le
+            portrait redevient un élément de flux (`lg:relative`). */}
+        <div className="relative flex h-full items-center lg:grid lg:h-auto lg:grid-cols-[1fr_0.88fr] lg:items-center lg:gap-6">
+          {/* ============================ Colonne texte =======================
+              57 % : c'est la largeur qui reste à gauche une fois le personnage
+              posé à droite. Les corps de texte ci-dessous sont calés dessus
+              pour que chaque ligne tienne d'un seul tenant. */}
+          <div ref={textRef} className="relative z-10 w-[55%] min-w-0 lg:w-auto">
+            {/* Tailles mobiles calées sur les 57 % de largeur disponibles : à
+                ces corps, « PECKOUET-BINOMBO » et chacune des deux lignes de
+                rôle tiennent sur UNE ligne. Monter d'un cran suffirait à les
+                couper en deux. */}
+            <h1 className="text-[1.5rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               {t.hero.firstName}
-              <span className="mt-1.5 flex items-center gap-2 text-base font-bold uppercase tracking-[0.12em] text-muted-foreground sm:text-lg lg:text-xl">
+              <span className="mt-1.5 flex items-center gap-1.5 whitespace-nowrap text-[0.68rem] font-bold uppercase tracking-[0.07em] text-muted-foreground sm:gap-2 sm:text-lg sm:tracking-[0.12em] lg:text-xl">
                 {t.hero.lastName}
                 <GabonFlag />
               </span>
             </h1>
 
             {/* Deux lignes de rôle : la seconde met l'accent en teal. */}
-            <p className="mt-3 text-lg font-medium leading-snug text-foreground/80 sm:mt-4 sm:text-2xl lg:text-[1.6rem]">
+            {/* Corps fluide sous `sm` : `clamp(min, 3.1vw, max)`. La ligne la
+                plus longue (« Architecte d'applications web ») fait environ
+                15 caractères de large en em ; à 3,1 % de la largeur d'écran
+                elle reste toujours sous les 57 % de conteneur qui lui sont
+                réservés, du iPhone SE (320 px) au grand format (430 px). Un
+                corps fixe casserait la ligne en deux sur les petits écrans. */}
+            <p className="mt-3 text-[clamp(0.63rem,3.1vw,0.9rem)] font-medium leading-snug text-foreground/80 sm:mt-4 sm:text-[1.35rem] lg:text-[1.6rem]">
               {t.hero.roleStrong} <span className="text-muted-foreground">{t.hero.roleAmp}</span>
               <span className="block">
                 <span className="font-semibold text-primary">{t.hero.roleAccent}</span>{" "}
@@ -166,12 +239,28 @@ export function Hero() {
               </span>
             </p>
 
-            <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:mt-4 sm:text-[15px]">
+            <p className="mt-3 max-w-lg text-[0.72rem] leading-relaxed text-muted-foreground sm:mt-4 sm:text-[15px]">
               {t.hero.description}
             </p>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3 sm:mt-7">
-              <button type="button" onClick={scrollToWork} className="btn-solid">
+            {/* `w-[112%]` : boutons et statistiques débordent volontairement de
+                la colonne de texte. À leur hauteur, le personnage n'est plus
+                qu'une paire de jambes — sa silhouette laisse environ 19 % de
+                marge libre à gauche de son cadre (mesuré sur le canal alpha du
+                PNG), là où le torse et les bras n'en laissent que 6 %. Ces
+                deux lignes peuvent donc s'étendre sans jamais chevaucher le
+                dessin, ce qui permet de garder les deux boutons côte à côte.
+
+                `px-3`/`text-[9px]` sous `sm` : les utilitaires Tailwind sont
+                dans une couche prioritaire sur `.btn-solid`/`.btn-outline`
+                (@layer components), ils écrasent donc leur `px-6`/`text-[11px]`
+                sans `!important`. */}
+            <div className="mt-5 flex w-[112%] flex-wrap items-center gap-1.5 sm:mt-7 sm:w-auto sm:gap-3">
+              <button
+                type="button"
+                onClick={scrollToWork}
+                className="btn-solid px-2.5 py-3 text-[0.53rem] tracking-[0.05em] sm:px-6 sm:py-3.5 sm:text-[11px] sm:tracking-[0.11em]"
+              >
                 {t.hero.ctaWork}
               </button>
 
@@ -179,59 +268,124 @@ export function Hero() {
                 href={assetUrl(PROFILE.cvPath)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline"
+                className="btn-outline gap-1.5 px-2.5 py-3 text-[0.53rem] tracking-[0.05em] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-[11px] sm:tracking-[0.11em]"
               >
                 {t.hero.ctaCv}
-                <Download className="h-3.5 w-3.5" strokeWidth={2.5} />
+                <Download className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={2.5} />
               </a>
             </div>
 
             {/* --- Statistiques : toujours sur une seule ligne (`flex-nowrap`),
                     séparées par un filet vertical. --- */}
-            <dl className="mt-6 flex flex-nowrap items-center divide-x divide-border sm:mt-8">
+            <dl className="mt-6 flex w-[112%] flex-nowrap items-center divide-x divide-border sm:mt-8 sm:w-auto">
               {stats.map((stat) => (
-                <Stat
-                  key={stat.label}
-                  icon={stat.icon}
-                  target={stat.target}
-                  suffix="+"
-                  label={stat.label}
-                />
+                <Stat key={stat.label} target={stat.target} suffix="+" label={stat.label} />
               ))}
             </dl>
           </div>
 
           {/* ============================ Colonne visuelle ====================
-              Le conteneur épouse la largeur du portrait : les cercles se
-              positionnent ainsi PAR RAPPORT À LA PHOTO, et non par rapport à
-              la colonne de la grille.
+              Sous `lg` : boîte hors flux qui occupe toute la hauteur utile du
+              hero (`inset-y-0`, soit 100svh moins la barre de navigation) et
+              déborde jusqu'au bord physique de l'écran (`-right-5` annule le
+              `px-5` de `.container-page`, `-right-8` le `sm:px-8`).
 
-              Le bas de l'image se fond dans le fond sur environ un tiers de sa
-              hauteur : on l'agrandit d'autant pour que le visage garde la même
-              présence à l'écran qu'avec une photo à bord franc. */}
-          <div className="relative order-1 mx-auto w-full max-w-[17rem] sm:max-w-[21rem] lg:order-2 lg:max-w-[28rem]">
+              `object-contain` + `object-[right_bottom]` : l'image garde ses
+              proportions, se plaque en BAS (les pieds touchent le bas de
+              l'écran, aucun espace résiduel) et à DROITE (elle ne flotte pas
+              au milieu de sa boîte, ce qui ferait mordre le personnage sur le
+              texte).
+
+              Pourquoi une boîte de 62 % alors que le texte n'en cède que 57 % ?
+              Parce que la boîte n'est qu'un cadre maximal. Le portrait fait
+              203 × 644 px, soit un rapport de 0,315 : sur un téléphone réel
+              (≈ 390 × 650 px utiles), la hauteur est la contrainte active, et
+              l'image ne dessine en fait que ≈ 0,315 × 580 ≈ 183 px de large.
+              Elle remplit donc toute la hauteur SANS atteindre les 62 %, et
+              n'empiète jamais sur la colonne de texte. Le cadre large sert
+              uniquement de réserve pour les écrans courts (paysage), où
+              l'image devient au contraire bornée par la largeur.
+
+              À partir de `lg` : `lg:relative lg:inset-auto` la remet dans le
+              flux comme deuxième colonne de la grille.
+
+              Deux photos différentes selon le point de rupture, pas juste deux
+              tailles de la même image : sous `lg`, un plan large en pied
+              (`hero-mobile`) ; à partir de `lg`, le buste centré (`hero`) sur
+              les anneaux. */}
+          <div className="absolute inset-y-0 -right-5 w-[54%] sm:-right-8 lg:relative lg:inset-auto lg:right-auto lg:mx-auto lg:h-auto lg:w-full lg:max-w-[28rem]">
             <BackdropRings />
 
-            <div ref={portraitRef}>
-              {/* Portrait détouré : aucun cadre, aucune ombre — la personne se
-                  détache directement sur les cercles.
+            <div ref={portraitRef} className="relative h-full lg:h-auto">
+              {/* Portraits détourés : aucun cadre, aucune ombre — la personne se
+                  détache directement sur le fond.
 
-                  <picture> sert un WebP (70 Ko) aux navigateurs qui le gèrent, et
-                  retombe sur le PNG (548 Ko) pour les autres. Le navigateur ne
-                  télécharge QU'UN seul des deux fichiers. */}
-              <picture>
-                <source srcSet={assetUrl("/hero.webp")} type="image/webp" />
+                  Un seul <picture>, mais deux photos selon le point de
+                  rupture : les <source media="(min-width: 1024px)"> ne
+                  s'appliquent qu'à partir de `lg`, sinon le navigateur retombe
+                  sur les <source> suivants puis sur l'<img> — donc UN SEUL des
+                  quatre fichiers est réellement téléchargé, jamais les deux
+                  photos à la fois. Les classes de l'<img> couvrent les deux
+                  mises en page (plan large posé sur le texte sous `lg`, buste
+                  centré sur les anneaux à partir de `lg`). */}
+              <picture
+                className="block h-full transition-opacity duration-1000 ease-in-out lg:h-auto lg:!opacity-100"
+                style={{ opacity: portraitIndex === 0 ? 1 : 0 }}
+              >
+                <source
+                  media="(min-width: 1024px)"
+                  srcSet={assetUrl("/hero.webp")}
+                  type="image/webp"
+                />
+                <source media="(min-width: 1024px)" srcSet={assetUrl("/hero.png")} />
+                <source srcSet={assetUrl("/hero-mobile.webp")} type="image/webp" />
                 <img
-                  src={assetUrl("/hero.png")}
+                  src={assetUrl("/hero-mobile.png")}
                   alt={t.hero.photoAlt}
-                  width={795}
-                  height={800}
+                  width={203}
+                  height={646}
                   loading="eager"
-                  /* `fetchPriority="high"` demande au navigateur de charger cette
+                  /* `fetchpriority="high"` demande au navigateur de charger cette
                      image avant les autres : c'est l'élément le plus visible de
-                     la page, celui qui détermine le ressenti de rapidité. */
-                  fetchPriority="high"
-                  className="relative mx-auto block max-h-[30svh] w-auto select-none object-contain sm:max-h-[36svh] lg:max-h-[calc(100svh-11rem)] lg:w-full"
+                     la page, celui qui détermine le ressenti de rapidité.
+
+                     Écrit en minuscules et étalé via `{...{}}` : React 18 ne
+                     connaît pas encore la forme camelCase `fetchPriority` (elle
+                     n'arrive qu'en React 19) et la recrachait telle quelle dans
+                     le DOM, avec un avertissement en console à chaque rendu.
+                     L'objet étalé contourne le typage JSX tout en produisant
+                     l'attribut HTML exact attendu par le navigateur. */
+                  {...{ fetchpriority: "high" }}
+                  className="relative block h-full w-full select-none object-contain object-[right_bottom] lg:mx-auto lg:h-auto lg:max-h-[calc(100svh-11rem)] lg:w-auto lg:object-center"
+                />
+              </picture>
+
+              {/* --- Seconde pose, en surimpression exacte -------------------
+                  Les deux calques se superposent au pixel près (même recadrage,
+                  mêmes classes) : seule l'opacité change, ce qui donne un
+                  fondu enchaîné plutôt qu'un saut d'image.
+
+                  `lg:hidden` + `loading="lazy"` : sur ordinateur le calque est
+                  en `display: none`, donc jamais dans le champ de vision, donc
+                  jamais téléchargé — le chargement paresseux sert ici à ne pas
+                  payer 16 ko pour une image que le bureau n'affiche pas.
+
+                  `aria-hidden` : c'est la même personne que le calque du
+                  dessous, un lecteur d'écran ne doit pas l'annoncer deux fois.  */}
+              <picture
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 block transition-opacity duration-1000 ease-in-out lg:hidden"
+                style={{ opacity: portraitIndex === 1 ? 1 : 0 }}
+              >
+                <source srcSet={assetUrl("/hero-mobile-2.webp")} type="image/webp" />
+                <img
+                  src={assetUrl("/hero-mobile-2.png")}
+                  alt=""
+                  width={203}
+                  height={646}
+                  loading="lazy"
+                  decoding="async"
+                  className="block h-full w-full select-none object-contain object-[right_bottom]"
                 />
               </picture>
             </div>
