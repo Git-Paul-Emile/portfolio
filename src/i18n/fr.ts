@@ -83,7 +83,7 @@ export const fr = {
       {
         title: "API REST & Backend",
         description:
-          "APIs documentées, sécurisées et paginées. Authentification JWT, validation des entrées, gestion d'erreurs.",
+          "APIs documentées et sécurisées. Authentification JWT, OAuth 2.0, gestion d'erreurs.",
       },
       {
         title: "Sites vitrines & e-commerce",
@@ -93,7 +93,7 @@ export const fr = {
       {
         title: "Applications mobiles",
         description:
-          "Applications React Native / Expo publiées sur iOS et Android, connectées à vos services existants.",
+          "Applications mobiles publiées sur iOS et Android, connectées à vos services existants.",
       },
       {
         title: "Base de données & modélisation",
@@ -103,7 +103,7 @@ export const fr = {
       {
         title: "Déploiement & maintenance",
         description:
-          "Mise en production, Docker, CI/CD, monitoring et évolutions continues de votre application.",
+          "Mise en production et évolutions continues de votre application.",
       },
     ],
     viewMore: "Voir plus",

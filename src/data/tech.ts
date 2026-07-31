@@ -16,11 +16,7 @@ import {
   SiPostgresql,
   SiMysql,
   SiFirebase,
-  SiSupabase,
-  SiDocker,
   SiGit,
-  SiGithubactions,
-  SiVercel,
   SiExpo,
   SiOpenai,
 } from "react-icons/si";
@@ -29,7 +25,7 @@ import {
  * Une technologie affichée dans la section « Mon expertise ».
  *
  * `brandColor` est volontairement optionnel : certaines marques ont un logo
- * monochrome noir (Next.js, Express, Vercel, Prisma). Sur fond sombre elles
+ * monochrome noir (Next.js, Express, Prisma). Sur fond sombre elles
  * deviendraient invisibles. Quand la propriété est absente, le composant
  * applique `currentColor`, c'est-à-dire la couleur du texte courante — le logo
  * reste donc lisible dans les deux thèmes.
@@ -75,11 +71,7 @@ export const TECHNOLOGIES: Tech[] = [
   { id: "postgresql", name: "PostgreSQL", Icon: SiPostgresql, brandColor: "#4169E1" },
   { id: "mysql", name: "MySQL", Icon: SiMysql, brandColor: "#4479A1" },
   { id: "firebase", name: "Firebase", Icon: SiFirebase, brandColor: "#FFCA28" },
-  { id: "supabase", name: "Supabase", Icon: SiSupabase, brandColor: "#3FCF8E" },
 
   // --- Outils & déploiement -------------------------------------------------
-  { id: "docker", name: "Docker", Icon: SiDocker, brandColor: "#2496ED" },
   { id: "git", name: "Git", Icon: SiGit, brandColor: "#F05032" },
-  { id: "ci", name: "CI/CD", Icon: SiGithubactions, brandColor: "#2088FF" },
-  { id: "vercel", name: "Vercel", Icon: SiVercel },
 ];

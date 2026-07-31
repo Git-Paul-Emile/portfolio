@@ -83,7 +83,7 @@ export const en: Dictionary = {
       {
         title: "REST APIs & Backend",
         description:
-          "Documented, secured and paginated APIs. JWT authentication, input validation, error handling.",
+          "Documented and secured APIs. JWT authentication, OAuth 2.0, error handling.",
       },
       {
         title: "Showcase & e-commerce sites",
@@ -93,7 +93,7 @@ export const en: Dictionary = {
       {
         title: "Mobile applications",
         description:
-          "React Native / Expo apps shipped to iOS and Android, connected to your existing services.",
+          "Mobile apps shipped to iOS and Android, connected to your existing services.",
       },
       {
         title: "Database & data modelling",
@@ -103,7 +103,7 @@ export const en: Dictionary = {
       {
         title: "Deployment & maintenance",
         description:
-          "Go-live, Docker, CI/CD, monitoring and continuous improvement of your application.",
+          "Go-live and continuous improvement of your application.",
       },
     ],
     viewMore: "View more",

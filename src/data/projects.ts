@@ -446,8 +446,8 @@ export const PROJECTS: Project[] = [
     },
     highlights: ["HTML", "CSS", "JavaScript", "QR Code"],
     links: [{ label: "Carte de visite", url: "https://sweet-baklava-448173.netlify.app/" }],
-    cover: "/carte_visite/cover.jpg",
-    screenshots: ["/carte_visite/cover.jpg"],
+    cover: "/carte_visite/cover.png",
+    screenshots: ["/carte_visite/cover.png"],
     featured: false,
   },
 ];
