@@ -16,11 +16,11 @@ const MOBILE_ROWS_COLLAPSED = 8;
 
 /**
  * Une tuile de la grille : le logo est enfermé dans une petite carte blanche à
- * filet, et le nom de la technologie s'affiche SOUS la carte — c'est la
+ * filet, et le nom de la technologie s'affiche SOUS la carte - c'est la
  * disposition exacte de la maquette.
  *
  * `brandColor` vaut la couleur officielle de la marque quand elle existe, sinon
- * `currentColor` — c'est-à-dire la couleur du texte héritée du parent. Ce repli
+ * `currentColor` - c'est-à-dire la couleur du texte héritée du parent. Ce repli
  * est indispensable pour les logos monochromes noirs (Next.js, Express,
  * Vercel, Prisma…) qui deviendraient invisibles en mode sombre.
  */

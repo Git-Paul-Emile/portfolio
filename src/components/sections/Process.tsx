@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Section « Ma méthode » : les 5 étapes reliées par une ligne pointillée,
- * chacune introduite par un numéro dans une pastille — la composition de la
+ * chacune introduite par un numéro dans une pastille - la composition de la
  * maquette. Une forme violette unique voyage automatiquement de la pastille 1
  * à la pastille 5 dès que la section entre dans le viewport (voir
  * useStepTimeline) : le défilement ne fait que déclencher ce voyage, il ne le

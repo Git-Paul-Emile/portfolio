@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
  * Icônes des services, dans le MÊME ORDRE que `t.services.items`.
  *
  * Pourquoi séparer icônes et textes ? Les textes vivent dans les dictionnaires
- * de traduction (fr.ts / en.ts), qui doivent rester purement textuels — on n'y
+ * de traduction (fr.ts / en.ts), qui doivent rester purement textuels - on n'y
  * met pas de composants React. Le lien se fait par l'index du tableau.
  */
 const SERVICE_ICONS: LucideIcon[] = [
@@ -33,7 +33,7 @@ const SERVICE_ICONS: LucideIcon[] = [
 /**
  * Sur mobile, la grille passe à une seule colonne : les 6 cartes forment une
  * longue colonne avant d'atteindre la section suivante. On n'en montre que 3,
- * le reste étant masqué derrière « Voir plus » — même repli que la section
+ * le reste étant masqué derrière « Voir plus » - même repli que la section
  * « Mon expertise ». À partir de `sm`, la grille passe à 2-3 colonnes et tout
  * tient dans l'écran : le repli ne s'applique donc qu'en dessous de ce point
  * de rupture.
@@ -49,7 +49,7 @@ export function Services() {
   return (
     /* `section-services` porte sa propre palette (voir index.css) : la bande
        est vert sapin dans les deux thèmes. Le rembourrage vertical est plus
-       généreux que celui des autres sections (py-14) — un bloc de couleur a
+       généreux que celui des autres sections (py-14) - un bloc de couleur a
        besoin de marge pour ne pas paraître à l'étroit. */
     /* `mb-*` et non `pb-*` : l'espace doit se voir ENTRE la bande verte et le
        témoignage qui suit, donc en dehors du bloc coloré. Une marge basse
@@ -77,7 +77,7 @@ export function Services() {
                 className={cn("h-full", collapsedOnMobile ? "hidden sm:block" : "block")}
               >
                 {/* Disposition horizontale : pastille ronde à gauche, texte à
-                    droite — c'est la composition exacte de la maquette. */}
+                    droite - c'est la composition exacte de la maquette. */}
                 <article className="service-card group">
                   <span className="icon-circle transition-transform duration-300 group-hover:scale-105">
                     <Icon className="h-5 w-5" strokeWidth={1.8} />

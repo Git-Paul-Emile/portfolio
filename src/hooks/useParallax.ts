@@ -20,7 +20,7 @@ interface ParallaxOptions {
  *
  * ── Pourquoi écrire directement dans `style.transform` ? ────────────────────
  * Passer par un état React déclencherait un rendu complet du composant à chaque
- * image affichée — soit 60 rendus par seconde pendant tout le défilement. Ici
+ * image affichée - soit 60 rendus par seconde pendant tout le défilement. Ici
  * on modifie une seule propriété CSS sur un nœud du DOM : React n'est pas
  * sollicité, et le navigateur n'a qu'une composition à refaire.
  *

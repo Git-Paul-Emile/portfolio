@@ -27,7 +27,7 @@ import {
  * `brandColor` est volontairement optionnel : certaines marques ont un logo
  * monochrome noir (Next.js, Express, Prisma). Sur fond sombre elles
  * deviendraient invisibles. Quand la propriété est absente, le composant
- * applique `currentColor`, c'est-à-dire la couleur du texte courante — le logo
+ * applique `currentColor`, c'est-à-dire la couleur du texte courante - le logo
  * reste donc lisible dans les deux thèmes.
  */
 export interface Tech {

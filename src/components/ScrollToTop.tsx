@@ -16,7 +16,7 @@ export function ScrollToTop() {
     onScroll();
     /* `passive: true` indique au navigateur que le gestionnaire n'appellera
        jamais preventDefault(). Il peut alors lancer le défilement sans attendre
-       l'exécution de notre code — le scroll reste fluide. */
+       l'exécution de notre code - le scroll reste fluide. */
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);

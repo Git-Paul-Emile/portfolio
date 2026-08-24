@@ -23,7 +23,7 @@ interface ProjectFiltersProps {
  * ── Pourquoi un menu et non des onglets ? ───────────────────────────────────
  * Un groupe d'onglets occupe toute la largeur de son contenu et impose trois
  * blocs colorés au visiteur, alors que le filtre n'est qu'un réglage secondaire
- * — le contenu principal, ce sont les projets. Un bouton unique qui affiche la
+ * - le contenu principal, ce sont les projets. Un bouton unique qui affiche la
  * valeur courante (« Filtre : Tous ») dit la même chose en un quart de la
  * place, et laisse la grille respirer.
  *
@@ -31,7 +31,7 @@ interface ProjectFiltersProps {
  * Un `<select>` est rendu par le système d'exploitation : impossible d'aligner
  * son apparence sur le reste du site, et le résultat diffère entre Windows,
  * macOS et Android. Radix reconstruit le menu en HTML tout en conservant le
- * comportement attendu — navigation aux flèches, saisie de la première lettre,
+ * comportement attendu - navigation aux flèches, saisie de la première lettre,
  * Échap pour fermer, fermeture au clic extérieur, piège de focus.
  *
  * Le motif ARIA employé est `menuitemradio` : un seul choix possible à la fois,
@@ -86,7 +86,7 @@ export function ProjectFilters({ value, onChange, panelId }: ProjectFiltersProps
               value={option.value}
               /* Trois retouches sur le style par défaut de shadcn :
                  · `[&>span:first-child]:hidden` masque la pastille ronde qu'il
-                   place en absolu à gauche — la coche est ici à droite ;
+                   place en absolu à gauche - la coche est ici à droite ;
                  · `pl-2` récupère l'indentation que cette pastille réservait ;
                  · `focus:bg-muted focus:text-foreground` remplace le surlignage
                    violet plein par un gris discret, plus proche d'un menu

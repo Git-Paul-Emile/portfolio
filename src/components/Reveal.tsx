@@ -15,7 +15,7 @@ interface RevealProps {
  * Enveloppe un contenu et l'anime à son entrée dans le viewport.
  *
  * Composant « présentationnel » : il ne connaît rien du contenu qu'il anime.
- * C'est le principe de responsabilité unique (le « S » de SOLID) — la logique
+ * C'est le principe de responsabilité unique (le « S » de SOLID) - la logique
  * de détection vit dans le hook `useReveal`, l'animation vit dans le CSS
  * (`.reveal` / `.is-visible`), et ce composant ne fait que les relier.
  */

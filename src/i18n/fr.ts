@@ -1,15 +1,15 @@
 /**
- * Dictionnaire FRANÇAIS — langue de référence.
+ * Dictionnaire FRANÇAIS - langue de référence.
  *
  * Ce fichier est la SOURCE DE VÉRITÉ du typage : le type `Dictionary`
  * (voir ./types.ts) est déduit de cet objet via `typeof fr`.
  * Conséquence pratique : si tu ajoutes une clé ici, TypeScript refusera
  * de compiler tant que la même clé n'existe pas dans `en.ts`.
- * Impossible d'oublier une traduction — l'erreur est détectée au build.
+ * Impossible d'oublier une traduction - l'erreur est détectée au build.
  */
 export const fr = {
   meta: {
-    title: "Paul Emile PECKOUET-BINOMBO — Développeur Full Stack",
+    title: "Paul Emile PECKOUET-BINOMBO - Développeur Full Stack",
     description:
       "Portfolio de Paul Emile PECKOUET-BINOMBO, développeur full stack. Applications web et mobiles modernes, performantes et évolutives : React, Next.js, Angular, Node.js, PostgreSQL.",
   },
@@ -161,7 +161,7 @@ export const fr = {
     emailLabel: "Email",
     phoneLabel: "Téléphone",
     locationLabel: "Localisation",
-    locationValue: "Dakar, Sénégal",
+    locationValue: "Libreville, Gabon",
     workModeLabel: "Mode de travail",
     workModeValue: "À distance ou sur site",
     cta: "Démarrer la discussion",

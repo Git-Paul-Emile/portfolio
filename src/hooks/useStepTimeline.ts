@@ -106,7 +106,7 @@ export function useStepTimeline<
     [measureRect]
   );
 
-  // Recalage au redimensionnement de la fenêtre — seulement si une première
+  // Recalage au redimensionnement de la fenêtre - seulement si une première
   // mesure a déjà eu lieu (sinon rien à corriger, la section n'est pas encore visible).
   useEffect(() => {
     const onResize = () => {

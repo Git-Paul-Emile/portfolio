@@ -23,7 +23,7 @@ export default function NotFound() {
   const message = MESSAGES[locale];
 
   useEffect(() => {
-    console.error("Erreur 404 — route inexistante :", location.pathname);
+    console.error("Erreur 404 - route inexistante :", location.pathname);
   }, [location.pathname]);
 
   return (

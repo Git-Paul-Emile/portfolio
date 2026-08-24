@@ -23,7 +23,7 @@ interface LogoProps {
 
 /**
  * Logo : le monogramme « P&E » seul. Le nom et la fonction ne sont plus
- * répétés en texte à côté — l'image les porte déjà visuellement.
+ * répétés en texte à côté - l'image les porte déjà visuellement.
  */
 export function Logo({ className }: LogoProps) {
   return <LogoMark className={className} />;

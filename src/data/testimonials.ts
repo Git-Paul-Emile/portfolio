@@ -1,7 +1,7 @@
 import type { Localized } from "./projects";
 
 /**
- * ⚠️  CONTENU D'EXEMPLE — À REMPLACER
+ * ⚠️  CONTENU D'EXEMPLE - À REMPLACER
  * ----------------------------------------------------------------------------
  * Ces témoignages sont des textes de démonstration destinés à valider la mise
  * en page. Ils ne proviennent PAS de vrais clients.

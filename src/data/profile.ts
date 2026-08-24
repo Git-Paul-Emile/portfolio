@@ -1,5 +1,5 @@
 /**
- * Informations de contact et identité — source de vérité unique.
+ * Informations de contact et identité - source de vérité unique.
  *
  * Pourquoi centraliser ? Le numéro de téléphone apparaît dans le hero, la
  * section contact, le pied de page et les liens WhatsApp. Le dupliquer, c'est
@@ -13,10 +13,10 @@ export const PROFILE = {
 
   email: "apeckouet@gmail.com",
 
-  /** Format international brut, sans espace — requis par les liens tel: et WhatsApp. */
-  phoneRaw: "221772995851",
+  /** Format international brut, sans espace - requis par les liens tel: et WhatsApp. */
+  phoneRaw: "241077896327",
   /** Format lisible par un humain. */
-  phoneDisplay: "(+221) 77 299 58 51",
+  phoneDisplay: "(+241) 077 89 63 27",
 
   linkedinUrl: "https://www.linkedin.com/in/paul-emile-peckouet-binombo🇬🇦-ba76bb278",
   githubUrl: "https://github.com/Git-Paul-Emile",

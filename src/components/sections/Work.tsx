@@ -71,7 +71,7 @@ export function Work() {
           </div>
 
           {/* Sur mobile, ce bouton d'en-tête cède la place à la version
-              « Voir plus », centrée en bas de grille (voir plus bas) — la
+              « Voir plus », centrée en bas de grille (voir plus bas) - la
               même disposition que la section « Mon expertise ». */}
           {hasMore && (
             <button

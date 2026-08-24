@@ -56,7 +56,7 @@ export function Navigation() {
 
     /* Le menu mobile fige le défilement du <body>. `setIsMenuOpen` étant
        asynchrone, l'effet qui lève ce verrou ne s'exécutera qu'après le
-       prochain rendu — trop tard : `scrollIntoView` serait ignoré. On libère
+       prochain rendu - trop tard : `scrollIntoView` serait ignoré. On libère
        donc le verrou tout de suite, de façon synchrone. */
     document.body.style.overflow = "";
 

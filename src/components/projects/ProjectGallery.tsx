@@ -91,7 +91,7 @@ export function ProjectGallery({ screenshots, projectName }: ProjectGalleryProps
             >
               <img
                 src={assetUrl(src)}
-                alt={`${projectName} — ${t.work.imageAlt} ${index + 1}`}
+                alt={`${projectName} - ${t.work.imageAlt} ${index + 1}`}
                 loading="lazy"
                 decoding="async"
                 className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
@@ -109,7 +109,7 @@ export function ProjectGallery({ screenshots, projectName }: ProjectGalleryProps
           Raison technique : la fenêtre de dialogue parente applique une
           transformation CSS (`translate`). Or un élément `position: fixed`
           placé dans un ancêtre transformé se positionne par rapport à CET
-          ancêtre, et non par rapport à la fenêtre du navigateur — la
+          ancêtre, et non par rapport à la fenêtre du navigateur - la
           visionneuse serait décalée et rognée par le défilement de la fiche.
           Le portail sort l'élément de ce contexte et rétablit le plein écran.
 
@@ -119,7 +119,7 @@ export function ProjectGallery({ screenshots, projectName }: ProjectGalleryProps
           pour neutraliser tout ce qui se trouve derrière la fenêtre, et ne
           réactive les clics que sur son propre contenu. Or la visionneuse est
           portalisée vers <body> : elle héritait donc de ce `none` et ne
-          recevait plus aucun clic — ni les chevrons, ni la croix, ni le fond.
+          recevait plus aucun clic - ni les chevrons, ni la croix, ni le fond.
           On rétablit explicitement les événements de pointeur sur ce calque,
           qui est de toute façon au-dessus de tout (`z-[200]`). */}
       {isOpen &&
@@ -127,7 +127,7 @@ export function ProjectGallery({ screenshots, projectName }: ProjectGalleryProps
           <div
             role="dialog"
             aria-modal="true"
-            aria-label={`${projectName} — ${t.work.gallery}`}
+            aria-label={`${projectName} - ${t.work.gallery}`}
             onClick={close}
             className="pointer-events-auto fixed inset-0 z-[200] flex items-center justify-center bg-foreground/90 p-4 backdrop-blur-sm"
           >
@@ -168,10 +168,10 @@ export function ProjectGallery({ screenshots, projectName }: ProjectGalleryProps
             )}
 
             {/* `stopPropagation` : un clic SUR l'image ne doit pas fermer la
-                visionneuse — seul un clic sur le fond la ferme. */}
+                visionneuse - seul un clic sur le fond la ferme. */}
             <img
               src={assetUrl(screenshots[lightboxIndex])}
-              alt={`${projectName} — ${t.work.imageAlt} ${lightboxIndex + 1}`}
+              alt={`${projectName} - ${t.work.imageAlt} ${lightboxIndex + 1}`}
               onClick={(event) => event.stopPropagation()}
               className="max-h-[86vh] max-w-full rounded-lg object-contain shadow-2xl"
             />

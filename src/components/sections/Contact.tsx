@@ -32,7 +32,7 @@ function PaperPlane() {
         strokeLinecap="round"
       />
       {/* Corps de l'avion : trois facettes de teintes différentes. Seul usage
-          du corail sur toute la page — décoratif, jamais cliquable. */}
+          du corail sur toute la page - décoratif, jamais cliquable. */}
       <path d="M196 22 L146 96 L142 62 Z" fill="hsl(var(--accent))" fillOpacity="0.95" />
       <path d="M196 22 L142 62 L112 54 Z" fill="hsl(var(--accent))" fillOpacity="0.55" />
       <path d="M196 22 L146 96 L166 100 Z" fill="hsl(var(--accent-foreground))" fillOpacity="0.45" />
@@ -78,7 +78,7 @@ function ContactRow({
  * Bloc d'appel à l'action final.
  *
  * Aucun formulaire : les demandes passent par WhatsApp, l'email ou le
- * téléphone. C'est un choix pragmatique — un formulaire exigerait un backend,
+ * téléphone. C'est un choix pragmatique - un formulaire exigerait un backend,
  * un service d'envoi et une protection anti-spam pour un gain nul ici, puisque
  * les canaux directs sont ceux réellement utilisés par les prospects.
  */

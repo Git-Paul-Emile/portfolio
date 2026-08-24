@@ -37,7 +37,7 @@ interface ProjectCoverProps {
  * Visuel de couverture d'un projet.
  *
  * Deux cas, un seul composant (le reste du code n'a pas à savoir lequel
- * s'applique — c'est le principe d'encapsulation) :
+ * s'applique - c'est le principe d'encapsulation) :
  *  1. le projet a une capture d'écran → on l'affiche ;
  *  2. le projet n'en a pas (site en ligne uniquement) → on génère une
  *     couverture dégradée portant les initiales du projet.

@@ -98,7 +98,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
 /**
  * Hook d'accès au contexte de langue.
- * Lève une erreur explicite si utilisé hors du provider — on détecte le bug
+ * Lève une erreur explicite si utilisé hors du provider - on détecte le bug
  * au développement plutôt que d'obtenir un `undefined` silencieux en production.
  */
 export function useLanguage(): LanguageContextValue {

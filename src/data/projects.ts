@@ -18,7 +18,7 @@ export interface ProjectLink {
  * Description technique d'un projet, découpée par couche.
  * Ce découpage reflète l'architecture réelle : présentation / logique métier /
  * persistance. `null` signifie explicitement « cette couche n'existe pas »
- * (par exemple un site statique n'a ni backend ni base de données) — c'est
+ * (par exemple un site statique n'a ni backend ni base de données) - c'est
  * plus honnête et plus lisible qu'un tableau vide.
  */
 export interface ProjectStack {
@@ -37,9 +37,9 @@ export type ProjectType = "web" | "mobile";
 export interface Project {
   /** Identifiant stable et unique (slug). Sert de clé React et d'ancre. */
   id: string;
-  /** Nom commercial du projet — non traduit. */
+  /** Nom commercial du projet - non traduit. */
   name: string;
-  /** Web ou mobile — détermine l'onglet de filtre dans lequel il apparaît. */
+  /** Web ou mobile - détermine l'onglet de filtre dans lequel il apparaît. */
   type: ProjectType;
   /** Domaine métier, affiché sous le nom sur la carte. */
   category: Localized;

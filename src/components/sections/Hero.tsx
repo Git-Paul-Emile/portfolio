@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  *
  * Deux niveaux de <div> imbriqués, et c'est volontaire : le conteneur externe
  * porte le centrage (`-translate-x-1/2 -translate-y-1/2`), l'interne reçoit la
- * parallaxe. Appliquer les deux au même élément est impossible — le hook écrit
+ * parallaxe. Appliquer les deux au même élément est impossible - le hook écrit
  * dans `style.transform`, qui écrase les classes de centrage de Tailwind et
  * enverrait les cercles dans le coin inférieur droit.
  */
@@ -20,7 +20,7 @@ function BackdropRings() {
      prend du retard sur le défilement paraît plus loin de l'observateur.
 
      Masqués sous `lg` : sur mobile le portrait est un plan large (pieds au
-     sol) posé à côté du texte, pas un buste centré — les anneaux concentriques
+     sol) posé à côté du texte, pas un buste centré - les anneaux concentriques
      n'ont plus de sujet à encadrer et cassent la composition. */
   const ref = useParallax<HTMLDivElement>({ speed: 0.16, max: 120 });
 
@@ -101,7 +101,7 @@ function Stat({ target, suffix = "", label }: { target: number; suffix?: string;
  * Sur mobile, `100vh` correspond à la hauteur de l'écran BARRES D'INTERFACE
  * MASQUÉES : tant que la barre d'adresse est visible, un bloc en `100vh`
  * dépasse et provoque un défilement parasite. `100svh` prend la hauteur la plus
- * petite — celle avec les barres affichées — donc le hero tient toujours dans
+ * petite - celle avec les barres affichées - donc le hero tient toujours dans
  * l'écran. Un plancher de 560 px évite l'écrasement en paysage sur téléphone.
  *
  * Les deux chiffres proviennent de `PROFILE` (src/data/profile.ts) : ce sont
@@ -128,7 +128,7 @@ export function Hero() {
       id="home"
       className="relative h-[100svh] min-h-[560px] overflow-hidden pt-16 sm:pt-[4.5rem] lg:flex lg:items-center"
     >
-      {/* Lavis teal diffus, purement décoratif — le plan le plus lointain.
+      {/* Lavis teal diffus, purement décoratif - le plan le plus lointain.
           Dilué à 40 % en clair ; redescendu à 20 % en sombre, où la même
           opacité virerait à la tache trop saturée sur un fond quasi noir. */}
       <div
@@ -140,7 +140,7 @@ export function Hero() {
       <div className="container-page relative h-full w-full lg:h-auto">
         {/* ── Deux mises en page, un seul balisage ───────────────────────────
             Sous `lg` : le portrait est sorti du flux (`absolute inset-y-0`) et
-            occupe donc TOUTE la hauteur utile du hero — du bas de la barre de
+            occupe donc TOUTE la hauteur utile du hero - du bas de la barre de
             navigation jusqu'au bas de l'écran, pieds posés sur le bord. Le
             texte, lui, reste dans le flux, centré verticalement, et se limite
             en largeur (`w-[57%]`) pour laisser la place au personnage.
@@ -195,7 +195,7 @@ export function Hero() {
 
             {/* `w-[112%]` : boutons et statistiques débordent volontairement de
                 la colonne de texte. À leur hauteur, le personnage n'est plus
-                qu'une paire de jambes — sa silhouette laisse environ 19 % de
+                qu'une paire de jambes - sa silhouette laisse environ 19 % de
                 marge libre à gauche de son cadre (mesuré sur le canal alpha du
                 PNG), là où le torse et les bras n'en laissent que 6 %. Ces
                 deux lignes peuvent donc s'étendre sans jamais chevaucher le
@@ -267,13 +267,13 @@ export function Hero() {
             <BackdropRings />
 
             <div ref={portraitRef} className="relative h-full lg:h-auto">
-              {/* Portraits détourés : aucun cadre, aucune ombre — la personne se
+              {/* Portraits détourés : aucun cadre, aucune ombre - la personne se
                   détache directement sur le fond.
 
                   Un seul <picture>, mais deux photos selon le point de
                   rupture : les <source media="(min-width: 1024px)"> ne
                   s'appliquent qu'à partir de `lg`, sinon le navigateur retombe
-                  sur les <source> suivants puis sur l'<img> — donc UN SEUL des
+                  sur les <source> suivants puis sur l'<img> - donc UN SEUL des
                   quatre fichiers est réellement téléchargé, jamais les deux
                   photos à la fois. Les classes de l'<img> couvrent les deux
                   mises en page (plan large posé sur le texte sous `lg`, buste

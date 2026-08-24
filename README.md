@@ -1,4 +1,4 @@
-# Portfolio — Paul Emile PECKOUET-BINOMBO
+# Portfolio - Paul Emile PECKOUET-BINOMBO
 
 Portfolio de développeur full stack : présentation, réalisations, expertise technique et contact.
 Site **bilingue français / anglais** (français par défaut), avec mode clair et mode sombre.
@@ -29,12 +29,12 @@ npm run lint
 ```
 src/
 ├── i18n/                     # Internationalisation
-│   ├── fr.ts                 #   Dictionnaire FR — SOURCE DE VÉRITÉ du typage
-│   ├── en.ts                 #   Dictionnaire EN — typé `Dictionary`, complétude garantie par tsc
+│   ├── fr.ts                 #   Dictionnaire FR - SOURCE DE VÉRITÉ du typage
+│   ├── en.ts                 #   Dictionnaire EN - typé `Dictionary`, complétude garantie par tsc
 │   ├── types.ts              #   Locale, Dictionary = typeof fr, métadonnées des langues
 │   └── index.ts              #   Registre des dictionnaires
 │
-├── data/                     # Contenu — aucune donnée en dur dans les composants
+├── data/                     # Contenu - aucune donnée en dur dans les composants
 │   ├── profile.ts            #   Coordonnées, CV, liens WhatsApp/mailto/tel
 │   ├── projects.ts           #   Les 10 projets (descriptions FR + EN, stack, captures)
 │   └── tech.ts               #   Technologies affichées dans « Mon expertise »
@@ -57,7 +57,7 @@ src/
 │
 ├── lib/
 │   ├── assets.ts             #   encodage des chemins /public (espaces, accents)
-│   └── utils.ts              #   cn() — fusion de classes Tailwind
+│   └── utils.ts              #   cn() - fusion de classes Tailwind
 │
 └── index.css                 # Design system : tokens de couleurs, classes utilitaires
 ```
@@ -79,7 +79,7 @@ src/
 ## Ajouter un projet
 
 1. Ajouter une entrée dans le tableau `PROJECTS` de `src/data/projects.ts`
-   (descriptions `fr` **et** `en` obligatoires — TypeScript le vérifie).
+   (descriptions `fr` **et** `en` obligatoires - TypeScript le vérifie).
 2. Déposer les captures dans `public/<nom-du-projet>/` et référencer les chemins.
    Sans capture, une couverture dégradée avec les initiales est générée automatiquement.
 3. Passer `featured: true` pour l'afficher dès le premier écran de la section « Réalisations ».
@@ -105,7 +105,7 @@ npm run build     # produit dist/
 
 ## Contact
 
-Paul Emile PECKOUET-BINOMBO — apeckouet@gmail.com — (+221) 77 299 58 51
+Paul Emile PECKOUET-BINOMBO - apeckouet@gmail.com - (+241) 077 89 63 27
 [LinkedIn](https://urlr.me/HJ85DF)
 
 ---

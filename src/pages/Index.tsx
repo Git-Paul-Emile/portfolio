@@ -13,7 +13,7 @@ import { Contact } from "@/components/sections/Contact";
  * Page unique du portfolio.
  *
  * Structure reprise de la maquette : le hero occupe le fond de page lavande,
- * puis TOUT le reste — sections et pied de page — est posé dans une grande
+ * puis TOUT le reste - sections et pied de page - est posé dans une grande
  * carte blanche à coins arrondis (`.page-shell`), ce qui crée l'effet de
  * « feuille » caractéristique du modèle.
  *

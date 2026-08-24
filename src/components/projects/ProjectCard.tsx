@@ -56,7 +56,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(event) => event.stopPropagation()}
-            aria-label={`${t.work.visitSite} — ${project.name}`}
+            aria-label={`${t.work.visitSite} - ${project.name}`}
             className="relative z-10 shrink-0 text-muted-foreground transition-all duration-300 hover:scale-110 hover:text-primary"
           >
             <ExternalLink className="h-[18px] w-[18px]" strokeWidth={1.8} />

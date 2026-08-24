@@ -19,7 +19,7 @@ const SCROLL_MAX_MS = 1200;
  * IntersectionObserver. Un observer ne réagit qu'au franchissement d'un seuil :
  * avec des sections de hauteurs très inégales, certaines ne le franchissent
  * jamais et leur lien ne s'allume pas. La lecture de position donne toujours
- * une réponse — on retient la DERNIÈRE section dont le haut est passé au-dessus
+ * une réponse - on retient la DERNIÈRE section dont le haut est passé au-dessus
  * d'une ligne de référence située au tiers de l'écran.
  *
  * ── Navigation au clic ──────────────────────────────────────────────────────

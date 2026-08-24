@@ -9,7 +9,7 @@ import type { Dictionary } from "./types";
  */
 export const en: Dictionary = {
   meta: {
-    title: "Paul Emile PECKOUET-BINOMBO — Full Stack Developer",
+    title: "Paul Emile PECKOUET-BINOMBO - Full Stack Developer",
     description:
       "Portfolio of Paul Emile PECKOUET-BINOMBO, full stack developer. Modern, fast and scalable web and mobile applications: React, Next.js, Angular, Node.js, PostgreSQL.",
   },
@@ -161,7 +161,7 @@ export const en: Dictionary = {
     emailLabel: "Email",
     phoneLabel: "Phone",
     locationLabel: "Location",
-    locationValue: "Dakar, Senegal",
+    locationValue: "Libreville, Gabon",
     workModeLabel: "Working mode",
     workModeValue: "Remote or on site",
     cta: "Start the conversation",
