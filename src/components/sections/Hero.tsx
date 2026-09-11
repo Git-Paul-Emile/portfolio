@@ -2,6 +2,7 @@ import { Download } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useParallax } from "@/hooks/useParallax";
 import { useCountUp } from "@/hooks/useCountUp";
+import { useCvPath } from "@/hooks/useCvPath";
 import { PROFILE } from "@/data/profile";
 import { assetUrl } from "@/lib/assets";
 import { cn } from "@/lib/utils";
@@ -109,6 +110,7 @@ function Stat({ target, suffix = "", label }: { target: number; suffix?: string;
  */
 export function Hero() {
   const { t } = useLanguage();
+  const cvPath = useCvPath();
 
   const haloRef = useParallax<HTMLDivElement>({ speed: 0.28, max: 180 });
   const portraitRef = useParallax<HTMLDivElement>({ speed: 0.05, max: 50 });
@@ -215,7 +217,7 @@ export function Hero() {
               </button>
 
               <a
-                href={assetUrl(PROFILE.cvPath)}
+                href={assetUrl(cvPath)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline gap-1.5 px-2.5 py-3 text-[0.53rem] tracking-[0.05em] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-[11px] sm:tracking-[0.11em]"

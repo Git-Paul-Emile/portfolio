@@ -21,8 +21,14 @@ export const PROFILE = {
   linkedinUrl: "https://www.linkedin.com/in/paul-emile-peckouet-binombo🇬🇦-ba76bb278",
   githubUrl: "https://github.com/Git-Paul-Emile",
 
-  /** Chemin du CV dans /public. Encodé au moment de l'affichage. */
-  cvPath: "/CV PAUL  ÉMILE PECKOUET-BINOMBO.pdf",
+  /**
+   * Chemins des CV dans /public (encodés au moment de l'affichage).
+   * `cvPathGabon` est servi aux visiteurs situés au Gabon, `cvPath` (version
+   * internationale) aux autres - choix fait par géolocalisation IP, voir
+   * `useCvPath`.
+   */
+  cvPath: "/CV Paul Emile PECKOUET-BINOMBO.pdf",
+  cvPathGabon: "/CV Paul Emile PECKOUET-BINOMBO PNPE.pdf",
 
   photoPath: "/mon-photo-d-identite.jpg",
   logoPath: "/logo.png",
