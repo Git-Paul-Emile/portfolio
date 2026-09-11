@@ -66,7 +66,38 @@ export interface Project {
  * ce tableau, ils ne dupliquent aucune donnée (principe DRY).
  */
 export const PROJECTS: Project[] = [
-  /* ------------------------------------------------------------------ 01
+  /* ------------------------------------------------------------------ 01 */
+  {
+    id: "huwstore",
+    name: "Huw Store",
+    type: "web",
+    category: { fr: "E-commerce maroquinerie", en: "Leather goods e-commerce" },
+    summary: {
+      fr: "Boutique en ligne de sacs et petite maroquinerie, avec paiement Wave, Orange Money et à la livraison.",
+      en: "Online shop for bags and leather goods, with Wave, Orange Money and cash-on-delivery payment.",
+    },
+    description: {
+      fr: "Huw Store digitalise la vente de sacs jusque-là faite sur Instagram, Facebook et WhatsApp. Le catalogue distingue le produit de ses déclinaisons couleur : chaque coloris a son propre stock et sa propre galerie, et le stock agrégé du produit est calculé à la volée. Le client commande avec ou sans compte, retrouve ses anciennes commandes et ses favoris, paie par Wave, Orange Money ou en espèces à la livraison, et reçoit sa facture automatiquement. Rien n'est jamais supprimé du catalogue : un produit retiré passe inactif plutôt que d'être effacé, pour que l'historique des commandes reste lisible.",
+      en: "Huw Store digitalises bag sales previously made through Instagram, Facebook and WhatsApp. The catalogue separates the product from its colour variants: each colour has its own stock and gallery, and the aggregated product stock is computed on the fly. Customers can order with or without an account, revisit past orders and favourites, pay via Wave, Orange Money or cash on delivery, and receive an automatic invoice. Nothing is ever deleted from the catalogue: a discontinued product is marked inactive instead, so order history stays readable.",
+    },
+    stack: {
+      frontend: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "TanStack Query", "Zustand", "React Router"],
+      backend: ["Node.js", "Express", "TypeScript", "Prisma ORM", "JWT", "Zod", "Cloudinary", "Resend"],
+      database: ["PostgreSQL"],
+    },
+    highlights: ["React", "Express", "Prisma", "PostgreSQL"],
+    links: [{ label: "Huw Store", url: "https://huwstore.com" }],
+    cover: "/huwstore/cover.png",
+    screenshots: [
+      "/huwstore/screenshot-1.png",
+      "/huwstore/screenshot-2.png",
+      "/huwstore/screenshot-3.png",
+      "/huwstore/screenshot-4.png",
+    ],
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------------ 02
      La suite FeetiApp regroupe trois livrables distincts, développés et
      déployés séparément. Ils sont donc présentés comme trois projets, et non
      comme une seule entrée : chacun a son public, son URL et son périmètre. */
@@ -99,7 +130,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 02 */
+  /* ------------------------------------------------------------------ 03 */
   {
     id: "feeti-play",
     name: "Feeti Play",
@@ -131,7 +162,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 03 */
+  /* ------------------------------------------------------------------ 04 */
   {
     id: "feeti-play-mobile",
     name: "Feeti Play Mobile",
@@ -157,7 +188,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 04 */
+  /* ------------------------------------------------------------------ 05 */
   {
     id: "seek",
     name: "Seek",
@@ -191,7 +222,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 05 */
+  /* ------------------------------------------------------------------ 06 */
   {
     id: "memo-ai",
     name: "Memo AI Assistant",
@@ -223,7 +254,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 06 */
+  /* ------------------------------------------------------------------ 07 */
   {
     id: "milna-gourmet",
     name: "Milna Gourmet",
@@ -255,7 +286,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 07 */
+  /* ------------------------------------------------------------------ 08 */
   {
     id: "fotol-jay",
     name: "Fotol Jay",
@@ -290,7 +321,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 08 */
+  /* ------------------------------------------------------------------ 09 */
   {
     id: "cargotrack",
     name: "CargoTrack",
@@ -328,7 +359,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 09 */
+  /* ------------------------------------------------------------------ 10 */
   {
     id: "dch-nettoyage",
     name: "DCH Nettoyage Multiservices",
@@ -360,7 +391,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 10 */
+  /* ------------------------------------------------------------------ 11 */
   {
     id: "veilonne",
     name: "Veilonne Group",
@@ -394,7 +425,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 11 */
+  /* ------------------------------------------------------------------ 12 */
   {
     id: "ainey",
     name: "Ainey",
@@ -425,7 +456,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 12 */
+  /* ------------------------------------------------------------------ 13 */
   {
     id: "carte-visite",
     name: "Carte de visite numérique",
