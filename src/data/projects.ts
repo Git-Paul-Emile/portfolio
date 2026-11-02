@@ -61,12 +61,82 @@ export interface Project {
 }
 
 /**
- * Les projets du portfolio.
+ * Les projets du portfolio, classés par ordre antéchronologique de création de leur dossier.
  * Fichier unique = source de vérité : les composants ne font que lire
  * ce tableau, ils ne dupliquent aucune donnée (principe DRY).
  */
 export const PROJECTS: Project[] = [
   /* ------------------------------------------------------------------ 01 */
+  {
+    id: "bts-logistique",
+    name: "BTS Logistique",
+    type: "web",
+    category: { fr: "Logistique & Fret international", en: "International Logistics & Freight" },
+    summary: {
+      fr: "Plateforme de fret international (Chine, Dubaï, Turquie vers l'Afrique de l'Ouest) avec vitrine, simulateur et gestion logistique.",
+      en: "International freight platform (China, Dubai, Turkey to West Africa) with showcase, volumetric calculator, and operations back-office.",
+    },
+    description: {
+      fr: "BTS Logistique centralise le fret maritime et aérien depuis la Chine, Dubaï et la Turquie vers Abidjan, Dakar et Bamako. La plateforme comprend un site vitrine avec simulateur volumétrique (m³) et suivi en direct, ainsi qu'un back-office complet : réception d'entrepôt, pesée et cubage, génération d'étiquettes à code-barres, suivi des conteneurs et gestion de caisse multi-devises.",
+      en: "BTS Logistique centralises sea and air freight from China, Dubai, and Turkey to Abidjan, Dakar, and Bamako. The platform features a public showcase with a volumetric calculator (m³) and live parcel tracking, along with a full back-office: warehouse intake, weighing and volume measurement, barcode label printing, container tracking, and multi-currency cash management.",
+    },
+    stack: {
+      frontend: ["React 19", "TypeScript", "Vite", "Tailwind CSS v4", "TanStack Query", "React Router", "Lucide React"],
+      backend: ["Node.js", "Express 5", "TypeScript", "Prisma 7", "JWT", "Resend", "Zod"],
+      database: ["PostgreSQL (Neon)"],
+    },
+    highlights: ["React 19", "Express 5", "Prisma 7", "PostgreSQL"],
+    links: [{ label: "BTS Logistique", url: "https://www.btslogistique.com/" }],
+    cover: "/bts/cover.png",
+    screenshots: [
+      "/bts/screenshot-1.png",
+      "/bts/screenshot-2.png",
+      "/bts/screenshot-3.png",
+      "/bts/screenshot-4.png",
+      "/bts/screenshot-5.png",
+      "/bts/screenshot-6.png",
+      "/bts/screenshot-7.png",
+      "/bts/screenshot-8.png",
+      "/bts/screenshot-9.png",
+      "/bts/screenshot-10.png",
+    ],
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------------ 02 */
+  {
+    id: "portfolio-gloire",
+    name: "Gloire Mayombo",
+    type: "web",
+    category: { fr: "Juridique & droit des affaires", en: "Legal & business law" },
+    summary: {
+      fr: "Site vitrine et formulaire de contact sécurisé pour une juriste en droit des affaires au Gabon.",
+      en: "Showcase website and secured contact API for a business lawyer based in Gabon.",
+    },
+    description: {
+      fr: "Site vitrine institutionnel pour une juriste en droit des affaires à Moanda. La plateforme présente ses domaines d'intervention (création d'entreprise, baux, fiscalité, démarches administratives), ses formules d'accompagnement, le partage de coordonnées vCard par QR code, et un formulaire de contact relié à une API Express 5 sécurisée avec validation Zod et notifications email.",
+      en: "Showcase website for a business lawyer in Moanda, Gabon. The platform features practice areas (company registration, leases, taxation, administrative procedures), advisory packages, vCard QR code contact sharing, and a contact form backed by a secured Express 5 API with Zod validation and email notifications.",
+    },
+    stack: {
+      frontend: ["React 19", "TypeScript", "Vite", "Tailwind CSS v4", "Axios", "Lucide React"],
+      backend: ["Node.js", "Express 5", "TypeScript", "Zod", "Nodemailer", "React Email"],
+      database: null,
+    },
+    highlights: ["React 19", "Express 5", "Tailwind CSS", "TypeScript"],
+    links: [{ label: "Portfolio Gloire", url: "https://portfolio-gloire.vercel.app/" }],
+    cover: "/gloire/cover.png",
+    screenshots: [
+      "/gloire/screenshot-1.png",
+      "/gloire/screenshot-2.png",
+      "/gloire/screenshot-3.png",
+      "/gloire/screenshot-4.png",
+      "/gloire/screenshot-5.png",
+      "/gloire/screenshot-6.png",
+    ],
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------------ 03 */
   {
     id: "huwstore",
     name: "Huw Store",
@@ -97,132 +167,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 02
-     La suite FeetiApp regroupe trois livrables distincts, développés et
-     déployés séparément. Ils sont donc présentés comme trois projets, et non
-     comme une seule entrée : chacun a son public, son URL et son périmètre. */
-  {
-    id: "feeti-ticket",
-    name: "Feeti Ticket",
-    type: "web",
-    category: { fr: "Billetterie événementielle", en: "Event ticketing" },
-    summary: {
-      fr: "Plateforme de billetterie événementielle africaine avec contrôle d'accès par QR code.",
-      en: "African event ticketing platform with QR code access control.",
-    },
-    description: {
-      fr: "Feeti Ticket couvre tout le cycle de la billetterie : création de l'événement par l'organisateur, mise en vente des billets, paiement, génération du billet avec QR code unique, puis contrôle d'accès par scan à l'entrée. L'API Node/Express typée s'appuie sur une file de tâches BullMQ/Redis pour les traitements longs (envoi des billets par email, génération des PDF) afin que l'interface reste réactive même en pic de vente.",
-      en: "Feeti Ticket covers the full ticketing cycle: event creation by the organiser, ticket sales, payment, generation of a ticket with a unique QR code, then access control by scanning at the entrance. The typed Node/Express API relies on a BullMQ/Redis job queue for long-running work (emailing tickets, generating PDFs) so the interface stays responsive even during sales peaks.",
-    },
-    stack: {
-      frontend: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Radix UI"],
-      backend: ["Node.js", "Express", "TypeScript", "Prisma ORM", "JWT", "BullMQ / Redis"],
-      database: ["PostgreSQL (Supabase)", "Firebase / Firestore"],
-    },
-    highlights: ["React", "Node.js", "PostgreSQL", "QR Code"],
-    links: [{ label: "Feeti Ticket", url: "https://front-feeti.vercel.app/" }],
-    cover: "/feetiticket/cover.png",
-    screenshots: [
-      "/feetiticket/screenshot-1.png",
-      "/feetiticket/screenshot-2.png",
-      "/feetiticket/screenshot-3.png",
-    ],
-    featured: true,
-  },
-
-  /* ------------------------------------------------------------------ 03 */
-  {
-    id: "feeti-play",
-    name: "Feeti Play",
-    type: "web",
-    category: { fr: "Streaming live", en: "Live streaming" },
-    summary: {
-      fr: "Plateforme de diffusion en direct des événements de la billetterie Feeti.",
-      en: "Live streaming platform for the events sold through Feeti ticketing.",
-    },
-    description: {
-      fr: "Feeti Play diffuse en direct les événements vendus sur Feeti Ticket, pour le public qui ne peut pas se déplacer. La diffusion s'appuie sur Mux (ingestion, transcodage, lecture adaptative) et Socket.IO gère le temps réel : compteur de spectateurs, messages du chat et signalement de fin de direct. L'accès au flux est contrôlé par le billet acheté sur Feeti Ticket.",
-      en: "Feeti Play streams live the events sold on Feeti Ticket, for audiences who cannot attend in person. Streaming relies on Mux (ingest, transcoding, adaptive playback) and Socket.IO handles real time: viewer count, chat messages and end-of-stream signalling. Access to the stream is gated by the ticket bought on Feeti Ticket.",
-    },
-    stack: {
-      frontend: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "MUI"],
-      backend: ["Node.js", "Express", "TypeScript", "Socket.IO", "Mux", "JWT"],
-      database: ["PostgreSQL (Supabase) via Prisma"],
-    },
-    highlights: ["React", "Socket.IO", "Mux", "Express"],
-    links: [{ label: "Feeti Play", url: "https://feet-play-front.vercel.app/" }],
-    cover: "/feetiplay/cover.png",
-    screenshots: [
-      "/feetiplay/screenshot-1.png",
-      "/feetiplay/screenshot-2.png",
-      "/feetiplay/screenshot-3.png",
-      "/feetiplay/screenshot-4.png",
-      "/feetiplay/screenshot-5.png",
-    ],
-    featured: true,
-  },
-
   /* ------------------------------------------------------------------ 04 */
-  {
-    id: "feeti-play-mobile",
-    name: "Feeti Play Mobile",
-    type: "mobile",
-    category: { fr: "Application mobile", en: "Mobile application" },
-    summary: {
-      fr: "Version mobile iOS et Android de Feeti Play : billets, scan et direct dans la poche.",
-      en: "iOS and Android version of Feeti Play: tickets, scanning and live streams in your pocket.",
-    },
-    description: {
-      fr: "Déclinaison mobile de la plateforme, développée en React Native avec Expo pour livrer iOS et Android depuis une seule base de code. L'application permet au spectateur de retrouver ses billets hors connexion, de présenter son QR code à l'entrée, et de suivre le direct. Côté organisateur, elle sert de scanner d'accès : la caméra lit le QR code et valide le billet auprès de l'API.",
-      en: "Mobile version of the platform, built with React Native and Expo to ship iOS and Android from a single codebase. It lets attendees find their tickets offline, present their QR code at the entrance and watch the live stream. On the organiser side, it acts as an access scanner: the camera reads the QR code and validates the ticket against the API.",
-    },
-    stack: {
-      frontend: ["React Native", "Expo", "TypeScript", "React Navigation"],
-      backend: ["API Feeti (Node.js / Express / Prisma)", "JWT", "Socket.IO"],
-      database: ["PostgreSQL (Supabase)", "Firebase / Firestore"],
-    },
-    highlights: ["React Native", "Expo", "TypeScript", "QR Code"],
-    links: [],
-    cover: null,
-    screenshots: [],
-    featured: false,
-  },
-
-  /* ------------------------------------------------------------------ 05 */
-  {
-    id: "seek",
-    name: "Seek",
-    type: "web",
-    category: { fr: "Immobilier locatif", en: "Rental real estate" },
-    summary: {
-      fr: "Plateforme immobilière locative au Sénégal : annonces, baux et paiement Mobile Money.",
-      en: "Rental real estate platform in Senegal: listings, leases and Mobile Money payments.",
-    },
-    description: {
-      fr: "Seek met en relation propriétaires et locataires. Les propriétaires publient et gèrent leurs biens depuis un tableau de bord dédié ; les locataires recherchent par localisation, budget ou proximité d'un point précis grâce à une carte Leaflet. La plateforme couvre tout le cycle : annonce, visite, signature du bail, puis paiement du loyer par Orange Money ou Wave.",
-      en: "Seek connects landlords and tenants. Owners publish and manage their properties from a dedicated dashboard; tenants search by location, budget or proximity to a point of interest through a Leaflet map. The platform covers the full cycle: listing, viewing, lease signature, then rent payment via Orange Money or Wave.",
-    },
-    stack: {
-      frontend: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Leaflet"],
-      backend: ["Node.js", "Express 5", "TypeScript", "JWT", "Cloudinary", "Twilio"],
-      database: ["PostgreSQL (Neon) via Prisma"],
-    },
-    highlights: ["React", "Express", "PostgreSQL", "Leaflet"],
-    links: [{ label: "Seek", url: "https://seek-front-plum.vercel.app/" }],
-    cover: "/seek/cover.png",
-    screenshots: [
-      "/seek/screenshot-1.png",
-      "/seek/screenshot-2.png",
-      "/seek/screenshot-3.png",
-      "/seek/screenshot-4.png",
-      "/seek/screenshot-5.png",
-      "/seek/screenshot-6.png",
-      "/seek/screenshot-7.png",
-    ],
-    featured: false,
-  },
-
-  /* ------------------------------------------------------------------ 06 */
   {
     id: "memo-ai",
     name: "Memo AI Assistant",
@@ -254,35 +199,93 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 07 */
+  /* ------------------------------------------------------------------ 05 */
   {
-    id: "milna-gourmet",
-    name: "Milna Gourmet",
+    id: "dch-nettoyage",
+    name: "DCH Nettoyage Multiservices",
     type: "web",
-    category: { fr: "E-commerce agroalimentaire", en: "Food e-commerce" },
+    category: { fr: "Site vitrine & génération de leads", en: "Showcase site & lead generation" },
     summary: {
-      fr: "Boutique en ligne de produits gourmands avec personnalisation et panneau d'administration.",
-      en: "Online shop for gourmet products with customisation and an admin panel.",
+      fr: "Site vitrine pour une entreprise de nettoyage : catalogue, galerie et demande de devis.",
+      en: "Showcase site for a cleaning company: service catalogue, gallery and quote requests.",
     },
     description: {
-      fr: "Milna Gourmet digitalise une entreprise de yaourts artisanaux et de créations personnalisées. Le client compose son produit, passe commande en ligne et reçoit une confirmation WhatsApp automatique via Twilio. Côté administration, un back-office permet de gérer le catalogue, les commandes et les statuts de livraison.",
-      en: "Milna Gourmet digitalises an artisanal yoghurt and custom-creation business. Customers build their own product, order online and receive an automatic WhatsApp confirmation through Twilio. On the admin side, a back-office manages the catalogue, orders and delivery statuses.",
+      fr: "Le site présente l'ensemble des prestations et transforme les visiteurs en prospects via un formulaire de devis. Le backend Express valide chaque soumission avec Zod, protège l'endpoint par Helmet et un rate-limiting, puis envoie l'email au gérant grâce à Resend. En cas d'indisponibilité du service d'envoi, les messages sont conservés dans un fichier JSON local afin qu'aucune demande ne soit perdue.",
+      en: "The site presents all services and converts visitors into leads through a quote form. The Express backend validates each submission with Zod, protects the endpoint with Helmet and rate limiting, then emails the manager through Resend. If the mail service is unavailable, messages are stored in a local JSON file so no request is ever lost.",
     },
     stack: {
-      frontend: ["React", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "TanStack Query"],
-      backend: ["Node.js", "Express", "TypeScript", "JWT", "Twilio (WhatsApp)"],
-      database: ["MySQL via Prisma"],
+      frontend: ["React 18", "Vite", "React Router", "Tailwind CSS", "React Helmet Async"],
+      backend: ["Node.js", "Express", "Zod", "Helmet", "Rate limiting", "Resend"],
+      database: null,
     },
-    highlights: ["React", "Express", "MySQL", "Twilio"],
-    links: [{ label: "Milna Gourmet", url: "https://milnagourmet.com" }],
-    cover: "/milnaGourmet/cover.png",
+    highlights: ["React", "Express", "Zod", "Resend"],
+    links: [{ label: "DCH Nettoyage", url: "https://dch-nm.com" }],
+    cover: "/dch/cover.png",
     screenshots: [
-      "/milnaGourmet/screenshot-1.png",
-      "/milnaGourmet/screenshot-2.png",
-      "/milnaGourmet/screenshot-3.png",
-      "/milnaGourmet/screenshot-4.png",
-      "/milnaGourmet/screenshot-5.png",
+      "/dch/screenshot-1.png",
+      "/dch/screenshot-2.png",
+      "/dch/screenshot-3.png",
+      "/dch/screenshot-4.png",
+      "/dch/screenshot-5.png",
     ],
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------------ 06 */
+  {
+    id: "feeti-play",
+    name: "Feeti Play",
+    type: "web",
+    category: { fr: "Streaming live", en: "Live streaming" },
+    summary: {
+      fr: "Plateforme de diffusion en direct des événements de la billetterie Feeti.",
+      en: "Live streaming platform for the events sold through Feeti ticketing.",
+    },
+    description: {
+      fr: "Feeti Play diffuse en direct les événements vendus sur Feeti Ticket, pour le public qui ne peut pas se déplacer. La diffusion s'appuie sur Mux (ingestion, transcodage, lecture adaptative) et Socket.IO gère le temps réel : compteur de spectateurs, messages du chat et signalement de fin de direct. L'accès au flux est contrôlé par le billet acheté sur Feeti Ticket.",
+      en: "Feeti Play streams live the events sold on Feeti Ticket, for audiences who cannot attend in person. Streaming relies on Mux (ingest, transcoding, adaptive playback) and Socket.IO handles real time: viewer count, chat messages and end-of-stream signalling. Access to the stream is gated by the ticket bought on Feeti Ticket.",
+    },
+    stack: {
+      frontend: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "MUI"],
+      backend: ["Node.js", "Express", "TypeScript", "Socket.IO", "Mux", "JWT"],
+      database: ["PostgreSQL (Supabase) via Prisma"],
+    },
+    highlights: ["React", "Socket.IO", "Mux", "Express"],
+    links: [{ label: "Feeti Play", url: "https://feet-play-front.vercel.app/" }],
+    cover: "/feetiplay/cover.png",
+    screenshots: [
+      "/feetiplay/screenshot-1.png",
+      "/feetiplay/screenshot-2.png",
+      "/feetiplay/screenshot-3.png",
+      "/feetiplay/screenshot-4.png",
+      "/feetiplay/screenshot-5.png",
+    ],
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------------ 07 */
+  {
+    id: "feeti-play-mobile",
+    name: "Feeti Play Mobile",
+    type: "mobile",
+    category: { fr: "Application mobile", en: "Mobile application" },
+    summary: {
+      fr: "Version mobile iOS et Android de Feeti Play : billets, scan et direct dans la poche.",
+      en: "iOS and Android version of Feeti Play: tickets, scanning and live streams in your pocket.",
+    },
+    description: {
+      fr: "Déclinaison mobile de la plateforme, développée en React Native avec Expo pour livrer iOS et Android depuis une seule base de code. L'application permet au spectateur de retrouver ses billets hors connexion, de présenter son QR code à l'entrée, et de suivre le direct. Côté organisateur, elle sert de scanner d'accès : la caméra lit le QR code et valide le billet auprès de l'API.",
+      en: "Mobile version of the platform, built with React Native and Expo to ship iOS and Android from a single codebase. It lets attendees find their tickets offline, present their QR code at the entrance and watch the live stream. On the organiser side, it acts as an access scanner: the camera reads the QR code and validates the ticket against the API.",
+    },
+    stack: {
+      frontend: ["React Native", "Expo", "TypeScript", "React Navigation"],
+      backend: ["API Feeti (Node.js / Express / Prisma)", "JWT", "Socket.IO"],
+      database: ["PostgreSQL (Supabase)", "Firebase / Firestore"],
+    },
+    highlights: ["React Native", "Expo", "TypeScript", "QR Code"],
+    links: [],
+    cover: null,
+    screenshots: [],
     featured: false,
   },
 
@@ -323,6 +326,133 @@ export const PROJECTS: Project[] = [
 
   /* ------------------------------------------------------------------ 09 */
   {
+    id: "veilonne",
+    name: "Veilonne Group",
+    type: "web",
+    category: { fr: "Négoce & logistique", en: "Trading & logistics" },
+    summary: {
+      fr: "Site institutionnel : sourcing Chine, véhicules, transit douanier et fret international.",
+      en: "Corporate website: China sourcing, vehicles, customs clearance and international freight.",
+    },
+    description: {
+      fr: "Site institutionnel présentant les quatre métiers du groupe. L'expérience s'appuie sur des animations Framer Motion et une scène Three.js en page d'accueil pour illustrer les flux logistiques. Un service Express centralise les demandes de devis et les transmet par email via Resend.",
+      en: "Corporate website presenting the group's four business lines. The experience relies on Framer Motion animations and a Three.js scene on the home page to illustrate logistics flows. An Express service centralises quote requests and forwards them by email through Resend.",
+    },
+    stack: {
+      frontend: ["React 18", "Vite", "Tailwind CSS", "Radix UI", "Framer Motion", "Three.js"],
+      backend: ["Node.js", "Express", "Resend"],
+      database: null,
+    },
+    highlights: ["React", "Three.js", "Framer Motion", "Express"],
+    links: [{ label: "Veilonne Group", url: "https://veilonne.com" }],
+    cover: "/veilonne/cover.png",
+    screenshots: [
+      "/veilonne/screenshot-1.png",
+      "/veilonne/screenshot-2.png",
+      "/veilonne/screenshot-3.png",
+      "/veilonne/screenshot-4.png",
+      "/veilonne/screenshot-5.png",
+      "/veilonne/screenshot-6.png",
+      "/veilonne/screenshot-7.png",
+    ],
+    featured: false,
+  },
+
+  /* ------------------------------------------------------------------ 10 */
+  {
+    id: "seek",
+    name: "Seek",
+    type: "web",
+    category: { fr: "Immobilier locatif", en: "Rental real estate" },
+    summary: {
+      fr: "Plateforme immobilière locative au Sénégal : annonces, baux et paiement Mobile Money.",
+      en: "Rental real estate platform in Senegal: listings, leases and Mobile Money payments.",
+    },
+    description: {
+      fr: "Seek met en relation propriétaires et locataires. Les propriétaires publient et gèrent leurs biens depuis un tableau de bord dédié ; les locataires recherchent par localisation, budget ou proximité d'un point précis grâce à une carte Leaflet. La plateforme couvre tout le cycle : annonce, visite, signature du bail, puis paiement du loyer par Orange Money ou Wave.",
+      en: "Seek connects landlords and tenants. Owners publish and manage their properties from a dedicated dashboard; tenants search by location, budget or proximity to a point of interest through a Leaflet map. The platform covers the full cycle: listing, viewing, lease signature, then rent payment via Orange Money or Wave.",
+    },
+    stack: {
+      frontend: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Leaflet"],
+      backend: ["Node.js", "Express 5", "TypeScript", "JWT", "Cloudinary", "Twilio"],
+      database: ["PostgreSQL (Neon) via Prisma"],
+    },
+    highlights: ["React", "Express", "PostgreSQL", "Leaflet"],
+    links: [{ label: "Seek", url: "https://seek-front-plum.vercel.app/" }],
+    cover: "/seek/cover.png",
+    screenshots: [
+      "/seek/screenshot-1.png",
+      "/seek/screenshot-2.png",
+      "/seek/screenshot-3.png",
+      "/seek/screenshot-4.png",
+      "/seek/screenshot-5.png",
+      "/seek/screenshot-6.png",
+      "/seek/screenshot-7.png",
+    ],
+    featured: false,
+  },
+
+  /* ------------------------------------------------------------------ 11
+     La suite FeetiApp regroupe trois livrables distincts, développés et
+     déployés séparément. Ils sont donc présentés comme trois projets, et non
+     comme une seule entrée : chacun a son public, son URL et son périmètre. */
+  {
+    id: "feeti-ticket",
+    name: "Feeti Ticket",
+    type: "web",
+    category: { fr: "Billetterie événementielle", en: "Event ticketing" },
+    summary: {
+      fr: "Plateforme de billetterie événementielle africaine avec contrôle d'accès par QR code.",
+      en: "African event ticketing platform with QR code access control.",
+    },
+    description: {
+      fr: "Feeti Ticket couvre tout le cycle de la billetterie : création de l'événement par l'organisateur, mise en vente des billets, paiement, génération du billet avec QR code unique, puis contrôle d'accès par scan à l'entrée. L'API Node/Express typée s'appuie sur une file de tâches BullMQ/Redis pour les traitements longs (envoi des billets par email, génération des PDF) afin que l'interface reste réactive même en pic de vente.",
+      en: "Feeti Ticket covers the full ticketing cycle: event creation by the organiser, ticket sales, payment, generation of a ticket with a unique QR code, then access control by scanning at the entrance. The typed Node/Express API relies on a BullMQ/Redis job queue for long-running work (emailing tickets, generating PDFs) so the interface stays responsive even during sales peaks.",
+    },
+    stack: {
+      frontend: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Radix UI"],
+      backend: ["Node.js", "Express", "TypeScript", "Prisma ORM", "JWT", "BullMQ / Redis"],
+      database: ["PostgreSQL (Supabase)", "Firebase / Firestore"],
+    },
+    highlights: ["React", "Node.js", "PostgreSQL", "QR Code"],
+    links: [{ label: "Feeti Ticket", url: "https://front-feeti.vercel.app/" }],
+    cover: "/feetiticket/cover.png",
+    screenshots: [
+      "/feetiticket/screenshot-1.png",
+      "/feetiticket/screenshot-2.png",
+      "/feetiticket/screenshot-3.png",
+    ],
+    featured: false,
+  },
+
+  /* ------------------------------------------------------------------ 12 */
+  {
+    id: "carte-visite",
+    name: "Carte de visite numérique",
+    type: "web",
+    category: { fr: "Diplomatie & identité numérique", en: "Diplomacy & digital identity" },
+    summary: {
+      fr: "Carte de visite numérique bilingue pour un ambassadeur, accessible par QR code.",
+      en: "Bilingual digital business card for an ambassador, accessible via QR code.",
+    },
+    description: {
+      fr: "Réalisée pour le Haut-Commissariat de la République gabonaise au Nigeria. La carte regroupe coordonnées, appel direct, envoi d'email et adresse, avec une bascule français / anglais. Elle se partage par QR code et fonctionne sans installation. Volontairement développée en HTML/CSS/JS sans framework : la page pèse quelques kilo-octets et s'affiche instantanément, même sur une connexion mobile lente.",
+      en: "Built for the High Commission of the Gabonese Republic to Nigeria. The card gathers contact details, direct call, email and address, with a French / English switch. It is shared through a QR code and works without installation. Deliberately built in plain HTML/CSS/JS without a framework: the page weighs a few kilobytes and renders instantly, even on a slow mobile connection.",
+    },
+    stack: {
+      frontend: ["HTML", "CSS", "JavaScript (sans framework)"],
+      backend: null,
+      database: null,
+    },
+    highlights: ["HTML", "CSS", "JavaScript", "QR Code"],
+    links: [{ label: "Carte de visite", url: "https://sweet-baklava-448173.netlify.app/" }],
+    cover: "/carte_visite/cover.png",
+    screenshots: ["/carte_visite/cover.png"],
+    featured: false,
+  },
+
+  /* ------------------------------------------------------------------ 13 */
+  {
     id: "cargotrack",
     name: "CargoTrack",
     type: "web",
@@ -359,73 +489,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 10 */
-  {
-    id: "dch-nettoyage",
-    name: "DCH Nettoyage Multiservices",
-    type: "web",
-    category: { fr: "Site vitrine & génération de leads", en: "Showcase site & lead generation" },
-    summary: {
-      fr: "Site vitrine pour une entreprise de nettoyage : catalogue, galerie et demande de devis.",
-      en: "Showcase site for a cleaning company: service catalogue, gallery and quote requests.",
-    },
-    description: {
-      fr: "Le site présente l'ensemble des prestations et transforme les visiteurs en prospects via un formulaire de devis. Le backend Express valide chaque soumission avec Zod, protège l'endpoint par Helmet et un rate-limiting, puis envoie l'email au gérant grâce à Resend. En cas d'indisponibilité du service d'envoi, les messages sont conservés dans un fichier JSON local afin qu'aucune demande ne soit perdue.",
-      en: "The site presents all services and converts visitors into leads through a quote form. The Express backend validates each submission with Zod, protects the endpoint with Helmet and rate limiting, then emails the manager through Resend. If the mail service is unavailable, messages are stored in a local JSON file so no request is ever lost.",
-    },
-    stack: {
-      frontend: ["React 18", "Vite", "React Router", "Tailwind CSS", "React Helmet Async"],
-      backend: ["Node.js", "Express", "Zod", "Helmet", "Rate limiting", "Resend"],
-      database: null,
-    },
-    highlights: ["React", "Express", "Zod", "Resend"],
-    links: [{ label: "DCH Nettoyage", url: "https://dch-nm.com" }],
-    cover: "/dch/cover.png",
-    screenshots: [
-      "/dch/screenshot-1.png",
-      "/dch/screenshot-2.png",
-      "/dch/screenshot-3.png",
-      "/dch/screenshot-4.png",
-      "/dch/screenshot-5.png",
-    ],
-    featured: false,
-  },
-
-  /* ------------------------------------------------------------------ 11 */
-  {
-    id: "veilonne",
-    name: "Veilonne Group",
-    type: "web",
-    category: { fr: "Négoce & logistique", en: "Trading & logistics" },
-    summary: {
-      fr: "Site institutionnel : sourcing Chine, véhicules, transit douanier et fret international.",
-      en: "Corporate website: China sourcing, vehicles, customs clearance and international freight.",
-    },
-    description: {
-      fr: "Site institutionnel présentant les quatre métiers du groupe. L'expérience s'appuie sur des animations Framer Motion et une scène Three.js en page d'accueil pour illustrer les flux logistiques. Un service Express centralise les demandes de devis et les transmet par email via Resend.",
-      en: "Corporate website presenting the group's four business lines. The experience relies on Framer Motion animations and a Three.js scene on the home page to illustrate logistics flows. An Express service centralises quote requests and forwards them by email through Resend.",
-    },
-    stack: {
-      frontend: ["React 18", "Vite", "Tailwind CSS", "Radix UI", "Framer Motion", "Three.js"],
-      backend: ["Node.js", "Express", "Resend"],
-      database: null,
-    },
-    highlights: ["React", "Three.js", "Framer Motion", "Express"],
-    links: [{ label: "Veilonne Group", url: "https://veilonne.com" }],
-    cover: "/veilonne/cover.png",
-    screenshots: [
-      "/veilonne/screenshot-1.png",
-      "/veilonne/screenshot-2.png",
-      "/veilonne/screenshot-3.png",
-      "/veilonne/screenshot-4.png",
-      "/veilonne/screenshot-5.png",
-      "/veilonne/screenshot-6.png",
-      "/veilonne/screenshot-7.png",
-    ],
-    featured: false,
-  },
-
-  /* ------------------------------------------------------------------ 12 */
+  /* ------------------------------------------------------------------ 14 */
   {
     id: "ainey",
     name: "Ainey",
@@ -456,29 +520,38 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 13 */
+  /* ------------------------------------------------------------------ 15 */
   {
-    id: "carte-visite",
-    name: "Carte de visite numérique",
+    id: "milna-gourmet",
+    name: "Milna Gourmet",
     type: "web",
-    category: { fr: "Diplomatie & identité numérique", en: "Diplomacy & digital identity" },
+    category: { fr: "E-commerce agroalimentaire", en: "Food e-commerce" },
     summary: {
-      fr: "Carte de visite numérique bilingue pour un ambassadeur, accessible par QR code.",
-      en: "Bilingual digital business card for an ambassador, accessible via QR code.",
+      fr: "Boutique en ligne de produits gourmands avec personnalisation et panneau d'administration.",
+      en: "Online shop for gourmet products with customisation and an admin panel.",
     },
     description: {
-      fr: "Réalisée pour le Haut-Commissariat de la République gabonaise au Nigeria. La carte regroupe coordonnées, appel direct, envoi d'email et adresse, avec une bascule français / anglais. Elle se partage par QR code et fonctionne sans installation. Volontairement développée en HTML/CSS/JS sans framework : la page pèse quelques kilo-octets et s'affiche instantanément, même sur une connexion mobile lente.",
-      en: "Built for the High Commission of the Gabonese Republic to Nigeria. The card gathers contact details, direct call, email and address, with a French / English switch. It is shared through a QR code and works without installation. Deliberately built in plain HTML/CSS/JS without a framework: the page weighs a few kilobytes and renders instantly, even on a slow mobile connection.",
+      fr: "Milna Gourmet digitalise une entreprise de yaourts artisanaux et de créations personnalisées. Le client compose son produit, passe commande en ligne et reçoit une confirmation WhatsApp automatique via Twilio. Côté administration, un back-office permet de gérer le catalogue, les commandes et les statuts de livraison.",
+      en: "Milna Gourmet digitalises an artisanal yoghurt and custom-creation business. Customers build their own product, order online and receive an automatic WhatsApp confirmation through Twilio. On the admin side, a back-office manages the catalogue, orders and delivery statuses.",
     },
     stack: {
-      frontend: ["HTML", "CSS", "JavaScript (sans framework)"],
-      backend: null,
-      database: null,
+      frontend: ["React", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "TanStack Query"],
+      backend: ["Node.js", "Express", "TypeScript", "JWT", "Twilio (WhatsApp)"],
+      database: ["MySQL via Prisma"],
     },
-    highlights: ["HTML", "CSS", "JavaScript", "QR Code"],
-    links: [{ label: "Carte de visite", url: "https://sweet-baklava-448173.netlify.app/" }],
-    cover: "/carte_visite/cover.png",
-    screenshots: ["/carte_visite/cover.png"],
+    highlights: ["React", "Express", "MySQL", "Twilio"],
+    links: [{ label: "Milna Gourmet", url: "https://milnagourmet.com" }],
+    cover: "/milnaGourmet/cover.png",
+    screenshots: [
+      "/milnaGourmet/screenshot-1.png",
+      "/milnaGourmet/screenshot-2.png",
+      "/milnaGourmet/screenshot-3.png",
+      "/milnaGourmet/screenshot-4.png",
+      "/milnaGourmet/screenshot-5.png",
+      "/milnaGourmet/screenshot-6.png",
+      "/milnaGourmet/screenshot-7.png",
+      "/milnaGourmet/screenshot-8.png",
+    ],
     featured: false,
   },
 ];
