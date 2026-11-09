@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { TECHNOLOGIES, type Tech } from "@/data/tech";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Reveal } from "@/components/Reveal";
+import { assetUrl } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 /**
@@ -25,7 +26,7 @@ const MOBILE_ROWS_COLLAPSED = 8;
  * Vercel, Prisma…) qui deviendraient invisibles en mode sombre.
  */
 function TechTile({ tech, collapsedOnMobile }: { tech: Tech; collapsedOnMobile: boolean }) {
-  const { Icon, name, brandColor } = tech;
+  const { Icon, name, brandColor, logoPath } = tech;
 
   return (
     <li
@@ -35,11 +36,21 @@ function TechTile({ tech, collapsedOnMobile }: { tech: Tech; collapsedOnMobile: 
       )}
     >
       <span className="flex h-16 w-16 items-center justify-center rounded-xl border border-border bg-card transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-card">
-        <Icon
-          className="h-8 w-8 transition-transform duration-300 group-hover:scale-110"
-          style={{ color: brandColor ?? "currentColor" }}
-          aria-hidden="true"
-        />
+        {logoPath ? (
+          <img
+            src={assetUrl(logoPath)}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110"
+          />
+        ) : (
+          <Icon
+            className="h-8 w-8 transition-transform duration-300 group-hover:scale-110"
+            style={{ color: brandColor ?? "currentColor" }}
+            aria-hidden="true"
+          />
+        )}
       </span>
       <span className="text-center text-[11px] font-medium leading-tight text-muted-foreground">
         {name}
@@ -49,7 +60,7 @@ function TechTile({ tech, collapsedOnMobile }: { tech: Tech; collapsedOnMobile: 
 }
 
 /**
- * Section « Mon expertise » : uniquement les logos des technologies, en grille
+ * Section « Outils et compétences » : les logos des technologies, en grille
  * de tuiles, avec le nom sous chaque logo.
  *
  * La grille est alimentée par `TECHNOLOGIES` (src/data/tech.ts) : ajouter une
@@ -65,7 +76,6 @@ export function Expertise() {
     <section id="expertise" className="scroll-mt-24 py-14">
       <div className="container-page">
         <Reveal>
-          <p className="eyebrow">{t.expertise.eyebrow}</p>
           <h2 className="section-title mt-1.5">{t.expertise.title}</h2>
           <p className="mt-2 max-w-xl text-[13px] leading-relaxed text-muted-foreground">
             {t.expertise.subtitle}

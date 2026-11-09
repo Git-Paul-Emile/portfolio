@@ -66,13 +66,12 @@ export function Work() {
         {/* --- En-tête --- */}
         <Reveal className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="eyebrow">{t.work.eyebrow}</p>
             <h2 className="section-title mt-1.5">{t.work.title}</h2>
           </div>
 
           {/* Sur mobile, ce bouton d'en-tête cède la place à la version
               « Voir plus », centrée en bas de grille (voir plus bas) - la
-              même disposition que la section « Mon expertise ». */}
+              même disposition que la section « Outils et compétences ». */}
           {hasMore && (
             <button
               type="button"

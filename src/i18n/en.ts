@@ -18,7 +18,7 @@ export const en: Dictionary = {
     home: "Home",
     services: "Services",
     projects: "Projects",
-    expertise: "Expertise",
+    expertise: "Tools & skills",
     process: "Process",
     contact: "Contact",
     cta: "Let's talk",
@@ -45,7 +45,6 @@ export const en: Dictionary = {
   },
 
   work: {
-    eyebrow: "Featured projects",
     title: "Selected work",
     viewAll: "View all projects",
     viewMore: "View more",
@@ -72,7 +71,6 @@ export const en: Dictionary = {
   },
 
   services: {
-    eyebrow: "Services",
     title: "What I do",
     items: [
       {
@@ -118,8 +116,7 @@ export const en: Dictionary = {
   },
 
   expertise: {
-    eyebrow: "Tools & skills",
-    title: "My expertise",
+    title: "Tools & skills",
     subtitle:
       "The technologies I work with every day, from the frontend to deployment.",
     viewMore: "View more",
@@ -127,7 +124,6 @@ export const en: Dictionary = {
   },
 
   process: {
-    eyebrow: "My method",
     title: "A simple, effective process",
     steps: [
       {
@@ -154,7 +150,6 @@ export const en: Dictionary = {
   },
 
   contact: {
-    eyebrow: "Let's work together",
     title: "Have a project in mind?",
     description:
       "Available for freelance missions and collaborations. Let's talk about your project and build something solid.",

@@ -25,7 +25,6 @@ export function Process() {
     <section ref={sectionRef} id="process" className="scroll-mt-24 py-14">
       <div className="container-page">
         <Reveal>
-          <p className="eyebrow">{t.process.eyebrow}</p>
           <h2 className="section-title mt-1.5">{t.process.title}</h2>
         </Reveal>
 

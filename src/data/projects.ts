@@ -68,6 +68,71 @@ export interface Project {
 export const PROJECTS: Project[] = [
   /* ------------------------------------------------------------------ 01 */
   {
+    id: "dalaba-productions",
+    name: "DALABA Productions",
+    type: "web",
+    category: { fr: "Production audiovisuelle & création", en: "Audiovisual production & creative services" },
+    summary: {
+      fr: "Site vitrine d’une agence créative et audiovisuelle basée à Conakry.",
+      en: "Showcase website for a creative and audiovisual agency based in Conakry.",
+    },
+    description: {
+      fr: "Site vitrine de DALABA Productions, agence créative basée à Conakry. Il présente ses services (production audiovisuelle, cinéma et fiction, création et design, communication numérique et événementiel), ses réalisations vidéo, ses références et ses coordonnées. Mon intervention a porté sur l’intégration web et la mise en ligne du site.",
+      en: "Showcase website for DALABA Productions, a creative agency based in Conakry. It presents the agency’s services, including audiovisual production, film and fiction, creative design, digital communications and events, alongside video work, client references and contact details. My contribution focused on web integration and publishing the site.",
+    },
+    stack: {
+      frontend: ["React", "Vite", "Tailwind CSS"],
+      backend: null,
+      database: null,
+    },
+    highlights: ["Site vitrine", "Audiovisuel", "Design", "Mise en ligne"],
+    links: [{ label: "DALABA Productions", url: "https://www.dalaba-productions.com/" }],
+    cover: "/dalabaprod/Capture d'écran 2026-11-09 085040.png",
+    screenshots: [
+      "/dalabaprod/Capture d'écran 2026-11-09 085040.png",
+      "/dalabaprod/Capture d'écran 2026-11-09 085100.png",
+      "/dalabaprod/Capture d'écran 2026-11-09 085127.png",
+    ],
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------------ 02 */
+  {
+    id: "eroiste",
+    name: "Eroïste",
+    type: "web",
+    category: { fr: "Studio tech & créatif", en: "Tech & creative studio" },
+    summary: {
+      fr: "Site du studio Eroïste, dédié aux produits et expériences numériques pensés pour les marchés africains.",
+      en: "Website for Eroïste, a studio building digital products and experiences for African markets.",
+    },
+    description: {
+      fr: "Site vitrine du studio tech et créatif Eroïste. Il met en avant son ambition de concevoir des produits et expériences numériques adaptés aux réalités des marchés africains, son approche de l’idéation au lancement, ses expertises et son manifeste. Mon intervention a porté sur l’intégration web et la mise en ligne du site.",
+      en: "Showcase website for Eroïste, a tech and creative studio. It highlights the studio’s ambition to build digital products and experiences for African markets, its process from ideation to launch, its areas of expertise and its manifesto. My contribution focused on web integration and publishing the site.",
+    },
+    stack: {
+      frontend: ["React", "Vite", "Tailwind CSS"],
+      backend: null,
+      database: null,
+    },
+    highlights: ["Site vitrine", "Studio créatif", "Stratégie", "Mise en ligne"],
+    links: [{ label: "Eroïste", url: "https://eroiste-6vpi.vercel.app/" }],
+    cover: "/eroiste/Capture d'écran 2026-11-09 085346.png",
+    screenshots: [
+      "/eroiste/Capture d'écran 2026-11-09 085346.png",
+      "/eroiste/Capture d'écran 2026-11-09 085411.png",
+      "/eroiste/Capture d'écran 2026-11-09 085433.png",
+      "/eroiste/Capture d'écran 2026-11-09 085449.png",
+      "/eroiste/Capture d'écran 2026-11-09 085504.png",
+      "/eroiste/Capture d'écran 2026-11-09 085526.png",
+      "/eroiste/Capture d'écran 2026-11-09 085541.png",
+      "/eroiste/Capture d'écran 2026-11-09 085558.png",
+    ],
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------------ 03 */
+  {
     id: "bts-logistique",
     name: "BTS Logistique",
     type: "web",
@@ -103,7 +168,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 02 */
+  /* ------------------------------------------------------------------ 04 */
   {
     id: "portfolio-gloire",
     name: "Gloire Mayombo",
@@ -136,7 +201,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 03 */
+  /* ------------------------------------------------------------------ 05 */
   {
     id: "huwstore",
     name: "Huw Store",
@@ -167,7 +232,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 04 */
+  /* ------------------------------------------------------------------ 06 */
   {
     id: "memo-ai",
     name: "Memo AI Assistant",
@@ -199,7 +264,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 05 */
+  /* ------------------------------------------------------------------ 07 */
   {
     id: "dch-nettoyage",
     name: "DCH Nettoyage Multiservices",
@@ -231,7 +296,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 06 */
+  /* ------------------------------------------------------------------ 08 */
   {
     id: "feeti-play",
     name: "Feeti Play",
@@ -263,7 +328,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
 
-  /* ------------------------------------------------------------------ 07 */
+  /* ------------------------------------------------------------------ 09 */
   {
     id: "feeti-play-mobile",
     name: "Feeti Play Mobile",
@@ -289,7 +354,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 08 */
+  /* ------------------------------------------------------------------ 10 */
   {
     id: "fotol-jay",
     name: "Fotol Jay",
@@ -324,7 +389,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 09 */
+  /* ------------------------------------------------------------------ 11 */
   {
     id: "veilonne",
     name: "Veilonne Group",
@@ -358,7 +423,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 10 */
+  /* ------------------------------------------------------------------ 12 */
   {
     id: "seek",
     name: "Seek",
@@ -392,7 +457,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 11
+  /* ------------------------------------------------------------------ 13
      La suite FeetiApp regroupe trois livrables distincts, développés et
      déployés séparément. Ils sont donc présentés comme trois projets, et non
      comme une seule entrée : chacun a son public, son URL et son périmètre. */
@@ -425,7 +490,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 12 */
+  /* ------------------------------------------------------------------ 14 */
   {
     id: "carte-visite",
     name: "Carte de visite numérique",
@@ -451,7 +516,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 13 */
+  /* ------------------------------------------------------------------ 15 */
   {
     id: "cargotrack",
     name: "CargoTrack",
@@ -489,7 +554,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 14 */
+  /* ------------------------------------------------------------------ 16 */
   {
     id: "ainey",
     name: "Ainey",
@@ -520,7 +585,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
 
-  /* ------------------------------------------------------------------ 15 */
+  /* ------------------------------------------------------------------ 17 */
   {
     id: "milna-gourmet",
     name: "Milna Gourmet",

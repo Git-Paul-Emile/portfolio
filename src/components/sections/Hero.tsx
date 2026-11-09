@@ -2,8 +2,8 @@ import { Download } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useParallax } from "@/hooks/useParallax";
 import { useCountUp } from "@/hooks/useCountUp";
-import { useCvPath } from "@/hooks/useCvPath";
 import { PROFILE } from "@/data/profile";
+import { PROJECTS } from "@/data/projects";
 import { assetUrl } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
@@ -105,20 +105,22 @@ function Stat({ target, suffix = "", label }: { target: number; suffix?: string;
  * petite - celle avec les barres affichées - donc le hero tient toujours dans
  * l'écran. Un plancher de 560 px évite l'écrasement en paysage sur téléphone.
  *
- * Les deux chiffres proviennent de `PROFILE` (src/data/profile.ts) : ce sont
- * des valeurs métier, pas des compteurs déduits du tableau de projets.
+ * Le compteur d'expérience affiche « 2+ » ; le nombre de projets provient
+ * directement du catalogue et affiche « + » à partir de 15.
  */
 export function Hero() {
   const { t } = useLanguage();
-  const cvPath = useCvPath();
-
   const haloRef = useParallax<HTMLDivElement>({ speed: 0.28, max: 180 });
   const portraitRef = useParallax<HTMLDivElement>({ speed: 0.05, max: 50 });
   const textRef = useParallax<HTMLDivElement>({ speed: 0.09, max: 90 });
 
   const stats = [
-    { target: PROFILE.yearsOfExperience, label: t.hero.stats.experience },
-    { target: PROFILE.projectsDelivered, label: t.hero.stats.projects },
+    { target: 2, suffix: "+", label: t.hero.stats.experience },
+    {
+      target: PROJECTS.length,
+      suffix: PROJECTS.length >= 15 ? "+" : "",
+      label: t.hero.stats.projects,
+    },
   ];
 
   const scrollToWork = () => {
@@ -217,7 +219,7 @@ export function Hero() {
               </button>
 
               <a
-                href={assetUrl(cvPath)}
+                href={assetUrl(PROFILE.cvPath)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline gap-1.5 px-2.5 py-3 text-[0.53rem] tracking-[0.05em] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-[11px] sm:tracking-[0.11em]"
@@ -231,7 +233,7 @@ export function Hero() {
                     séparées par un filet vertical. --- */}
             <dl className="mt-6 flex w-[112%] flex-nowrap items-center divide-x divide-border sm:mt-8 sm:w-auto">
               {stats.map((stat) => (
-                <Stat key={stat.label} target={stat.target} suffix="+" label={stat.label} />
+                <Stat key={stat.label} target={stat.target} suffix={stat.suffix} label={stat.label} />
               ))}
             </dl>
           </div>

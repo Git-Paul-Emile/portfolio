@@ -18,7 +18,7 @@ export const fr = {
     home: "Accueil",
     services: "Services",
     projects: "Projets",
-    expertise: "Expertise",
+    expertise: "Outils et compétences",
     process: "Processus",
     contact: "Contact",
     cta: "Discutons",
@@ -45,7 +45,6 @@ export const fr = {
   },
 
   work: {
-    eyebrow: "Projets sélectionnés",
     title: "Réalisations",
     viewAll: "Voir tous les projets",
     viewMore: "Voir plus",
@@ -72,7 +71,6 @@ export const fr = {
   },
 
   services: {
-    eyebrow: "Services",
     title: "Ce que je fais",
     items: [
       {
@@ -118,8 +116,7 @@ export const fr = {
   },
 
   expertise: {
-    eyebrow: "Outils & compétences",
-    title: "Mon expertise",
+    title: "Outils et compétences",
     subtitle:
       "Les technologies que j'utilise au quotidien, du frontend au déploiement.",
     viewMore: "Voir plus",
@@ -127,7 +124,6 @@ export const fr = {
   },
 
   process: {
-    eyebrow: "Ma méthode",
     title: "Un processus simple et efficace",
     steps: [
       {
@@ -154,7 +150,6 @@ export const fr = {
   },
 
   contact: {
-    eyebrow: "Travaillons ensemble",
     title: "Un projet en tête ?",
     description:
       "Disponible pour des missions freelance et des collaborations. Parlons de votre projet et construisons quelque chose de solide.",

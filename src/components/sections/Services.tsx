@@ -34,7 +34,7 @@ const SERVICE_ICONS: LucideIcon[] = [
  * Sur mobile, la grille passe à une seule colonne : les 6 cartes forment une
  * longue colonne avant d'atteindre la section suivante. On n'en montre que 3,
  * le reste étant masqué derrière « Voir plus » - même repli que la section
- * « Mon expertise ». À partir de `sm`, la grille passe à 2-3 colonnes et tout
+ * « Outils et compétences ». À partir de `sm`, la grille passe à 2-3 colonnes et tout
  * tient dans l'écran : le repli ne s'applique donc qu'en dessous de ce point
  * de rupture.
  */
@@ -61,7 +61,6 @@ export function Services() {
     >
       <div className="container-page">
         <Reveal>
-          <p className="eyebrow">{t.services.eyebrow}</p>
           <h2 className="section-title mt-1.5">{t.services.title}</h2>
         </Reveal>
 

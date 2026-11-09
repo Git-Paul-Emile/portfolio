@@ -97,7 +97,6 @@ export function Contact() {
             <div className="relative grid gap-8 lg:grid-cols-[1.1fr_auto_1fr] lg:gap-10 lg:pr-56">
               {/* --- Discours --- */}
               <div>
-                <p className="eyebrow">{t.contact.eyebrow}</p>
                 <h2 className="section-title mt-1.5">{t.contact.title}</h2>
                 <p className="mt-3 max-w-sm text-[13px] leading-relaxed text-muted-foreground">
                   {t.contact.description}

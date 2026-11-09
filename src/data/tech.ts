@@ -19,10 +19,12 @@ import {
   SiGit,
   SiExpo,
   SiOpenai,
+  SiRender,
+  SiVercel,
 } from "react-icons/si";
 
 /**
- * Une technologie affichée dans la section « Mon expertise ».
+ * Une technologie affichée dans la section « Outils et compétences ».
  *
  * `brandColor` est volontairement optionnel : certaines marques ont un logo
  * monochrome noir (Next.js, Express, Prisma). Sur fond sombre elles
@@ -39,6 +41,8 @@ export interface Tech {
   Icon: IconType;
   /** Couleur officielle de la marque, en hexadécimal. */
   brandColor?: string;
+  /** Chemin d'un logo personnalisé dans /public. */
+  logoPath?: string;
 }
 
 /**
@@ -74,4 +78,6 @@ export const TECHNOLOGIES: Tech[] = [
 
   // --- Outils & déploiement -------------------------------------------------
   { id: "git", name: "Git", Icon: SiGit, brandColor: "#F05032" },
+  { id: "vercel", name: "Vercel", Icon: SiVercel, logoPath: "/technologies/vercel.png" },
+  { id: "render", name: "Render", Icon: SiRender, logoPath: "/technologies/render.avif" },
 ];

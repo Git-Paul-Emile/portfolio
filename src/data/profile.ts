@@ -21,28 +21,12 @@ export const PROFILE = {
   linkedinUrl: "https://www.linkedin.com/in/paul-emile-peckouet-binombo🇬🇦-ba76bb278",
   githubUrl: "https://github.com/Git-Paul-Emile",
 
-  /**
-   * Chemins des CV dans /public (encodés au moment de l'affichage).
-   * `cvPathGabon` est servi aux visiteurs situés au Gabon, `cvPath` (version
-   * internationale) aux autres - choix fait par géolocalisation IP, voir
-   * `useCvPath`.
-   */
-  cvPath: "/CV Paul Emile PECKOUET-BINOMBO.pdf",
-  cvPathGabon: "/CV Paul Emile PECKOUET-BINOMBO PNPE.pdf",
+  /** Chemin du CV dans /public (encodé au moment de l'affichage). */
+  cvPath: "/CV Paul Emile PECKOUET-BINOMBO qrcode.pdf",
 
   photoPath: "/mon-photo-d-identite.jpg",
   logoPath: "/logo.png",
 
-  /**
-   * Chiffres affichés dans le bandeau du hero.
-   *
-   * Valeurs fixées manuellement (et non déduites du tableau de projets) :
-   * elles reflètent l'expérience professionnelle réelle, qui ne correspond pas
-   * forcément au nombre de projets publiés sur le site. Pense à les relire
-   * chaque année.
-   */
-  yearsOfExperience: 3,
-  projectsDelivered: 5,
 } as const;
 
 /** Lien `mailto:` prêt à l'emploi. */
@@ -59,4 +43,3 @@ export const telHref = `tel:+${PROFILE.phoneRaw}`;
 export function whatsappHref(message: string): string {
   return `https://wa.me/${PROFILE.phoneRaw}?text=${encodeURIComponent(message)}`;
 }
-
